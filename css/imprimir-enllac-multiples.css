@@ -1,0 +1,146 @@
+/*
+============================================================================
+FITXER: css/imprimir-enllac-multiples.css
+ROL: Els taulers de l'«Enllaç de múltiples» en paper: llocs buits grans amb
+     vora discontínua per escriure-hi un número amb un retolador gruixut,
+     fletxes negres i, a sota, les targetes del problema per ratllar-les.
+ARQUITECTURA: Fa servir el mateix DOM que el joc (TaulerEnllac), però amb mides
+     en mm: --k (el posa js/enllac-multiples/imprimir.js) són els mm d'una
+     unitat del tauler. Només blanc, negre i gris fosc (impressora en B/N).
+DEPENDÈNCIES: css/imprimir.css (s'ha de carregar abans).
+============================================================================
+*/
+figure {
+    margin: 0;
+}
+
+/* ---- El tauler: llocs (HTML) + fletxes (SVG), en unitats de tauler.js ---- */
+.tauler {
+    position: relative;
+    flex-shrink: 0;
+}
+.fletxes {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    overflow: visible;
+}
+.fletxa line {
+    stroke: var(--tinta);
+    stroke-width: 6;
+}
+.fletxa polygon {
+    fill: var(--tinta);
+}
+.fletxa .etiqueta {
+    display: none;
+}
+.fletxa.amb-etiqueta .etiqueta {
+    display: inline;
+}
+.etiqueta rect {
+    fill: white;
+    stroke: var(--tinta);
+    stroke-width: 2.5;
+}
+.etiqueta text {
+    fill: var(--tinta);
+    font-size: 20px;
+    font-weight: 800;
+    font-family: Inter, 'Segoe UI', Arial, sans-serif;
+}
+
+.lloc {
+    position: absolute;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: calc(var(--k) * 9mm);
+    background: white;
+    font-size: calc(var(--k) * 34mm);
+    font-weight: 800;
+    font-variant-numeric: tabular-nums;
+    color: var(--tinta);
+}
+.lloc.fix,
+.lloc.ple {
+    border: 0.6mm solid var(--tinta);
+}
+/* On s'escriu: vora discontínua gris fosc, ben visible en B/N */
+.lloc.buit {
+    border: 0.6mm dashed var(--gris);
+}
+
+/* ---- Les targetes del problema (sota el tauler): es ratllen quan es fan servir ---- */
+.targetes {
+    display: flex;
+    justify-content: center;
+    gap: 2.5mm;
+}
+.targeta {
+    position: relative;
+    min-width: 8.5mm;
+    height: 10mm;
+    padding: 0 1.5mm;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 0.4mm solid var(--tinta);
+    border-radius: 1.5mm;
+    font-size: 14pt;
+    font-weight: 800;
+    font-variant-numeric: tabular-nums;
+}
+/* Ja és al tauler: número en gris i la marca ✓, com al joc */
+.targeta.usada {
+    color: var(--gris);
+    border-color: var(--gris);
+}
+.targeta.usada::after {
+    content: '✓';
+    position: absolute;
+    top: -3.4mm;
+    right: -2.2mm;
+    font-size: 13pt;
+    line-height: 1;
+    font-weight: 900;
+    color: var(--tinta);
+}
+
+/* ---- Un problema: el tauler i, a sota, les targetes ---- */
+.enllac {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-evenly;
+    gap: 3mm;
+}
+/* Tauler de dues files: les targetes a la dreta, una sota l'altra */
+.enllac.en-columna {
+    flex-direction: row;
+    justify-content: center;
+    gap: 5mm;
+}
+.en-columna .targetes {
+    flex-direction: column;
+    gap: 2.5mm;
+}
+.problemes {
+    align-items: stretch;
+}
+.problema {
+    justify-content: flex-start;
+}
+
+/* ---- Full d'instruccions ---- */
+.mida-instr .fila {
+    gap: 9mm;
+}
+.mida-instr .caixa .fila {
+    margin: 4mm 0 3mm 0;
+}
+.compte {
+    margin-top: 2mm;
+}

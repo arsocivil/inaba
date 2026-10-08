@@ -1,0 +1,126 @@
+/*
+============================================================================
+FITXER: css/imprimir-laberint-angles.css
+ROL: Els laberints del «Laberint d'angles» en paper: línies gris fosc per
+     dibuixar-hi el camí al damunt amb el retolador, cercles blancs grans amb
+     els números en negre, i la S i la G ben marcades.
+ARQUITECTURA: Fa servir el mateix DOM que el joc (TaulerLaberint), però amb
+     mides en mm: --k (el posa js/laberint-angles/imprimir.js) són els mm
+     d'una unitat del tauler, i --cercle engrandeix els cercles dels
+     laberints petits. Només blanc, negre i gris fosc (impressora en B/N).
+DEPENDÈNCIES: css/imprimir.css (s'ha de carregar abans).
+============================================================================
+*/
+figure {
+    margin: 0;
+}
+
+/* ---- El tauler: línies, camí i arcs (SVG) + cercles (HTML), en unitats de tauler.js ---- */
+.tauler-laberint {
+    position: relative;
+    flex-shrink: 0;
+}
+.linies {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    overflow: visible;
+}
+/* Prou gruixudes per veure-les, prou fines perquè el traç del retolador es vegi al damunt */
+.linia {
+    stroke: var(--gris);
+    stroke-width: calc(0.55 / var(--k));
+}
+.linia.tallada {
+    stroke-width: calc(0.45 / var(--k));
+    stroke-dasharray: calc(0.6 / var(--k)) calc(1.1 / var(--k));
+}
+.creu {
+    stroke: var(--tinta);
+    stroke-width: calc(0.5 / var(--k));
+    stroke-linecap: round;
+}
+/* El camí de les instruccions: el traç del retolador */
+.cami {
+    fill: none;
+    stroke: var(--tinta);
+    stroke-width: calc(1.6 / var(--k));
+    stroke-linecap: round;
+    stroke-linejoin: round;
+}
+.guia {
+    display: none;
+}
+.arc {
+    fill: none;
+    stroke: var(--tinta);
+    stroke-width: calc(0.45 / var(--k));
+    stroke-linecap: round;
+    stroke-linejoin: round;
+}
+
+/* ---- Un cercle ---- */
+.cercle {
+    position: absolute;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    background: white;
+    border: calc(0.4mm / var(--cercle)) solid var(--tinta);
+    color: var(--tinta);
+    font-size: calc(var(--k) * 14.5mm);
+    font-weight: 800;
+    font-variant-numeric: tabular-nums;
+    letter-spacing: -0.03em;
+    transform: scale(var(--cercle));
+}
+.cercle.sortida,
+.cercle.arribada {
+    font-size: calc(var(--k) * 21mm);
+    border-width: calc(0.8mm / var(--cercle));
+}
+/* El cercle per on es passa dues vegades (instruccions) */
+.cercle.erroni {
+    border-width: calc(0.9mm / var(--cercle));
+    border-style: double;
+}
+
+/* ---- Fulls de problemes: el laberint centrat a la targeta ---- */
+.problemes {
+    align-items: stretch;
+}
+.problema {
+    justify-content: flex-start;
+}
+.problema .tauler-laberint {
+    margin: auto 0;
+}
+
+/* L'últim full, amb només 2 laberints grans: un sota l'altre, a tota l'amplada */
+.problemes.grans {
+    grid-template-columns: 1fr;
+    grid-template-rows: 1fr 1fr;
+}
+
+/* ---- Full d'instruccions ---- */
+.mida-instr .fila {
+    gap: 9mm;
+}
+.text-costat {
+    max-width: 112mm;
+}
+.text-costat .fila {
+    justify-content: flex-start;
+    gap: 6mm;
+    margin-top: 3mm;
+}
+.text-costat h2 {
+    text-align: left;
+}
+.compte {
+    margin: 0;
+    font-size: 11pt;
+    line-height: 1.45;
+}

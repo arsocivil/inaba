@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="ca">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Enllaç de múltiples — per imprimir</title>
+    <link rel="icon" href="../icon.png">
+    <link rel="stylesheet" href="../css/imprimir.css">
+    <link rel="stylesheet" href="../css/imprimir-enllac-multiples.css">
+    <!-- Fulls A4 per imprimir a doble cara i plastificar. El PDF el fa tools/genera-pdf.js. -->
+    <script src="../js/imprimir.js" defer></script>
+    <script src="../js/enllac-multiples/problemes.js" defer></script>
+    <script src="../js/enllac-multiples/tauler.js" defer></script>
+    <script src="../js/enllac-multiples/imprimir.js" defer></script>
+</head>
+<body>
+    <!-- Només a la pantalla: no s'imprimeix -->
+    <nav class="barra">
+        <a href="../enllac-multiples.html">← Torna al joc</a>
+        <button type="button" data-imprimeix>Imprimeix o desa com a PDF</button>
+        <a href="enllac-multiples.pdf" download>Descarrega el PDF</a>
+        <span>9 pàgines A4, per imprimir a doble cara i plastificar</span>
+    </nav>
+
+    <!-- ══════════ FULL 1: INSTRUCCIONS (les mateixes del joc) ══════════ -->
+    <section class="pagina mida-instr" data-quins="Instruccions">
+        <ul class="regles">
+            <li>Col·loca les <strong>targetes numerades</strong> als llocs de vora discontínua.</li>
+            <li>A la punta de cada <strong>fletxa</strong> que surt d'una targeta hi va un <strong>múltiple</strong> d'aquella targeta.</li>
+        </ul>
+
+        <div class="fila">
+            <figure id="ex-problema"><figcaption>Exemple</figcaption></figure>
+            <span class="fletxa-gran" aria-hidden="true">→</span>
+            <figure id="ex-solucio"><figcaption>Solució</figcaption></figure>
+        </div>
+
+        <div class="caixa">
+            <h2>Col·loca les targetes numerades als llocs de vora discontínua</h2>
+            <div class="fila" id="ex-targetes"></div>
+            <ul>
+                <li>La targeta del 10 ja està feta servir (✓): ja és al tauler.</li>
+                <li>Cada targeta només es pot fer servir una vegada.</li>
+            </ul>
+            <p class="compte"><strong>Compte!</strong> En alguns problemes sobren targetes.</p>
+        </div>
+
+        <div class="caixa">
+            <h2>A la punta de cada fletxa hi va un múltiple de la targeta d'on surt</h2>
+            <div class="fila">
+                <figure id="ex-be-1"><figcaption class="veredicte"><b>✓</b>10 és múltiple de 5</figcaption></figure>
+                <figure id="ex-be-2"><figcaption class="veredicte"><b>✓</b>20 és múltiple de 4</figcaption></figure>
+                <figure id="ex-malament"><figcaption class="veredicte"><b>✗</b>10 no és múltiple de 4</figcaption></figure>
+            </div>
+        </div>
+
+        <div class="caixa retolador">
+            <h2>Amb el retolador</h2>
+            <ul>
+                <li>Escriu el número de la targeta <strong>dins de cada lloc de vora discontínua</strong>, ben gros.</li>
+                <li>Ratlla les targetes de sota a mesura que les facis servir.</li>
+                <li>Per esborrar, fes servir un drap o un mocador de paper. No hi escriguis mai amb retolador permanent!</li>
+            </ul>
+        </div>
+    </section>
+
+    <!-- ══════════ FULL 2: EN BLANC (el revers de les instruccions) ══════════ -->
+    <section class="pagina"></section>
+
+    <!-- ══════════ FULLS 3 A 9: PROBLEMES 1–42, els afegeix js/enllac-multiples/imprimir.js ══════════ -->
+</body>
+</html>

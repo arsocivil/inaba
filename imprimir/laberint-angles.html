@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="ca">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Laberint d'angles — per imprimir</title>
+    <link rel="icon" href="../icon.png">
+    <link rel="stylesheet" href="../css/imprimir.css">
+    <link rel="stylesheet" href="../css/imprimir-laberint-angles.css">
+    <!-- Fulls A4 per imprimir a doble cara i plastificar. El PDF el fa tools/genera-pdf.js. -->
+    <script src="../js/imprimir.js" defer></script>
+    <script src="../js/laberint-angles/problemes.js" defer></script>
+    <script src="../js/laberint-angles/motor.js" defer></script>
+    <script src="../js/laberint-angles/tauler.js" defer></script>
+    <script src="../js/laberint-angles/imprimir.js" defer></script>
+</head>
+<body>
+    <!-- Només a la pantalla: no s'imprimeix -->
+    <nav class="barra">
+        <a href="../laberint-angles.html">← Torna al joc</a>
+        <button type="button" data-imprimeix>Imprimeix o desa com a PDF</button>
+        <a href="laberint-angles.pdf" download>Descarrega el PDF</a>
+        <span>9 pàgines A4, per imprimir a doble cara i plastificar</span>
+    </nav>
+
+    <!-- ══════════ FULL 1: INSTRUCCIONS (les mateixes del joc) ══════════ -->
+    <section class="pagina mida-instr" data-quins="Instruccions">
+        <ul class="regles">
+            <li>Ves de la <strong>S</strong> (sortida) a la <strong>G</strong> (meta) seguint les línies.</li>
+            <li>Només pots passar <strong>una vegada</strong> per cada cercle.</li>
+            <li>Als cercles amb un <strong>número</strong>, les dues línies del camí hi formen aquest <strong>angle</strong>.</li>
+        </ul>
+
+        <div class="fila">
+            <figure id="ex-problema"><figcaption>Exemple</figcaption></figure>
+            <span class="fletxa-gran" aria-hidden="true">→</span>
+            <figure id="ex-solucio"><figcaption>Solució</figcaption></figure>
+        </div>
+
+        <div class="caixa">
+            <div class="fila">
+                <figure id="ex-dues-vegades"><figcaption class="veredicte"><b>✗</b>Passa dues vegades pel cercle del mig.</figcaption></figure>
+                <div class="text-costat">
+                    <h2>Només pots passar una vegada per cada cercle</h2>
+                    <p>Hi ha cercles per on no cal passar.</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="caixa">
+            <h2>Als cercles amb un número, les dues línies del camí hi formen aquest angle</h2>
+            <div class="fila">
+                <figure id="ex-angles"></figure>
+                <div class="text-costat">
+                    <ul>
+                        <li>Al cercle del 60, l'angle que fa el camí és de 60°.</li>
+                        <li>Al cercle del 90 del mig, l'angle és de 90° (un angle recte).</li>
+                        <li>Pel cercle del 90 de la dreta no hi passa: hi ha cercles per on no cal passar.</li>
+                    </ul>
+                    <div class="fila">
+                        <figure id="ex-pla"><figcaption>Al cercle del 180, l'angle és pla.</figcaption></figure>
+                        <p class="compte">180° és un angle pla: les dues línies queden alineades i el camí continua recte.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="caixa retolador">
+            <h2>Amb el retolador</h2>
+            <ul>
+                <li>Dibuixa el camí <strong>per sobre de les línies</strong>, de cercle a cercle, de la S fins a la G.</li>
+                <li>Les línies de punts amb una × estan tallades: no hi pots passar.</li>
+                <li>Per esborrar, fes servir un drap o un mocador de paper. No hi escriguis mai amb retolador permanent!</li>
+            </ul>
+        </div>
+    </section>
+
+    <!-- ══════════ FULL 2: EN BLANC (el revers de les instruccions) ══════════ -->
+    <section class="pagina"></section>
+
+    <!-- ══════════ FULLS 3 A 9: PROBLEMES 1–38, els afegeix js/laberint-angles/imprimir.js ══════════ -->
+</body>
+</html>
