@@ -171,13 +171,16 @@
             border-color: #1d4ed8;
             box-shadow: 0 8px 20px rgba(29, 78, 216, 0.15);
         }
-        .puzzle.aviat {
-            border-top-color: var(--border-heavy);
-            box-shadow: none;
-            background: #f8fafc;
+        .puzzle.diposits-aigua {
+            border-top-color: #047857;
         }
-        .puzzle.aviat strong {
-            color: var(--text-muted);
+        .puzzle.diposits-aigua strong,
+        .puzzle.diposits-aigua .progres {
+            color: #064e3b;
+        }
+        a.puzzle.diposits-aigua:hover {
+            border-color: #047857;
+            box-shadow: 0 8px 20px rgba(4, 120, 87, 0.15);
         }
         h2 {
             width: 100%;
@@ -266,11 +269,12 @@
             <span class="desc">Afegeix zeros a les targetes (3 → 30 → 300) perquè la suma sigui correcta.</span>
             <span class="progres" id="progres-zeros">49 problemes</span>
         </a>
-    </div>
-
-    <h2>Properament</h2>
-    <div class="llista">
-        <div class="puzzle aviat"><strong>Dipòsits d'aigua</strong><span class="jp">水そうと水</span></div>
+        <a class="puzzle diposits-aigua" href="diposits-aigua.html">
+            <strong>Dipòsits d'aigua</strong>
+            <span class="jp">水そうと水</span>
+            <span class="desc">Troba quanta aigua hi ha a cada dipòsit sabent el total d'algunes files i columnes.</span>
+            <span class="progres" id="progres-diposits">42 problemes</span>
+        </a>
     </div>
 
     <p class="credits">Puzzles originals de Naoki Inaba</p>

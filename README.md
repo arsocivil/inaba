@@ -20,10 +20,11 @@ Els PDF originals (en japonès) són a [`src/`](src/): `*_q.pdf` són els enunci
 | L'escala de nombres | 数字の階段 (`step`) | [`escala-nombres.html`](escala-nombres.html) | 42 |
 | Busca la figura | 図形探し (`zukei`) | [`busca-la-figura.html`](busca-la-figura.html) | 42 |
 | Afegeix zeros | ゼロゼロ式 (`zero`) | [`afegeix-zeros.html`](afegeix-zeros.html) | 49 |
+| Dipòsits d'aigua | 水そうと水 (`mizu`) | [`diposits-aigua.html`](diposits-aigua.html) | 42 |
 
-La portada ([`index.html`](index.html)) també llista l'altre puzzle de `src/` com a «Properament».
+Ja hi són tots els puzzles de `src/`.
 La traducció de les instruccions de cada puzzle i les notes sobre els problemes són a [`docs/`](docs/).
-Les dels puzzles que encara no s'han fet són a [`docs/traduccions.md`](docs/traduccions.md).
+Els criteris de traducció són a [`docs/traduccions.md`](docs/traduccions.md).
 
 ## Com es juga a l'Enllaç de múltiples
 
@@ -154,6 +155,15 @@ es demana, es diu quina propietat li falta i quina figura s'ha fet.
 
 Quan la igualtat és correcta, es diu sola. El botó «Comprova» mostra el càlcul tal com està i quant falta o sobra.
 
+## Com es juga a Dipòsits d'aigua
+
+- **Tocar** un dipòsit hi posa l'aigua fins a aquella altura (ajustada a les marques); **arrossegar** amunt i avall
+  la fa pujar i baixar. Dins de cada cub s'escriu quanta aigua hi ha.
+- A sota, el dipòsit triat: **−** i **+** (d'una marca en una marca) i el nivell en fracció, que s'hi pot escriure (5/4).
+- **Teclat**: Tab, fletxes amunt i avall, Re Pàg / Av Pàg (un cub), Inici i Fi.
+
+Quan tots els totals quadren, es diu sol. El botó «Comprova» diu quins totals no quadren i per què.
+
 ## Comú als puzzles
 
 - Els problemes resolts es desen al navegador (localStorage) i es veuen amb un ✓ a «Escull…» i a la
@@ -218,12 +228,13 @@ tools/extreu-triangle.py       ← llegeix les quadrícules de punts del PDF i e
 tools/extreu-escala.py         ← llegeix els cercles i les fileres del PDF i escriu js/escala-nombres/problemes.js
 tools/extreu-figura.py         ← llegeix les quadrícules de punts del PDF i escriu js/busca-la-figura/problemes.js
 tools/extreu-zeros.py          ← llegeix les igualtats del PDF i escriu js/afegeix-zeros/problemes.js
+tools/extreu-diposits.py       ← llegeix els dipòsits i els totals del PDF i escriu js/diposits-aigua/problemes.js
 tools/genera-pdf.js            ← fa el PDF per imprimir d'un puzzle (imprimir/<puzzle>.html → .pdf)
 imprimir/<puzzle>.html, .pdf   ← versió per imprimir i el seu PDF
 css/imprimir.css               ← estils comuns de les versions per imprimir (+ css/imprimir-<puzzle>.css)
 js/imprimir.js                 ← fulls de problemes, capçalera i peu (+ js/<puzzle>/imprimir.js)
 docs/<puzzle>.md               ← traducció de les instruccions i notes
-docs/traduccions.md            ← traducció de les instruccions dels puzzles pendents
+docs/traduccions.md            ← criteris de traducció i índex dels fitxers de cada puzzle
 src/                           ← PDF originals
 ```
 
@@ -241,6 +252,7 @@ node tests/busca-el-triangle.test.js
 node tests/escala-nombres.test.js
 node tests/busca-la-figura.test.js
 node tests/afegeix-zeros.test.js
+node tests/diposits-aigua.test.js
 ```
 
 GitHub els executa sols a cada pull request i a cada canvi a `main` (pestanya **Actions**).

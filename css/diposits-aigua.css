@@ -1,0 +1,201 @@
+/*
+============================================================================
+FITXER: css/diposits-aigua.css
+ROL: Estils propis de «Dipòsits d'aigua»: els cubs i les vores dels dipòsits,
+     l'aigua, les quantitats de cada cub, els totals amb fletxa i l'editor del
+     nivell del dipòsit triat.
+     Dins de l'SVG, un cub fa 100 unitats (vegeu tauler.js).
+DEPENDÈNCIES: css/comu.css (s'ha de carregar abans).
+============================================================================
+*/
+:root {
+    --primary: #047857;
+    --primary-light: #ecfdf5;
+    --primary-hover: #065f46;
+    --primary-dark: #064e3b;
+    --tinta: #1e293b; /* les vores i les fletxes, com al paper */
+    --aigua: #a5d8e6; /* el blau clar de l'aigua del PDF */
+}
+
+/* ══════════════════════════════════════════════
+   EL TAULER
+══════════════════════════════════════════════ */
+#tauler-wrap {
+    padding-top: 10px;
+}
+.tauler-diposits {
+    position: relative;
+    max-width: 100%;
+    flex-shrink: 0;
+    user-select: none;
+    -webkit-user-select: none;
+}
+.dibuix {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    overflow: visible;
+    pointer-events: none;
+}
+.aigua rect {
+    fill: var(--aigua);
+}
+.fines {
+    fill: none;
+    stroke: #94a3b8;
+    stroke-width: 1.5;
+}
+.marques {
+    fill: none;
+    stroke: var(--tinta);
+    stroke-width: 2;
+}
+.vora {
+    fill: none;
+    stroke: var(--tinta);
+    stroke-width: 6;
+    stroke-linejoin: round;
+}
+.quantitats text {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-size: 19px;
+    font-weight: 700;
+    fill: #0c4a6e;
+    stroke: white;
+    stroke-width: 4;
+    stroke-linejoin: round;
+    paint-order: stroke;
+}
+/* Els totals amb la fletxa */
+.total text {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-size: 30px;
+    font-weight: 800;
+    fill: var(--tinta);
+}
+.total .fletxa {
+    stroke: var(--tinta);
+    stroke-width: 6;
+}
+.total .punta {
+    fill: var(--tinta);
+}
+.total.be text {
+    fill: var(--success);
+}
+.total.be .fletxa {
+    stroke: var(--success);
+}
+.total.be .punta {
+    fill: var(--success);
+}
+.total.malament text {
+    fill: var(--danger);
+}
+.total.malament .fletxa {
+    stroke: var(--danger);
+}
+.total.malament .punta {
+    fill: var(--danger);
+}
+
+/* ---- La capa de cada dipòsit (per tocar-lo i enfocar-lo) ---- */
+.capa-diposit {
+    position: absolute;
+    cursor: ns-resize;
+    touch-action: none;
+    border-radius: 2px;
+}
+.capa-diposit.triat {
+    box-shadow:
+        inset 0 0 0 3px var(--primary),
+        0 0 0 3px rgba(4, 120, 87, 0.35);
+}
+.capa-diposit:focus {
+    outline: none;
+}
+.capa-diposit:focus-visible {
+    box-shadow:
+        inset 0 0 0 3px var(--primary-dark),
+        0 0 0 4px rgba(4, 120, 87, 0.5);
+}
+.tauler-diposits.resolt .capa-diposit,
+.tauler-diposits.estatic .capa-diposit {
+    cursor: default;
+}
+.tauler-diposits.resolt .aigua rect {
+    fill: #86d0e2;
+}
+.tauler-diposits.sacseja {
+    animation: sacseja 0.3s;
+}
+
+/* ══════════════════════════════════════════════
+   L'EDITOR DEL DIPÒSIT TRIAT
+══════════════════════════════════════════════ */
+.editor {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    margin: 12px 16px 0 16px;
+    font-weight: 700;
+    color: var(--text-main);
+}
+.editor.inactiu {
+    color: var(--text-muted);
+}
+.btn-nivell {
+    width: 44px;
+    height: 44px;
+    border: 2.5px solid var(--primary);
+    border-radius: 10px;
+    background: white;
+    color: var(--primary-dark);
+    font-size: 1.5em;
+    font-weight: 800;
+    cursor: pointer;
+}
+.btn-nivell:disabled {
+    border-color: var(--border-strong);
+    color: var(--border-strong);
+    cursor: default;
+}
+#nivell {
+    width: 84px;
+    height: 44px;
+    border: 2.5px solid var(--primary);
+    border-radius: 10px;
+    text-align: center;
+    font: inherit;
+    font-size: 1.3em;
+    font-weight: 800;
+    color: var(--primary-dark);
+}
+#nivell:disabled {
+    border-color: var(--border-strong);
+    background: #f8fafc;
+}
+.editor .unitat {
+    font-size: 0.85em;
+    font-weight: 600;
+    color: var(--text-muted);
+}
+#btn-comprova:disabled {
+    opacity: 0.45;
+    cursor: default;
+}
+
+/* ---- Instruccions ---- */
+.instr-intro {
+    margin: 0 0 4px 0;
+}
+.instr-text {
+    max-width: 260px;
+    margin: 0;
+}
+.instr-fila figcaption {
+    max-width: 210px;
+}

@@ -18,6 +18,7 @@
         { clau: 'inaba.escala-nombres', el: 'progres-escala', total: 42 },
         { clau: 'inaba.busca-la-figura', el: 'progres-figura', total: 42 },
         { clau: 'inaba.afegeix-zeros', el: 'progres-zeros', total: 49 },
+        { clau: 'inaba.diposits-aigua', el: 'progres-diposits', total: 42 },
     ];
     PUZZLES.forEach(({ clau, el, total }) => {
         try {
