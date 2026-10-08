@@ -1,0 +1,127 @@
+/*
+============================================================================
+FITXER: css/imprimir-afegeix-zeros.css
+ROL: Les igualtats d'«Afegeix zeros» en paper: una per fila, 5 per full,
+     amb targetes amples i espai buit a la dreta de cada número per escriure-hi
+     els zeros amb un retolador gruixut.
+ARQUITECTURA: Fa servir el mateix DOM que el joc (TaulerZeros), en mm i pt.
+     Només blanc, negre i gris fosc (impressora en B/N): els zeros afegits
+     de les instruccions, encerclats en negre com al PDF.
+DEPENDÈNCIES: css/imprimir.css (s'ha de carregar abans).
+============================================================================
+*/
+figure {
+    margin: 0;
+}
+
+/* ---- Una igualtat ---- */
+.igualtat {
+    display: flex;
+    align-items: center;
+    gap: 4mm;
+    font-size: 24pt;
+    font-weight: 800;
+    font-variant-numeric: tabular-nums;
+}
+.targeta {
+    width: 38mm;
+    height: 19mm;
+    padding: 0 3mm;
+    display: flex;
+    align-items: center;
+    gap: 0.6mm;
+    border: 0.6mm solid var(--tinta);
+    border-radius: 1.5mm;
+    background: white;
+}
+.igualtat.quatre {
+    gap: 2.5mm;
+    font-size: 22pt;
+}
+.igualtat.quatre .targeta {
+    width: 30mm;
+}
+.total {
+    margin-left: 1mm;
+    letter-spacing: 0.05em;
+}
+/* Un zero afegit (instruccions): encerclat, com al PDF; el cercle, ben separat de la xifra */
+.zero {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 1.5em;
+    height: 1.5em;
+    border: 0.35mm solid var(--tinta);
+    border-radius: 50%;
+    font-size: 0.72em;
+}
+
+/* ---- Fulls de problemes: una igualtat per fila, amb el número a l'esquerra ---- */
+.problemes {
+    grid-template-columns: 1fr;
+    grid-template-rows: repeat(5, 1fr);
+    gap: 0;
+    align-items: stretch;
+}
+.problema {
+    flex-direction: row;
+    align-items: center;
+    gap: 6mm;
+    padding: 0 2mm;
+    border-bottom: 0.2mm solid var(--gris);
+}
+.problema:last-child {
+    border-bottom: none;
+}
+.problema .num-problema {
+    align-self: center;
+}
+
+/* ---- Full d'instruccions (igualtats més petites) ---- */
+.intro {
+    margin: 0 0 2mm 0;
+    font-size: 12.5pt;
+}
+.mida-instr .igualtat {
+    font-size: 15pt;
+    gap: 3mm;
+}
+.mida-instr .targeta {
+    width: auto;
+    min-width: 17mm;
+    height: 13mm;
+    padding: 0 2.5mm;
+}
+.mida-instr .fila {
+    gap: 7mm;
+    align-items: flex-start;
+}
+.parella {
+    display: flex;
+    gap: 4mm;
+    font-size: 15pt;
+    font-weight: 800;
+}
+.mida-instr .fila .targeta {
+    font-size: 15pt;
+    font-weight: 800;
+}
+.exemples {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 3mm;
+    margin: 2mm 0;
+}
+.exemples figure {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1.5mm;
+}
+.exemples figcaption {
+    font-size: 10pt;
+    font-weight: 700;
+    color: var(--gris);
+}

@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="ca">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Puzzle de valor posicional: afegeix zeros a les targetes (3 → 30 → 300) perquè la suma sigui correcta.">
+    <title>Afegeix zeros</title>
+    <link rel="icon" href="icon.png">
+    <link rel="stylesheet" href="css/comu.css">
+    <link rel="stylesheet" href="css/afegeix-zeros.css">
+</head>
+<body>
+    <nav class="dalt">
+        <a class="tornar" href="index.html">← Tots els puzzles</a>
+        <a class="per-imprimir" href="imprimir/afegeix-zeros.html"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 9V3h10v6M7 17H4.5A1.5 1.5 0 0 1 3 15.5v-5A1.5 1.5 0 0 1 4.5 9h15a1.5 1.5 0 0 1 1.5 1.5v5a1.5 1.5 0 0 1-1.5 1.5H17M7 13h10v8H7z" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/></svg>Versió per imprimir</a>
+    </nav>
+    <div class="title-row">
+        <a href="https://step-quiz.net/" class="home-icon-link" title="Tornar a l'inici" aria-label="Tornar a l'inici">
+            <img src="icon.png" alt="Inici">
+        </a>
+        <h1>Afegeix zeros</h1>
+    </div>
+
+    <!-- ══════════ INSTRUCCIONS (traducció de la pàgina 1 de src/zero_q.pdf) ══════════ -->
+    <details class="instruccions" id="instruccions">
+        <summary>Com es juga?</summary>
+        <div class="instr-cos">
+            <p class="instr-intro">Hi ha una igualtat feta amb targetes que tenen un número.</p>
+            <ul class="instr-regles">
+                <li>Afegeix <strong>zeros</strong> a algunes targetes perquè la <strong>igualtat</strong> sigui correcta.</li>
+            </ul>
+
+            <div class="instr-fila exemple">
+                <figure id="ex-problema"><figcaption>Exemple</figcaption></figure>
+                <span class="instr-fletxa-gran" aria-hidden="true">→</span>
+                <figure id="ex-solucio"><figcaption>Solució</figcaption></figure>
+            </div>
+
+            <div class="instr-caixa">
+                <h3>Afegeix zeros a les targetes</h3>
+                <div class="instr-fila">
+                    <figure><div class="targeta mostra"><span class="xifra">1</span></div><figcaption class="instr-veredicte be"><b>✓</b>No n'hi escrius cap.</figcaption></figure>
+                    <figure><div class="targeta mostra"><span class="xifra">2</span><span class="zero">0</span><span class="zero">0</span></div><figcaption class="instr-veredicte be"><b>✓</b>N'hi escrius dos.</figcaption></figure>
+                    <figure><div class="targeta mostra"><span class="xifra">3</span><span class="zero">0</span></div><figcaption class="instr-veredicte be"><b>✓</b>N'hi escrius un.</figcaption></figure>
+                </div>
+                <div class="instr-fila">
+                    <figure><div class="parella"><div class="targeta mostra"><span class="xifra">1</span><span class="zero no-zero">8</span></div><div class="targeta mostra"><span class="xifra">2</span><span class="zero no-zero">1</span><span class="zero">0</span></div></div><figcaption class="instr-veredicte malament"><b>✗</b>No pots escriure xifres que no siguin 0.</figcaption></figure>
+                </div>
+            </div>
+
+            <div class="instr-caixa">
+                <h3>La igualtat ha de ser correcta</h3>
+                <div class="instr-fila columna">
+                    <figure id="ex-be"><figcaption class="instr-veredicte be"><b>✓</b>És correcta.</figcaption></figure>
+                    <figure id="ex-malament"><figcaption class="instr-veredicte malament"><b>✗</b>El càlcul no surt: 10 + 2 + 300 = 312.</figcaption></figure>
+                </div>
+                <p class="instr-compte">Toca una targeta per afegir-hi un zero, i toca un zero per treure'l.</p>
+            </div>
+        </div>
+    </details>
+
+    <!-- ══════════ JOC ══════════ -->
+    <main class="panel">
+        <div class="header-info">
+            <div class="level-text"><span id="titol-problema">Problema 1 de 42</span><span class="ja-resolt" id="ja-resolt" hidden>✓ resolt</span></div>
+            <div class="score-text" id="comptador">Resolts: 0 / 42</div>
+            <nav class="nav-problemes" aria-label="Problemes">
+                <button type="button" class="btn-nav" id="btn-anterior" aria-label="Problema anterior"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15 4l-8 8 8 8" fill="none" stroke="currentColor" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+                <button type="button" class="btn-nav" id="btn-tria">Escull…</button>
+                <button type="button" class="btn-nav" id="btn-seguent" aria-label="Problema següent"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 4l8 8-8 8" fill="none" stroke="currentColor" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+            </nav>
+        </div>
+
+        <p class="regla">Afegeix <strong>zeros</strong> a les targetes perquè la <strong>igualtat</strong> sigui correcta.</p>
+        <div id="tauler-wrap"></div>
+        <div class="pila-wrap">
+            <div class="pila zeros" id="pila" role="group" aria-label="Un zero per arrossegar"></div>
+        </div>
+
+        <div class="missatge" id="missatge" aria-live="polite"></div>
+
+        <div class="accions">
+            <button type="button" class="btn-principal" id="btn-comprova">Comprova</button>
+            <button type="button" class="btn-sec" id="btn-reinicia">↺ Torna a començar</button>
+        </div>
+    </main>
+
+    <p class="credits">Puzzle original de Naoki Inaba</p>
+    <footer class="peu-llicencia">
+        <a rel="license" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.ca">
+            <img alt="Llicència CC BY-NC-SA" src="https://licensebuttons.net/l/by-nc-sa/4.0/88x31.png">
+        </a>
+        <span>
+            © 2026 <strong>David Arso Civil</strong> · Departament de Matemàtiques, INS Miquel Tarradell.
+            Contingut: <a rel="license" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.ca">CC BY-NC-SA 4.0</a> · Codi: <a href="https://opensource.org/license/mit">MIT</a>.
+        </span>
+    </footer>
+
+    <!-- ══════════ TRIA DE PROBLEMA ══════════ -->
+    <dialog class="dialeg-tria" id="dialeg-tria" aria-labelledby="tria-titol">
+        <h2 id="tria-titol">Escull un problema</h2>
+        <p>Van de més fàcils a més difícils. Els que ja has resolt tenen un ✓.</p>
+        <div class="graella" id="graella-problemes"></div>
+        <div class="dialeg-peu">
+            <button type="button" class="btn-text" id="btn-esborra-progres">Esborra els ✓</button>
+            <button type="button" class="btn-sec" id="btn-tanca-tria">Tanca</button>
+        </div>
+    </dialog>
+
+    <script src="js/comu.js" defer></script>
+    <script src="js/afegeix-zeros/problemes.js" defer></script>
+    <script src="js/afegeix-zeros/motor.js" defer></script>
+    <script src="js/afegeix-zeros/tauler.js" defer></script>
+    <script src="js/afegeix-zeros/afegeix-zeros.js" defer></script>
+</body>
+</html>

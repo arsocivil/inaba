@@ -1,0 +1,223 @@
+/*
+============================================================================
+FITXER: css/afegeix-zeros.css
+ROL: Estils propis d'«Afegeix zeros»: la igualtat amb les targetes, els zeros
+     afegits (del color del tema i encerclats, com al PDF) i el «0» per
+     arrossegar.
+DEPENDÈNCIES: css/comu.css (s'ha de carregar abans).
+============================================================================
+*/
+:root {
+    --primary: #1d4ed8;
+    --primary-light: #eff6ff;
+    --primary-hover: #1e40af;
+    --primary-dark: #1e3a8a;
+    --tinta: #1e293b; /* les vores de les targetes, com al paper */
+}
+
+/* ══════════════════════════════════════════════
+   LA IGUALTAT
+══════════════════════════════════════════════ */
+#tauler-wrap {
+    padding: 18px 8px 4px 8px;
+}
+.igualtat {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+    gap: 8px 10px;
+    font-size: 30px;
+    font-weight: 800;
+    font-variant-numeric: tabular-nums;
+}
+.signe {
+    color: var(--text-main);
+}
+.total {
+    min-width: 2ch;
+    color: var(--text-main);
+    letter-spacing: 0.04em;
+}
+
+/* ---- Una targeta: la xifra i els zeros afegits ---- */
+.targeta {
+    position: relative;
+    min-width: 76px;
+    height: 64px;
+    padding: 0 12px;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    gap: 2px;
+    background: white;
+    border: 2.5px solid var(--tinta);
+    border-radius: 6px;
+    cursor: pointer;
+    user-select: none;
+    -webkit-user-select: none;
+    transition:
+        background 0.15s,
+        border-color 0.15s,
+        transform 0.15s;
+}
+.targeta .xifra {
+    color: var(--text-main);
+}
+/* Un zero afegit: del color del tema, dins d'un cercle (com al PDF) */
+.zero {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 1.05em;
+    height: 1.05em;
+    border: 2px solid var(--primary);
+    border-radius: 50%;
+    color: var(--primary-dark);
+    font-size: 0.85em;
+    cursor: pointer;
+    touch-action: none;
+}
+.zero.no-zero {
+    border-color: var(--danger);
+    color: var(--danger);
+}
+.targeta:focus {
+    outline: none;
+}
+.targeta:focus-visible {
+    outline: 3px solid var(--primary-dark);
+    outline-offset: 3px;
+}
+@media (hover: hover) {
+    .igualtat:not(.resolt):not(.estatic) .targeta:hover {
+        background: var(--primary-light);
+        border-color: var(--primary);
+    }
+    .igualtat:not(.resolt):not(.estatic) .zero:hover {
+        background: #fee2e2;
+        border-color: var(--danger);
+        color: var(--danger);
+    }
+}
+.amb-seleccio .targeta {
+    border-color: var(--primary);
+}
+.targeta.sobre {
+    background: var(--primary-light);
+    transform: scale(1.06);
+}
+.igualtat.be .targeta {
+    border-color: var(--success);
+    background: var(--success-light);
+}
+.igualtat.be .zero {
+    border-color: var(--success);
+    color: #065f46;
+}
+.igualtat.malament .total {
+    color: var(--danger);
+}
+.igualtat.resolt .targeta,
+.igualtat.estatic .targeta,
+.igualtat.resolt .zero,
+.igualtat.estatic .zero {
+    cursor: default;
+}
+.zero.acaba-de-posar {
+    animation: posa 0.25s ease-out;
+}
+.targeta.sacseja,
+.igualtat.sacseja {
+    animation: sacseja 0.3s;
+}
+@keyframes posa {
+    from {
+        transform: scale(1.6);
+        opacity: 0.3;
+    }
+}
+
+/* ══════════════════════════════════════════════
+   EL «0» PER ARROSSEGAR (i el fantasma)
+══════════════════════════════════════════════ */
+.pila.zeros {
+    justify-content: center;
+}
+.xifra-zero {
+    width: 56px;
+    height: 56px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 3px solid var(--primary);
+    border-radius: 50%;
+    background: white;
+    color: var(--primary-dark);
+    font-size: 1.8em;
+    font-weight: 800;
+    cursor: grab;
+    touch-action: none;
+    user-select: none;
+    -webkit-user-select: none;
+}
+.xifra-zero.arrossegant {
+    opacity: 0.4;
+}
+.xifra-zero.fantasma {
+    position: fixed;
+    z-index: 1000;
+    pointer-events: none;
+    transform: translate(-50%, -50%) scale(1.08);
+    box-shadow: 0 10px 24px rgba(15, 23, 42, 0.3);
+}
+#btn-comprova:disabled {
+    opacity: 0.45;
+    cursor: default;
+}
+
+/* ---- Instruccions ---- */
+.instr-intro {
+    margin: 0 0 4px 0;
+}
+.instr-fila .igualtat,
+.instr-fila .targeta {
+    font-size: 22px;
+}
+.instr-fila .targeta {
+    min-width: 56px;
+    height: 48px;
+    padding: 0 8px;
+}
+.instr-fila.columna {
+    flex-direction: column;
+}
+.parella {
+    display: flex;
+    gap: 14px;
+}
+.targeta.mostra {
+    font-size: 22px;
+    font-weight: 800;
+    cursor: default;
+}
+
+/* ---- Pantalles estretes ---- */
+@media (max-width: 480px) {
+    .igualtat {
+        font-size: 24px;
+        gap: 6px 6px;
+    }
+    .targeta {
+        min-width: 56px;
+        height: 52px;
+        padding: 0 8px;
+    }
+    .igualtat.quatre {
+        font-size: 21px;
+    }
+    .igualtat.quatre .targeta {
+        min-width: 46px;
+        padding: 0 6px;
+    }
+}

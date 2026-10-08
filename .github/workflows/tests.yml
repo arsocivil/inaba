@@ -43,3 +43,5 @@ jobs:
         run: node tests/escala-nombres.test.js
       - name: Busca la figura
         run: node tests/busca-la-figura.test.js
+      - name: Afegeix zeros
+        run: node tests/afegeix-zeros.test.js

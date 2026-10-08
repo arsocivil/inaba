@@ -17,6 +17,7 @@
         { clau: 'inaba.busca-el-triangle', el: 'progres-triangle', total: 42 },
         { clau: 'inaba.escala-nombres', el: 'progres-escala', total: 42 },
         { clau: 'inaba.busca-la-figura', el: 'progres-figura', total: 42 },
+        { clau: 'inaba.afegeix-zeros', el: 'progres-zeros', total: 49 },
     ];
     PUZZLES.forEach(({ clau, el, total }) => {
         try {

@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="ca">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Afegeix zeros — per imprimir</title>
+    <link rel="icon" href="../icon.png">
+    <link rel="stylesheet" href="../css/imprimir.css">
+    <link rel="stylesheet" href="../css/imprimir-afegeix-zeros.css">
+    <!-- Fulls A4 per imprimir a doble cara i plastificar. El PDF el fa tools/genera-pdf.js. -->
+    <script src="../js/imprimir.js" defer></script>
+    <script src="../js/afegeix-zeros/problemes.js" defer></script>
+    <script src="../js/afegeix-zeros/tauler.js" defer></script>
+    <script src="../js/afegeix-zeros/imprimir.js" defer></script>
+</head>
+<body>
+    <!-- Només a la pantalla: no s'imprimeix -->
+    <nav class="barra">
+        <a href="../afegeix-zeros.html">← Torna al joc</a>
+        <button type="button" data-imprimeix>Imprimeix o desa com a PDF</button>
+        <a href="afegeix-zeros.pdf" download>Descarrega el PDF</a>
+        <span>12 pàgines A4, per imprimir a doble cara i plastificar</span>
+    </nav>
+
+    <!-- ══════════ FULL 1: INSTRUCCIONS (les mateixes del joc) ══════════ -->
+    <section class="pagina mida-instr" data-quins="Instruccions">
+        <p class="intro">Hi ha una igualtat feta amb targetes que tenen un número.</p>
+        <ul class="regles">
+            <li>Afegeix <strong>zeros</strong> a algunes targetes perquè la <strong>igualtat</strong> sigui correcta.</li>
+        </ul>
+
+        <div class="exemples">
+            <figure id="ex-problema"><figcaption>Exemple</figcaption></figure>
+            <figure id="ex-solucio"><figcaption>Solució</figcaption></figure>
+        </div>
+
+        <div class="caixa">
+            <h2>Afegeix zeros a les targetes</h2>
+            <div class="fila">
+                <figure><div class="targeta"><span class="xifra">1</span></div><figcaption class="veredicte"><b>✓</b>No n'hi escrius cap.</figcaption></figure>
+                <figure><div class="targeta"><span class="xifra">2</span><span class="zero">0</span><span class="zero">0</span></div><figcaption class="veredicte"><b>✓</b>N'hi escrius dos.</figcaption></figure>
+                <figure><div class="targeta"><span class="xifra">3</span><span class="zero">0</span></div><figcaption class="veredicte"><b>✓</b>N'hi escrius un.</figcaption></figure>
+                <figure><div class="parella"><div class="targeta"><span class="xifra">1</span><span class="zero">8</span></div><div class="targeta"><span class="xifra">2</span><span class="zero">1</span><span class="zero">0</span></div></div><figcaption class="veredicte"><b>✗</b>No pots escriure xifres que no siguin 0.</figcaption></figure>
+            </div>
+        </div>
+
+        <div class="caixa">
+            <h2>La igualtat ha de ser correcta</h2>
+            <div class="exemples">
+                <figure id="ex-be"><figcaption class="veredicte"><b>✓</b>És correcta.</figcaption></figure>
+                <figure id="ex-malament"><figcaption class="veredicte"><b>✗</b>El càlcul no surt: 10 + 2 + 300 = 312.</figcaption></figure>
+            </div>
+        </div>
+
+        <div class="caixa retolador">
+            <h2>Amb el retolador</h2>
+            <ul>
+                <li>Escriu els <strong>zeros</strong> a l'espai buit de les targetes, just a la dreta del número, ben grossos.</li>
+                <li>Per esborrar, fes servir un drap o un mocador de paper. No hi escriguis mai amb retolador permanent!</li>
+            </ul>
+        </div>
+    </section>
+
+    <!-- ══════════ FULL 2: EN BLANC (el revers de les instruccions) ══════════ -->
+    <section class="pagina"></section>
+
+    <!-- ══════════ FULLS 3 A 12: PROBLEMES 1–49 (5 per full, un per fila), els afegeix js/afegeix-zeros/imprimir.js ══════════ -->
+</body>
+</html>
