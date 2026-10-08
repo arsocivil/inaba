@@ -7,7 +7,7 @@ on no coincidien i per què.
 Quan es faci un puzzle, la seva part passa al seu propi fitxer (com
 [`enllac-multiples.md`](enllac-multiples.md), [`laberint-angles.md`](laberint-angles.md),
 [`expressions-bessones.md`](expressions-bessones.md), [`talla-rectangles.md`](talla-rectangles.md),
-[`creuat-multiples.md`](creuat-multiples.md), [`on-es-la-xifra.md`](on-es-la-xifra.md) i [`busca-el-nombre.md`](busca-el-nombre.md)).
+[`creuat-multiples.md`](creuat-multiples.md), [`on-es-la-xifra.md`](on-es-la-xifra.md), [`busca-el-nombre.md`](busca-el-nombre.md) i [`busca-el-triangle.md`](busca-el-triangle.md)).
 
 **Criteris:**
 
@@ -21,7 +21,6 @@ Quan es faci un puzzle, la seva part passa al seu propi fitxer (com
 | Puzzle | Original | PDF |
 |---|---|---|
 | [Dipòsits d'aigua](#dipòsits-daigua) | 水そうと水 | `mizu` |
-| [Busca el triangle](#busca-el-triangle) | 三角探し | `sankaku` |
 | [L'escala de nombres](#lescala-de-nombres) | 数字の階段 | `step` |
 | [Afegeix zeros](#afegeix-zeros) | ゼロゼロ式 | `zero` |
 | [Busca la figura](#busca-la-figura) | 図形探し | `zukei` |
@@ -50,30 +49,6 @@ Notes:
 - Un dipòsit (vora gruixuda) pot ocupar uns quants cubs, separats per línies fines: un dipòsit ample (l'aigua
   hi fa la mateixa altura a tots els cubs) o alt (de dos pisos).
 - Les fletxes apunten a una fila (des de l'esquerra) o a una columna (des de dalt).
-
----
-
-## Busca el triangle
-
-`src/sankaku_q.pdf` · 三角探し
-
-| Japonès | Català |
-|---|---|
-| 三角探し | Busca el triangle |
-| ・下に書かれた面積の三角形ができるように三つの頂点を選んで辺で結びましょう | · Tria tres vèrtexs i uneix-los amb costats per fer un triangle que tingui l'àrea que hi ha escrita a sota. |
-| 面積３ | Àrea 3 |
-| 基本的な三角形の面積 | L'àrea d'un triangle senzill |
-| 計算してみよう | Calcula-la |
-| 底辺の長さ２ ／ 高さ３ | Base 2 / Altura 3 |
-| ２×３÷２＝３（底辺×高さ÷２＝面積） | 2 × 3 : 2 = 3 (base × altura : 2 = àrea) |
-| 斜めになった三角形の面積 | L'àrea d'un triangle inclinat |
-| 面積９ ／ 面積1.5 ／ 面積２ | Àrea 9 / Àrea 1,5 / Àrea 2 |
-| 全体から周りの三角形をひくと ９－1.5－1.5－２＝４ 面積４ | Si a tot el quadrat li treus els triangles del voltant: 9 − 1,5 − 1,5 − 2 = 4. Àrea 4 |
-
-Notes:
-
-- La traducció de Gemini és correcta. Només cal escriure els decimals amb coma (1,5) i la divisió com es
-  fa a classe.
 
 ---
 

@@ -37,3 +37,5 @@ jobs:
         run: node tests/on-es-la-xifra.test.js
       - name: Busca el nombre
         run: node tests/busca-el-nombre.test.js
+      - name: Busca el triangle
+        run: node tests/busca-el-triangle.test.js

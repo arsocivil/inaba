@@ -1,0 +1,232 @@
+/*
+============================================================================
+FITXER: css/busca-el-triangle.css
+ROL: Estils propis del «Busca el triangle»: la quadrícula de punts, els
+     punts triats, el triangle i el dibuix de com es calcula la seva àrea.
+     Les mides del tauler són relatives a la seva amplada (--amplada, en
+     unitats de tauler.js), perquè s'encongeixi sencer en una pantalla estreta.
+DEPENDÈNCIES: css/comu.css (s'ha de carregar abans).
+============================================================================
+*/
+:root {
+    --primary: #be185d;
+    --primary-light: #fdf2f8;
+    --primary-hover: #9d174d;
+    --primary-dark: #831843;
+    --tinta: #1e293b; /* els punts, com al paper */
+}
+
+/* ══════════════════════════════════════════════
+   EL TAULER: quadrícula, triangle i càlcul (SVG) + punts (HTML)
+══════════════════════════════════════════════ */
+#tauler-wrap {
+    padding-top: 14px;
+}
+.tauler-triangle {
+    position: relative;
+    max-width: 100%;
+    container-type: inline-size;
+    flex-shrink: 0;
+    user-select: none;
+    -webkit-user-select: none;
+}
+.dibuix {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    overflow: visible;
+    pointer-events: none;
+}
+.quadricula {
+    fill: none;
+    stroke: #94a3b8;
+    stroke-width: 1.6;
+    stroke-dasharray: 7 5;
+}
+/* El triangle i els seus costats (també mentre es trien els punts) */
+.triangle {
+    fill: rgba(190, 24, 93, 0.16);
+}
+.costats {
+    fill: none;
+    stroke: var(--primary);
+    stroke-width: 4.5;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+}
+.tauler-triangle.be .triangle {
+    fill: rgba(4, 120, 87, 0.18);
+}
+.tauler-triangle.be .costats {
+    stroke: var(--success);
+}
+.tauler-triangle.malament .triangle {
+    fill: rgba(220, 38, 38, 0.14);
+}
+.tauler-triangle.malament .costats {
+    stroke: var(--danger);
+}
+.guia {
+    stroke: var(--primary);
+    stroke-width: 3;
+    stroke-dasharray: 6 6;
+    stroke-linecap: round;
+    opacity: 0.6;
+}
+
+/* ---- Com es calcula l'àrea ---- */
+.calcul .base {
+    stroke: var(--tinta);
+    stroke-width: 7;
+    stroke-linecap: round;
+    opacity: 0.35;
+}
+.calcul .altura,
+.calcul .allarga {
+    stroke: var(--tinta);
+    stroke-width: 2.5;
+    stroke-dasharray: 6 5;
+}
+.calcul .escaire {
+    fill: none;
+    stroke: var(--tinta);
+    stroke-width: 2;
+}
+.calcul .caixa {
+    fill: none;
+    stroke: var(--tinta);
+    stroke-width: 2.5;
+    stroke-dasharray: 8 5;
+}
+.calcul .peca {
+    fill: rgba(30, 41, 59, 0.13);
+    stroke: rgba(30, 41, 59, 0.45);
+    stroke-width: 1.5;
+}
+.etiq {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-weight: 800;
+    fill: var(--tinta);
+    stroke: white;
+    stroke-width: 4;
+    stroke-linejoin: round;
+    paint-order: stroke;
+}
+.etiq.mida {
+    font-size: 17px;
+}
+.etiq.area-peca {
+    font-size: 18px;
+}
+
+/* ---- Un punt ---- */
+.punt {
+    position: absolute;
+    border-radius: 50%;
+    background: var(--tinta);
+    cursor: pointer;
+    touch-action: none;
+    transition: transform 0.15s;
+}
+/* Zona tàctil molt més gran que el punt */
+.punt::before {
+    content: '';
+    position: absolute;
+    inset: -110%;
+    border-radius: 50%;
+}
+/* Triat: una anella al voltant, com les solucions del PDF */
+.punt::after {
+    content: '';
+    position: absolute;
+    inset: -55%;
+    border-radius: 50%;
+    border: calc(100cqw * 3 / var(--amplada)) solid transparent;
+    transition:
+        border-color 0.15s,
+        transform 0.15s;
+    transform: scale(0.6);
+}
+.punt.triat {
+    background: var(--primary);
+}
+.punt.triat::after {
+    border-color: var(--primary);
+    transform: scale(1);
+}
+.tauler-triangle.be .punt.triat {
+    background: var(--success);
+}
+.tauler-triangle.be .punt.triat::after {
+    border-color: var(--success);
+}
+.tauler-triangle.malament .punt.triat {
+    background: var(--danger);
+}
+.tauler-triangle.malament .punt.triat::after {
+    border-color: var(--danger);
+}
+@media (hover: hover) {
+    .tauler-triangle:not(.resolt):not(.estatic) .punt:hover {
+        transform: scale(1.35);
+    }
+}
+.punt:focus {
+    outline: none;
+}
+.punt:focus-visible {
+    outline: 3px solid var(--primary-dark);
+    outline-offset: calc(100cqw * 9 / var(--amplada));
+}
+.tauler-triangle.resolt .punt,
+.tauler-triangle.estatic .punt {
+    cursor: default;
+}
+.tauler-triangle.traçant .punt {
+    cursor: crosshair;
+}
+.punt.acaba-de-posar {
+    animation: posa 0.25s ease-out;
+}
+.punt.sacseja {
+    animation: sacseja 0.3s;
+}
+@keyframes posa {
+    from {
+        transform: scale(1.8);
+    }
+}
+
+/* ---- L'àrea que demana el problema (a sota, com al PDF) ---- */
+.area-objectiu {
+    margin: 10px 0 0 0;
+    text-align: center;
+    font-size: 1.35em;
+    font-weight: 800;
+    color: var(--text-main);
+}
+.area-objectiu strong {
+    display: inline-block;
+    min-width: 1.8em;
+    margin-left: 4px;
+    padding: 2px 10px;
+    border-radius: 8px;
+    background: var(--primary-light);
+    color: var(--primary-dark);
+    border: 2px solid var(--primary);
+}
+
+/* ---- Instruccions ---- */
+.formula {
+    margin: 6px 0;
+    text-align: center;
+    font-size: 1.15em;
+    font-weight: 800;
+    line-height: 1.5;
+}
+.formula span {
+    font-size: 0.85em;
+    font-weight: 600;
+    color: var(--text-muted);
+}

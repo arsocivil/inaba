@@ -127,6 +127,17 @@
             border-color: #c2410c;
             box-shadow: 0 8px 20px rgba(194, 65, 12, 0.15);
         }
+        .puzzle.busca-el-triangle {
+            border-top-color: #be185d;
+        }
+        .puzzle.busca-el-triangle strong,
+        .puzzle.busca-el-triangle .progres {
+            color: #831843;
+        }
+        a.puzzle.busca-el-triangle:hover {
+            border-color: #be185d;
+            box-shadow: 0 8px 20px rgba(190, 24, 93, 0.15);
+        }
         .puzzle.aviat {
             border-top-color: var(--border-heavy);
             box-shadow: none;
@@ -198,12 +209,17 @@
             <span class="desc">Posa el quadrat on hi ha el nombre de pomes o mandarines que et demanen.</span>
             <span class="progres" id="progres-nombre">42 problemes</span>
         </a>
+        <a class="puzzle busca-el-triangle" href="busca-el-triangle.html">
+            <strong>Busca el triangle</strong>
+            <span class="jp">三角探し</span>
+            <span class="desc">Tria tres punts de la quadrícula que facin un triangle amb l'àrea que et demanen.</span>
+            <span class="progres" id="progres-triangle">42 problemes</span>
+        </a>
     </div>
 
     <h2>Properament</h2>
     <div class="llista">
         <div class="puzzle aviat"><strong>Dipòsits d'aigua</strong><span class="jp">水そうと水</span></div>
-        <div class="puzzle aviat"><strong>Busca el triangle</strong><span class="jp">三角探し</span></div>
         <div class="puzzle aviat"><strong>L'escala de nombres</strong><span class="jp">数字の階段</span></div>
         <div class="puzzle aviat"><strong>Afegeix zeros</strong><span class="jp">ゼロゼロ式</span></div>
         <div class="puzzle aviat"><strong>Busca la figura</strong><span class="jp">図形探し</span></div>

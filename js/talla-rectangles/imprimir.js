@@ -50,7 +50,15 @@
     // Les tres peces, separades
     const peces = { 'ex-3': ['A', 'A', 'A'], 'ex-6': ['AAA', 'AAA'], 'ex-5': ['AAAAA'] };
     Object.entries(peces).forEach(([id, files]) => {
-        $(id).prepend(figura(files.map(f => f.replace(/A/g, '#')), pecesDeText(files), 10, 80, 40));
+        $(id).prepend(
+            figura(
+                files.map(f => f.replace(/A/g, '#')),
+                pecesDeText(files),
+                10,
+                80,
+                40
+            )
+        );
     });
 
     // ---- Fulls de problemes: 4 per full (2 × 2), perquè les figures no quedin atapeïdes ----

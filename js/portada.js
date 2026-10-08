@@ -14,6 +14,7 @@
         { clau: 'inaba.creuat-multiples', el: 'progres-creuat', total: 42 },
         { clau: 'inaba.on-es-la-xifra', el: 'progres-xifra', total: 42 },
         { clau: 'inaba.busca-el-nombre', el: 'progres-nombre', total: 42 },
+        { clau: 'inaba.busca-el-triangle', el: 'progres-triangle', total: 42 },
     ];
     PUZZLES.forEach(({ clau, el, total }) => {
         try {

@@ -1,0 +1,161 @@
+/*
+============================================================================
+FITXER: css/imprimir-busca-el-triangle.css
+ROL: Les quadrícules del «Busca el triangle» en paper: línies de punts en
+     gris fosc, punts negres grans (s'hi encerclen els vèrtexs amb el
+     retolador) i l'àrea que es demana en negreta.
+ARQUITECTURA: Fa servir el mateix DOM que el joc (TaulerTriangle), però amb
+     mides en mm: --k (el posa js/busca-el-triangle/imprimir.js) són els mm
+     d'una unitat del tauler; un quadret fa 64 unitats. Només blanc, negre i
+     gris fosc: sense els colors ni els farcits del joc (impressora en B/N).
+DEPENDÈNCIES: css/imprimir.css (s'ha de carregar abans).
+============================================================================
+*/
+figure {
+    margin: 0;
+}
+
+/* ---- La quadrícula: línies i triangle (SVG) + punts (HTML), en unitats de tauler.js ---- */
+.tauler-triangle {
+    position: relative;
+    flex-shrink: 0;
+}
+.dibuix {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    overflow: visible;
+}
+.quadricula {
+    fill: none;
+    stroke: var(--gris);
+    stroke-width: calc(0.3 / var(--k));
+    stroke-dasharray: calc(1.4 / var(--k)) calc(1.1 / var(--k));
+}
+.triangle {
+    fill: none;
+}
+.costats {
+    fill: none;
+    stroke: var(--tinta);
+    stroke-width: calc(0.8 / var(--k));
+    stroke-linecap: round;
+    stroke-linejoin: round;
+}
+.guia {
+    display: none;
+}
+
+/* ---- Com es calcula l'àrea (instruccions) ---- */
+.calcul .base {
+    stroke: var(--gris);
+    stroke-width: calc(1.6 / var(--k));
+    stroke-linecap: round;
+}
+.calcul .altura,
+.calcul .allarga,
+.calcul .caixa {
+    fill: none;
+    stroke: var(--tinta);
+    stroke-width: calc(0.45 / var(--k));
+    stroke-dasharray: calc(1.2 / var(--k)) calc(0.8 / var(--k));
+}
+.calcul .escaire {
+    fill: none;
+    stroke: var(--tinta);
+    stroke-width: calc(0.35 / var(--k));
+}
+.calcul .peca {
+    fill: none;
+    stroke: var(--gris);
+    stroke-width: calc(0.3 / var(--k));
+}
+.etiq {
+    font-family: Inter, 'Segoe UI', Arial, sans-serif;
+    font-weight: 800;
+    fill: var(--tinta);
+    stroke: white;
+    stroke-width: 4;
+    stroke-linejoin: round;
+    paint-order: stroke;
+}
+.etiq.mida {
+    font-size: 19px;
+}
+.etiq.area-peca {
+    font-size: 21px;
+}
+
+/* ---- Un punt: negre; el triat (instruccions) amb una anella, com al PDF de solucions ---- */
+.punt {
+    position: absolute;
+    border-radius: 50%;
+    background: var(--tinta);
+}
+.punt.triat::after {
+    content: '';
+    position: absolute;
+    inset: -70%;
+    border-radius: 50%;
+    border: 0.35mm solid var(--tinta);
+}
+
+/* ---- Fulls de problemes: l'àrea al costat del número, i la quadrícula centrada ---- */
+.problemes {
+    align-items: stretch;
+}
+.problema {
+    position: relative;
+    justify-content: flex-start;
+}
+.triangle-full {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.area {
+    position: absolute;
+    top: 0;
+    left: 11mm; /* just a la dreta del número del problema */
+    height: 8mm;
+    display: flex;
+    align-items: center;
+    gap: 1.8mm;
+    font-size: 12pt;
+    font-weight: 700;
+}
+.area b {
+    min-width: 9mm;
+    height: 8mm;
+    padding: 0 2mm;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 0.45mm solid var(--tinta);
+    border-radius: 1.5mm;
+    font-size: 14pt;
+    font-weight: 800;
+}
+
+/* ---- Full d'instruccions ---- */
+.mida-instr .fila {
+    gap: 9mm;
+}
+.formula {
+    margin: 0;
+    font-size: 13pt;
+    font-weight: 800;
+    line-height: 1.5;
+    text-align: center;
+}
+.formula span {
+    font-size: 11pt;
+    font-weight: 600;
+    color: var(--gris);
+}
+/* L'etiqueta «base 2» queda a sota de la quadrícula: una mica d'aire abans del peu */
+#ex-senzill figcaption {
+    margin-top: 2mm;
+}

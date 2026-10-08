@@ -60,12 +60,15 @@
     window.Imprimir.problemes({
         total: P.llista.length,
         perFull: 6,
-        regla: 'A la punta de cada fletxa hi va un <strong>múltiple</strong> de la targeta d\'on surt.',
+        regla: "A la punta de cada fletxa hi va un <strong>múltiple</strong> de la targeta d'on surt.",
         dibuixa: i => {
             const div = document.createElement('div');
             div.className = 'enllac';
             const p = P.llista[i];
-            const tauler = T.estatic(p, p.llocs.map(l => (l.length > 2 ? l[2] : null)));
+            const tauler = T.estatic(
+                p,
+                p.llocs.map(l => (l.length > 2 ? l[2] : null))
+            );
             // Els taulers de dues files (2 × 2) són alts: les targetes van a la dreta, en columna
             const duesFiles = p.llocs.some(l => l[1] > 0);
             div.classList.toggle('en-columna', duesFiles);

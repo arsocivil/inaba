@@ -16,8 +16,9 @@ Els PDF originals (en japonès) són a [`src/`](src/): `*_q.pdf` són els enunci
 | Creuat de múltiples | 倍数クロス (`bcross`) | [`creuat-multiples.html`](creuat-multiples.html) | 42 |
 | On és la xifra? | どこかな算 (`dokoeq`) | [`on-es-la-xifra.html`](on-es-la-xifra.html) | 42 |
 | Busca el nombre | かずさがし (`kazu`) | [`busca-el-nombre.html`](busca-el-nombre.html) | 42 |
+| Busca el triangle | 三角探し (`sankaku`) | [`busca-el-triangle.html`](busca-el-triangle.html) | 42 |
 
-La portada ([`index.html`](index.html)) també llista els altres 5 puzzles de `src/` com a «Properament».
+La portada ([`index.html`](index.html)) també llista els altres 4 puzzles de `src/` com a «Properament».
 La traducció de les instruccions de cada puzzle i les notes sobre els problemes són a [`docs/`](docs/).
 Les dels puzzles que encara no s'han fet són a [`docs/traduccions.md`](docs/traduccions.md).
 
@@ -113,6 +114,17 @@ solució del PDF, que és l'única que hi ha.
 En posar el quadrat es comprova sol: si no és el lloc, es diu què hi ha dins («Aquí hi ha 3 pomes, i en volies 2»)
 i es pot provar un altre lloc.
 
+## Com es juga a Busca el triangle
+
+- **Tocar o clicar** un punt el tria (li surt una anella); tocar-ne un de triat el treu.
+- **Traçar** (amb el ratolí o el dit): prémer un punt i passar per uns altres, com si es dibuixessin els costats.
+  Si el traç passa en línia recta per sobre d'un punt, aquest punt no queda triat.
+- **Teclat**: fletxes per anar d'un punt a l'altre, Enter per triar-lo o treure'l, ⌫ o Supr per treure'l, Esc per
+  treure'ls tots.
+
+Amb tres punts es comprova sol, i es dibuixa com es calcula l'àrea: base × altura : 2 si un costat és horitzontal
+o vertical, o el rectangle que envolta el triangle menys les peces del voltant si és inclinat.
+
 ## Comú als puzzles
 
 - Els problemes resolts es desen al navegador (localStorage) i es veuen amb un ✓ a «Escull…» i a la
@@ -134,6 +146,7 @@ la pàgina 1 són les instruccions, la 2 és en blanc (el revers) i a partir de 
 | Enllaç de múltiples | [`imprimir/enllac-multiples.html`](imprimir/enllac-multiples.html) | [`imprimir/enllac-multiples.pdf`](imprimir/enllac-multiples.pdf) (9 pàgines) |
 | Laberint d'angles | [`imprimir/laberint-angles.html`](imprimir/laberint-angles.html) | [`imprimir/laberint-angles.pdf`](imprimir/laberint-angles.pdf) (12 pàgines, 4 problemes per full) |
 | Talla en rectangles | [`imprimir/talla-rectangles.html`](imprimir/talla-rectangles.html) | [`imprimir/talla-rectangles.pdf`](imprimir/talla-rectangles.pdf) (13 pàgines, 4 problemes per full) |
+| Busca el triangle | [`imprimir/busca-el-triangle.html`](imprimir/busca-el-triangle.html) | [`imprimir/busca-el-triangle.pdf`](imprimir/busca-el-triangle.pdf) (9 pàgines) |
 
 S'hi arriba des de l'enllaç «Versió per imprimir» de dalt de la pàgina del joc. La pàgina té un botó per
 imprimir-la o desar-la com a PDF des del navegador. El PDF del repositori el fa
@@ -168,6 +181,7 @@ tools/extreu-rectangles.py     ← llegeix les figures del PDF i escriu js/talla
 tools/extreu-creuat.py         ← llegeix els quadres del PDF i escriu js/creuat-multiples/problemes.js
 tools/extreu-xifra.py          ← llegeix les sumes del PDF i escriu js/on-es-la-xifra/problemes.js
 tools/extreu-kazu.py           ← llegeix els quadres del PDF i escriu js/busca-el-nombre/problemes.js
+tools/extreu-triangle.py       ← llegeix les quadrícules de punts del PDF i escriu js/busca-el-triangle/problemes.js
 tools/genera-pdf.js            ← fa el PDF per imprimir d'un puzzle (imprimir/<puzzle>.html → .pdf)
 imprimir/<puzzle>.html, .pdf   ← versió per imprimir i el seu PDF
 css/imprimir.css               ← estils comuns de les versions per imprimir (+ css/imprimir-<puzzle>.css)
@@ -187,6 +201,7 @@ node tests/talla-rectangles.test.js
 node tests/creuat-multiples.test.js
 node tests/on-es-la-xifra.test.js
 node tests/busca-el-nombre.test.js
+node tests/busca-el-triangle.test.js
 ```
 
 GitHub els executa sols a cada pull request i a cada canvi a `main` (pestanya **Actions**).
