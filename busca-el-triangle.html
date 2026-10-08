@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="ca">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Puzzle d'àrees: tria tres punts d'una quadrícula que facin un triangle amb l'àrea indicada.">
+    <title>Busca el triangle</title>
+    <link rel="icon" href="icon.png">
+    <link rel="stylesheet" href="css/comu.css">
+    <link rel="stylesheet" href="css/busca-el-triangle.css">
+</head>
+<body>
+    <nav class="dalt">
+        <a class="tornar" href="index.html">← Tots els puzzles</a>
+    </nav>
+    <div class="title-row">
+        <a href="https://step-quiz.net/" class="home-icon-link" title="Tornar a l'inici" aria-label="Tornar a l'inici">
+            <img src="icon.png" alt="Inici">
+        </a>
+        <h1>Busca el triangle</h1>
+    </div>
+
+    <!-- ══════════ INSTRUCCIONS (traducció de la pàgina 1 de src/sankaku_q.pdf) ══════════ -->
+    <details class="instruccions" id="instruccions">
+        <summary>Com es juga?</summary>
+        <div class="instr-cos">
+            <ul class="instr-regles">
+                <li>Tria <strong>tres vèrtexs</strong> i uneix-los amb costats per fer un <strong>triangle</strong> que tingui l'<strong>àrea</strong> que hi ha escrita a sota.</li>
+            </ul>
+
+            <div class="instr-fila exemple">
+                <figure id="ex-problema"><figcaption>Exemple: àrea 3</figcaption></figure>
+                <span class="instr-fletxa-gran" aria-hidden="true">→</span>
+                <figure id="ex-solucio"><figcaption>Solució</figcaption></figure>
+            </div>
+
+            <div class="instr-caixa">
+                <h3>L'àrea d'un triangle senzill</h3>
+                <div class="instr-fila">
+                    <figure id="ex-senzill"><figcaption>Calcula-la</figcaption></figure>
+                    <p class="formula">2 × 3 : 2 = 3<br><span>(base × altura : 2 = àrea)</span></p>
+                </div>
+            </div>
+
+            <div class="instr-caixa">
+                <h3>L'àrea d'un triangle inclinat</h3>
+                <div class="instr-fila exemple">
+                    <figure id="ex-inclinat"><figcaption>Calcula-la</figcaption></figure>
+                    <span class="instr-fletxa-gran" aria-hidden="true">→</span>
+                    <figure id="ex-inclinat-caixa"><figcaption>El quadrat fa 3 × 3 = 9</figcaption></figure>
+                </div>
+                <p class="formula">Si a tot el quadrat li treus els triangles del voltant:<br>9 − 1,5 − 1,5 − 2 = 4. <strong>Àrea 4</strong></p>
+                <p class="instr-compte">Cada quadret fa 1 d'àrea. Toca tres punts (o arrossega d'un punt a l'altre); per treure un punt, toca'l un altre cop.</p>
+            </div>
+        </div>
+    </details>
+
+    <!-- ══════════ JOC ══════════ -->
+    <main class="panel">
+        <div class="header-info">
+            <div class="level-text"><span id="titol-problema">Problema 1 de 42</span><span class="ja-resolt" id="ja-resolt" hidden>✓ resolt</span></div>
+            <div class="score-text" id="comptador">Resolts: 0 / 42</div>
+            <nav class="nav-problemes" aria-label="Problemes">
+                <button type="button" class="btn-nav" id="btn-anterior" aria-label="Problema anterior"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15 4l-8 8 8 8" fill="none" stroke="currentColor" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+                <button type="button" class="btn-nav" id="btn-tria">Escull…</button>
+                <button type="button" class="btn-nav" id="btn-seguent" aria-label="Problema següent"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 4l8 8-8 8" fill="none" stroke="currentColor" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+            </nav>
+        </div>
+
+        <p class="regla">Tria <strong>tres punts</strong>: han de fer un <strong>triangle</strong> amb l'<strong>àrea</strong> que hi ha a sota.</p>
+        <div id="tauler-wrap"></div>
+        <p class="area-objectiu">Àrea <strong id="area-demanada">3</strong></p>
+
+        <div class="missatge" id="missatge" aria-live="polite"></div>
+
+        <div class="accions">
+            <button type="button" class="btn-sec" id="btn-reinicia">↺ Torna a començar</button>
+        </div>
+    </main>
+
+    <p class="credits">Puzzle original de Naoki Inaba</p>
+    <footer class="peu-llicencia">
+        <a rel="license" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.ca">
+            <img alt="Llicència CC BY-NC-SA" src="https://licensebuttons.net/l/by-nc-sa/4.0/88x31.png">
+        </a>
+        <span>
+            © 2026 <strong>David Arso Civil</strong> · Departament de Matemàtiques, INS Miquel Tarradell.
+            Contingut: <a rel="license" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.ca">CC BY-NC-SA 4.0</a> · Codi: <a href="https://opensource.org/license/mit">MIT</a>.
+        </span>
+    </footer>
+
+    <!-- ══════════ TRIA DE PROBLEMA ══════════ -->
+    <dialog class="dialeg-tria" id="dialeg-tria" aria-labelledby="tria-titol">
+        <h2 id="tria-titol">Escull un problema</h2>
+        <p>Van de més fàcils a més difícils. Els que ja has resolt tenen un ✓.</p>
+        <div class="graella" id="graella-problemes"></div>
+        <div class="dialeg-peu">
+            <button type="button" class="btn-text" id="btn-esborra-progres">Esborra els ✓</button>
+            <button type="button" class="btn-sec" id="btn-tanca-tria">Tanca</button>
+        </div>
+    </dialog>
+
+    <script src="js/comu.js" defer></script>
+    <script src="js/busca-el-triangle/problemes.js" defer></script>
+    <script src="js/busca-el-triangle/motor.js" defer></script>
+    <script src="js/busca-el-triangle/tauler.js" defer></script>
+    <script src="js/busca-el-triangle/busca-el-triangle.js" defer></script>
+</body>
+</html>
