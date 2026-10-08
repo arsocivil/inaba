@@ -174,7 +174,7 @@ Quan tots els totals quadren, es diu sol. El botó «Comprova» diu quins totals
 
 Fulls A4 per imprimir a doble cara (en blanc i negre), plastificar i escriure-hi amb retolador de pissarra:
 la pàgina 1 són les instruccions, la 2 és en blanc (el revers) i a partir de la 3 hi ha 6 problemes per full
-(4 al Laberint d'angles, al Talla en rectangles i a L'escala de nombres, que tenen figures més grans;
+(4 al Laberint d'angles, al Talla en rectangles, a L'escala de nombres i als Dipòsits d'aigua, que tenen figures més grans;
 a Afegeix zeros, 5 igualtats per full, una per fila).
 
 | Puzzle | Pàgina | PDF |
@@ -190,6 +190,7 @@ a Afegeix zeros, 5 igualtats per full, una per fila).
 | L'escala de nombres | [`imprimir/escala-nombres.html`](imprimir/escala-nombres.html) | [`imprimir/escala-nombres.pdf`](imprimir/escala-nombres.pdf) (13 pàgines, 4 problemes per full) |
 | Busca la figura | [`imprimir/busca-la-figura.html`](imprimir/busca-la-figura.html) | [`imprimir/busca-la-figura.pdf`](imprimir/busca-la-figura.pdf) (9 pàgines) |
 | Afegeix zeros | [`imprimir/afegeix-zeros.html`](imprimir/afegeix-zeros.html) | [`imprimir/afegeix-zeros.pdf`](imprimir/afegeix-zeros.pdf) (12 pàgines, 5 igualtats per full, una per fila) |
+| Dipòsits d'aigua | [`imprimir/diposits-aigua.html`](imprimir/diposits-aigua.html) | [`imprimir/diposits-aigua.pdf`](imprimir/diposits-aigua.pdf) (13 pàgines, 4 problemes per full) |
 
 S'hi arriba des de l'enllaç «Versió per imprimir» de dalt de la pàgina del joc. La pàgina té un botó per
 imprimir-la o desar-la com a PDF des del navegador. El PDF del repositori el fa

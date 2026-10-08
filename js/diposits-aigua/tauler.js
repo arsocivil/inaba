@@ -53,6 +53,12 @@ window.TaulerDiposits = (() => {
         el.style.setProperty('--amplada', W);
 
         const s = svg('svg', { 'class': 'dibuix', 'viewBox': `0 0 ${W} ${H}`, 'aria-hidden': 'true' });
+        // Per a la versió per imprimir (en blanc i negre): l'aigua ratllada en diagonal
+        const defs = svg('defs');
+        const ratlles = svg('pattern', { id: 'aigua-ratllada', patternUnits: 'userSpaceOnUse', width: 14, height: 14 });
+        ratlles.appendChild(svg('path', { d: 'M-2 2l4-4M0 14L14 0M12 16l4-4', class: 'ratlla' }));
+        defs.appendChild(ratlles);
+        s.appendChild(defs);
         const aigua = svg('g', { class: 'aigua' });
         const quantitats = svg('g', { class: 'quantitats' });
         s.appendChild(aigua);
