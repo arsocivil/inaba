@@ -7,7 +7,7 @@ on no coincidien i per què.
 Quan es faci un puzzle, la seva part passa al seu propi fitxer (com
 [`enllac-multiples.md`](enllac-multiples.md), [`laberint-angles.md`](laberint-angles.md),
 [`expressions-bessones.md`](expressions-bessones.md), [`talla-rectangles.md`](talla-rectangles.md),
-[`creuat-multiples.md`](creuat-multiples.md), [`on-es-la-xifra.md`](on-es-la-xifra.md), [`busca-el-nombre.md`](busca-el-nombre.md) i [`busca-el-triangle.md`](busca-el-triangle.md)).
+[`creuat-multiples.md`](creuat-multiples.md), [`on-es-la-xifra.md`](on-es-la-xifra.md), [`busca-el-nombre.md`](busca-el-nombre.md), [`busca-el-triangle.md`](busca-el-triangle.md) i [`escala-nombres.md`](escala-nombres.md)).
 
 **Criteris:**
 
@@ -21,7 +21,6 @@ Quan es faci un puzzle, la seva part passa al seu propi fitxer (com
 | Puzzle | Original | PDF |
 |---|---|---|
 | [Dipòsits d'aigua](#dipòsits-daigua) | 水そうと水 | `mizu` |
-| [L'escala de nombres](#lescala-de-nombres) | 数字の階段 | `step` |
 | [Afegeix zeros](#afegeix-zeros) | ゼロゼロ式 | `zero` |
 | [Busca la figura](#busca-la-figura) | 図形探し | `zukei` |
 
@@ -49,29 +48,6 @@ Notes:
 - Un dipòsit (vora gruixuda) pot ocupar uns quants cubs, separats per línies fines: un dipòsit ample (l'aigua
   hi fa la mateixa altura a tots els cubs) o alt (de dos pisos).
 - Les fletxes apunten a una fila (des de l'esquerra) o a una columna (des de dalt).
-
----
-
-## L'escala de nombres
-
-`src/step_q.pdf` · 数字の階段
-
-| Japonès | Català |
-|---|---|
-| 数字の階段 | L'escala de nombres |
-| 空いている○に「１以上の整数」を入れてください | Escriu un nombre enter més gran o igual que 1 a cada cercle buit. |
-| ・一つの列に同じ整数が入ってはいけません | · En una mateixa filera no hi pot haver dos nombres iguals. |
-| ・一列に並んでいる整数は一方のはしから同じ数ずつ増えます | · Els nombres d'una filera augmenten sempre la mateixa quantitat, començant per una de les puntes. |
-| 一つの列に３がいくつも入っています | Aquesta filera té el 3 més d'una vegada. ✗ |
-| ！注意！ ０は使えません | Compte! No es pot fer servir el 0. |
-| 二桁以上の整数が入ることもあります | Hi pot haver nombres de dues xifres o més. |
-| １ずつ増えています ／ ２ずつ増えています ／ ３ずつ増えています | Augmenten d'1 en 1 / de 2 en 2 / de 3 en 3 |
-
-Notes:
-
-- Una «filera» és cada línia de cercles units (horitzontal o inclinada). Cada filera és una **progressió
-  aritmètica** de diferència 1 o més (com que no es poden repetir nombres, la diferència no pot ser 0).
-- La traducció de Gemini és correcta; només calia «d'augment» (no «de augment») i treure el «¡».
 
 ---
 

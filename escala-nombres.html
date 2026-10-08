@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="ca">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Puzzle de progressions: escriu un nombre a cada cercle perquè cada filera augmenti sempre la mateixa quantitat.">
+    <title>L'escala de nombres</title>
+    <link rel="icon" href="icon.png">
+    <link rel="stylesheet" href="css/comu.css">
+    <link rel="stylesheet" href="css/escala-nombres.css">
+</head>
+<body>
+    <nav class="dalt">
+        <a class="tornar" href="index.html">← Tots els puzzles</a>
+    </nav>
+    <div class="title-row">
+        <a href="https://step-quiz.net/" class="home-icon-link" title="Tornar a l'inici" aria-label="Tornar a l'inici">
+            <img src="icon.png" alt="Inici">
+        </a>
+        <h1>L'escala de nombres</h1>
+    </div>
+
+    <!-- ══════════ INSTRUCCIONS (traducció de la pàgina 1 de src/step_q.pdf) ══════════ -->
+    <details class="instruccions" id="instruccions">
+        <summary>Com es juga?</summary>
+        <div class="instr-cos">
+            <ul class="instr-regles">
+                <li>Escriu un <strong>nombre enter més gran o igual que 1</strong> a cada cercle buit.</li>
+                <li>En una mateixa <strong>filera</strong> no hi pot haver dos nombres iguals.</li>
+                <li>Els nombres d'una filera <strong>augmenten sempre la mateixa quantitat</strong>, començant per una de les puntes.</li>
+            </ul>
+
+            <div class="instr-fila exemple">
+                <figure id="ex-problema"><figcaption>Exemple</figcaption></figure>
+                <span class="instr-fletxa-gran" aria-hidden="true">→</span>
+                <figure id="ex-solucio"><figcaption>Solució</figcaption></figure>
+            </div>
+
+            <div class="instr-caixa">
+                <h3>En una mateixa filera no hi pot haver dos nombres iguals</h3>
+                <div class="instr-fila">
+                    <figure id="ex-repetit"><figcaption class="instr-veredicte malament"><b>✗</b>Aquesta filera té el 3 més d'una vegada.</figcaption></figure>
+                    <p class="instr-compte">Compte! No es pot fer servir el 0. Hi pot haver nombres de dues xifres o més.</p>
+                </div>
+            </div>
+
+            <div class="instr-caixa">
+                <h3>Els nombres d'una filera augmenten sempre la mateixa quantitat, començant per una de les puntes</h3>
+                <div class="instr-fila">
+                    <figure id="ex-salts"></figure>
+                    <ul class="instr-salts">
+                        <li>1, 2, 3: augmenten d'1 en 1.</li>
+                        <li>1, 3, 5: augmenten de 2 en 2.</li>
+                        <li>2, 5, 8: augmenten de 3 en 3.</li>
+                    </ul>
+                </div>
+                <p class="instr-compte">Toca un cercle i escriu-hi el nombre amb les xifres de sota (per fer 12, toca l'1 i després el 2).</p>
+            </div>
+        </div>
+    </details>
+
+    <!-- ══════════ JOC ══════════ -->
+    <main class="panel">
+        <div class="header-info">
+            <div class="level-text"><span id="titol-problema">Problema 1 de 42</span><span class="ja-resolt" id="ja-resolt" hidden>✓ resolt</span></div>
+            <div class="score-text" id="comptador">Resolts: 0 / 42</div>
+            <nav class="nav-problemes" aria-label="Problemes">
+                <button type="button" class="btn-nav" id="btn-anterior" aria-label="Problema anterior"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15 4l-8 8 8 8" fill="none" stroke="currentColor" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+                <button type="button" class="btn-nav" id="btn-tria">Escull…</button>
+                <button type="button" class="btn-nav" id="btn-seguent" aria-label="Problema següent"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 4l8 8-8 8" fill="none" stroke="currentColor" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+            </nav>
+        </div>
+
+        <p class="regla">Escriu un nombre a cada cercle buit: a cada <strong>filera</strong>, han d'<strong>augmentar sempre igual</strong>.</p>
+        <div id="tauler-wrap"></div>
+        <div class="pila-wrap">
+            <div class="pila-titol" id="pila-titol">Xifres</div>
+            <div class="pila xifres" id="pila" role="group" aria-labelledby="pila-titol"></div>
+        </div>
+
+        <div class="missatge" id="missatge" aria-live="polite"></div>
+
+        <div class="accions">
+            <button type="button" class="btn-sec" id="btn-reinicia">↺ Torna a començar</button>
+        </div>
+    </main>
+
+    <p class="credits">Puzzle original de Naoki Inaba</p>
+    <footer class="peu-llicencia">
+        <a rel="license" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.ca">
+            <img alt="Llicència CC BY-NC-SA" src="https://licensebuttons.net/l/by-nc-sa/4.0/88x31.png">
+        </a>
+        <span>
+            © 2026 <strong>David Arso Civil</strong> · Departament de Matemàtiques, INS Miquel Tarradell.
+            Contingut: <a rel="license" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.ca">CC BY-NC-SA 4.0</a> · Codi: <a href="https://opensource.org/license/mit">MIT</a>.
+        </span>
+    </footer>
+
+    <!-- ══════════ TRIA DE PROBLEMA ══════════ -->
+    <dialog class="dialeg-tria" id="dialeg-tria" aria-labelledby="tria-titol">
+        <h2 id="tria-titol">Escull un problema</h2>
+        <p>Van de més fàcils a més difícils. Els que ja has resolt tenen un ✓.</p>
+        <div class="graella" id="graella-problemes"></div>
+        <div class="dialeg-peu">
+            <button type="button" class="btn-text" id="btn-esborra-progres">Esborra els ✓</button>
+            <button type="button" class="btn-sec" id="btn-tanca-tria">Tanca</button>
+        </div>
+    </dialog>
+
+    <script src="js/comu.js" defer></script>
+    <script src="js/escala-nombres/problemes.js" defer></script>
+    <script src="js/escala-nombres/motor.js" defer></script>
+    <script src="js/escala-nombres/tauler.js" defer></script>
+    <script src="js/escala-nombres/escala-nombres.js" defer></script>
+</body>
+</html>

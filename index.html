@@ -138,6 +138,17 @@
             border-color: #be185d;
             box-shadow: 0 8px 20px rgba(190, 24, 93, 0.15);
         }
+        .puzzle.escala-nombres {
+            border-top-color: #0e7490;
+        }
+        .puzzle.escala-nombres strong,
+        .puzzle.escala-nombres .progres {
+            color: #164e63;
+        }
+        a.puzzle.escala-nombres:hover {
+            border-color: #0e7490;
+            box-shadow: 0 8px 20px rgba(14, 116, 144, 0.15);
+        }
         .puzzle.aviat {
             border-top-color: var(--border-heavy);
             box-shadow: none;
@@ -215,12 +226,17 @@
             <span class="desc">Tria tres punts de la quadrícula que facin un triangle amb l'àrea que et demanen.</span>
             <span class="progres" id="progres-triangle">42 problemes</span>
         </a>
+        <a class="puzzle escala-nombres" href="escala-nombres.html">
+            <strong>L'escala de nombres</strong>
+            <span class="jp">数字の階段</span>
+            <span class="desc">Escriu un nombre a cada cercle perquè cada filera augmenti sempre la mateixa quantitat.</span>
+            <span class="progres" id="progres-escala">42 problemes</span>
+        </a>
     </div>
 
     <h2>Properament</h2>
     <div class="llista">
         <div class="puzzle aviat"><strong>Dipòsits d'aigua</strong><span class="jp">水そうと水</span></div>
-        <div class="puzzle aviat"><strong>L'escala de nombres</strong><span class="jp">数字の階段</span></div>
         <div class="puzzle aviat"><strong>Afegeix zeros</strong><span class="jp">ゼロゼロ式</span></div>
         <div class="puzzle aviat"><strong>Busca la figura</strong><span class="jp">図形探し</span></div>
     </div>

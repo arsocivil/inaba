@@ -39,3 +39,5 @@ jobs:
         run: node tests/busca-el-nombre.test.js
       - name: Busca el triangle
         run: node tests/busca-el-triangle.test.js
+      - name: L'escala de nombres
+        run: node tests/escala-nombres.test.js

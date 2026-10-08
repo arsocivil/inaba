@@ -15,6 +15,7 @@
         { clau: 'inaba.on-es-la-xifra', el: 'progres-xifra', total: 42 },
         { clau: 'inaba.busca-el-nombre', el: 'progres-nombre', total: 42 },
         { clau: 'inaba.busca-el-triangle', el: 'progres-triangle', total: 42 },
+        { clau: 'inaba.escala-nombres', el: 'progres-escala', total: 42 },
     ];
     PUZZLES.forEach(({ clau, el, total }) => {
         try {
