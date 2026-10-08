@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="ca">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Puzzle d'àrees: talla la figura, per les línies de la quadrícula, en rectangles que tinguin el nombre de quadrets indicat.">
+    <title>Talla en rectangles</title>
+    <link rel="icon" href="icon.png">
+    <link rel="stylesheet" href="css/comu.css">
+    <link rel="stylesheet" href="css/talla-rectangles.css">
+</head>
+<body>
+    <nav class="dalt">
+        <a class="tornar" href="index.html">← Tots els puzzles</a>
+    </nav>
+    <div class="title-row">
+        <a href="https://step-quiz.net/" class="home-icon-link" title="Tornar a l'inici" aria-label="Tornar a l'inici">
+            <img src="icon.png" alt="Inici">
+        </a>
+        <h1>Talla en rectangles</h1>
+    </div>
+
+    <!-- ══════════ INSTRUCCIONS (traducció de la pàgina 1 de src/shikaku_q.pdf) ══════════ -->
+    <details class="instruccions" id="instruccions">
+        <summary>Com es juga?</summary>
+        <div class="instr-cos">
+            <ul class="instr-regles">
+                <li>Divideix la figura en <strong>rectangles</strong>, seguint les línies de la quadrícula.</li>
+                <li>Cada rectangle ha de tenir un dels <strong>nombres de quadrets</strong> de la llista.</li>
+            </ul>
+
+            <div class="instr-fila exemple">
+                <figure id="ex-problema"><figcaption>Exemple: 3, 5 i 6 quadrets</figcaption></figure>
+                <span class="instr-fletxa-gran" aria-hidden="true">→</span>
+                <figure id="ex-solucio"><figcaption>Solució</figcaption></figure>
+            </div>
+
+            <div class="instr-caixa">
+                <h3>Divideix-la en rectangles seguint les línies de la quadrícula</h3>
+                <div class="instr-fila">
+                    <figure id="ex-be"><figcaption class="instr-veredicte be"><b>✓</b>Tots són rectangles.</figcaption></figure>
+                    <figure id="ex-malament"><figcaption class="instr-veredicte malament"><b>✗</b>La peça del mig no és un rectangle.</figcaption></figure>
+                </div>
+            </div>
+
+            <div class="instr-caixa">
+                <h3>Cada rectangle ha de tenir un dels nombres de quadrets indicats</h3>
+                <div class="instr-fila peces">
+                    <figure id="ex-3"><figcaption>3 quadrets</figcaption></figure>
+                    <figure id="ex-6"><figcaption>6 quadrets</figcaption></figure>
+                    <figure id="ex-5"><figcaption>5 quadrets</figcaption></figure>
+                </div>
+                <p class="instr-compte">Per dibuixar un rectangle, arrossega d'un quadret fins al de la cantonada oposada.</p>
+            </div>
+        </div>
+    </details>
+
+    <!-- ══════════ JOC ══════════ -->
+    <main class="panel">
+        <div class="header-info">
+            <div class="level-text"><span id="titol-problema">Problema 1 de 42</span><span class="ja-resolt" id="ja-resolt" hidden>✓ resolt</span></div>
+            <div class="score-text" id="comptador">Resolts: 0 / 42</div>
+            <nav class="nav-problemes" aria-label="Problemes">
+                <button type="button" class="btn-nav" id="btn-anterior" aria-label="Problema anterior"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15 4l-8 8 8 8" fill="none" stroke="currentColor" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+                <button type="button" class="btn-nav" id="btn-tria">Escull…</button>
+                <button type="button" class="btn-nav" id="btn-seguent" aria-label="Problema següent"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 4l8 8-8 8" fill="none" stroke="currentColor" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+            </nav>
+        </div>
+
+        <p class="regla">Talla la figura en <strong>rectangles</strong> que tinguin aquests quadrets:</p>
+        <div class="mides" id="mides" aria-label="Quadrets de cada rectangle"></div>
+        <div id="tauler-wrap"></div>
+        <p class="estat-dibuix" id="estat-dibuix" aria-live="polite"></p>
+
+        <div class="missatge" id="missatge" aria-live="polite"></div>
+
+        <div class="accions">
+            <button type="button" class="btn-sec" id="btn-reinicia">↺ Torna a començar</button>
+        </div>
+    </main>
+
+    <p class="credits">Puzzle original de Naoki Inaba</p>
+    <footer class="peu-llicencia">
+        <a rel="license" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.ca">
+            <img alt="Llicència CC BY-NC-SA" src="https://licensebuttons.net/l/by-nc-sa/4.0/88x31.png">
+        </a>
+        <span>
+            © 2026 <strong>David Arso Civil</strong> · Departament de Matemàtiques, INS Miquel Tarradell.
+            Contingut: <a rel="license" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.ca">CC BY-NC-SA 4.0</a> · Codi: <a href="https://opensource.org/license/mit">MIT</a>.
+        </span>
+    </footer>
+
+    <!-- ══════════ TRIA DE PROBLEMA ══════════ -->
+    <dialog class="dialeg-tria" id="dialeg-tria" aria-labelledby="tria-titol">
+        <h2 id="tria-titol">Escull un problema</h2>
+        <p>Van de més fàcils a més difícils. Els que ja has resolt tenen un ✓.</p>
+        <div class="graella" id="graella-problemes"></div>
+        <div class="dialeg-peu">
+            <button type="button" class="btn-text" id="btn-esborra-progres">Esborra els ✓</button>
+            <button type="button" class="btn-sec" id="btn-tanca-tria">Tanca</button>
+        </div>
+    </dialog>
+
+    <script src="js/comu.js" defer></script>
+    <script src="js/talla-rectangles/problemes.js" defer></script>
+    <script src="js/talla-rectangles/motor.js" defer></script>
+    <script src="js/talla-rectangles/tauler.js" defer></script>
+    <script src="js/talla-rectangles/talla-rectangles.js" defer></script>
+</body>
+</html>

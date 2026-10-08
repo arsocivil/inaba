@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="ca">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Puzzle de comptar per als més petits: posa el quadrat on hi ha el nombre de pomes o mandarines que et demanen.">
+    <title>Busca el nombre</title>
+    <link rel="icon" href="icon.png">
+    <link rel="stylesheet" href="css/comu.css">
+    <link rel="stylesheet" href="css/busca-el-nombre.css">
+</head>
+<body>
+    <nav class="dalt">
+        <a class="tornar" href="index.html">← Tots els puzzles</a>
+        <a class="per-imprimir" href="imprimir/busca-el-nombre.html"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 9V3h10v6M7 17H4.5A1.5 1.5 0 0 1 3 15.5v-5A1.5 1.5 0 0 1 4.5 9h15a1.5 1.5 0 0 1 1.5 1.5v5a1.5 1.5 0 0 1-1.5 1.5H17M7 13h10v8H7z" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/></svg>Versió per imprimir</a>
+    </nav>
+    <div class="title-row">
+        <a href="https://step-quiz.net/" class="home-icon-link" title="Tornar a l'inici" aria-label="Tornar a l'inici">
+            <img src="icon.png" alt="Inici">
+        </a>
+        <h1>Busca el nombre</h1>
+    </div>
+
+    <!-- ══════════ INSTRUCCIONS (traducció de la pàgina 1 de src/kazu_q.pdf) ══════════ -->
+    <details class="instruccions" id="instruccions">
+        <summary>Com es juga?</summary>
+        <div class="instr-cos">
+            <ul class="instr-regles">
+                <li>Envolta el lloc que et demanen amb un <strong>quadrat</strong> (de 2 × 2 o de 3 × 3; sempre ho diu a sobre del tauler).</li>
+            </ul>
+
+            <div class="instr-fila exemple">
+                <figure id="ex-problema"><figcaption>Problema: on n'hi ha 2?</figcaption></figure>
+                <span class="instr-fletxa-gran" aria-hidden="true">→</span>
+                <figure id="ex-solucio"><figcaption>Resposta</figcaption></figure>
+            </div>
+
+            <div class="instr-caixa">
+                <h3>Compta les pomes que queden dins del quadrat</h3>
+                <div class="instr-fila pomes">
+                    <figure id="ex-1"><figcaption>1</figcaption></figure>
+                    <figure id="ex-3"><figcaption>3</figcaption></figure>
+                    <figure id="ex-4"><figcaption>4</figcaption></figure>
+                </div>
+            </div>
+
+            <div class="instr-caixa">
+                <h3>Compte!</h3>
+                <div class="instr-fila errors">
+                    <figure id="ex-surt"><figcaption class="instr-veredicte malament"><b>✗</b>No pots sortir de la línia de punts.</figcaption></figure>
+                    <figure id="ex-mida"><figcaption class="instr-veredicte malament"><b>✗</b>Aquest quadrat no és de la mida que toca.</figcaption></figure>
+                </div>
+                <p class="instr-compte">Aquí, el quadrat ja és de la mida que toca i no et deixa sortir de la línia de punts: només cal triar el lloc.</p>
+            </div>
+        </div>
+    </details>
+
+    <!-- ══════════ JOC ══════════ -->
+    <main class="panel">
+        <div class="header-info">
+            <div class="level-text"><span id="titol-problema">Problema 1 de 42</span><span class="ja-resolt" id="ja-resolt" hidden>✓ resolt</span></div>
+            <div class="score-text" id="comptador">Resolts: 0 / 42</div>
+            <nav class="nav-problemes" aria-label="Problemes">
+                <button type="button" class="btn-nav" id="btn-anterior" aria-label="Problema anterior"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15 4l-8 8 8 8" fill="none" stroke="currentColor" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+                <button type="button" class="btn-nav" id="btn-tria">Escull…</button>
+                <button type="button" class="btn-nav" id="btn-seguent" aria-label="Problema següent"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 4l8 8-8 8" fill="none" stroke="currentColor" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+            </nav>
+        </div>
+
+        <p class="pregunta" id="pregunta"></p>
+        <p class="regla" id="regla-mida"></p>
+        <div id="tauler-wrap"></div>
+
+        <div class="missatge" id="missatge" aria-live="polite"></div>
+
+        <div class="accions">
+            <button type="button" class="btn-sec" id="btn-reinicia">↺ Torna a començar</button>
+        </div>
+    </main>
+
+    <p class="credits">Puzzle original de Naoki Inaba</p>
+    <footer class="peu-llicencia">
+        <a rel="license" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.ca">
+            <img alt="Llicència CC BY-NC-SA" src="https://licensebuttons.net/l/by-nc-sa/4.0/88x31.png">
+        </a>
+        <span>
+            © 2026 <strong>David Arso Civil</strong> · Departament de Matemàtiques, INS Miquel Tarradell.
+            Contingut: <a rel="license" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.ca">CC BY-NC-SA 4.0</a> · Codi: <a href="https://opensource.org/license/mit">MIT</a>.
+        </span>
+    </footer>
+
+    <!-- ══════════ TRIA DE PROBLEMA ══════════ -->
+    <dialog class="dialeg-tria" id="dialeg-tria" aria-labelledby="tria-titol">
+        <h2 id="tria-titol">Escull un problema</h2>
+        <p>Van de més fàcils a més difícils. Els que ja has resolt tenen un ✓.</p>
+        <div class="graella" id="graella-problemes"></div>
+        <div class="dialeg-peu">
+            <button type="button" class="btn-text" id="btn-esborra-progres">Esborra els ✓</button>
+            <button type="button" class="btn-sec" id="btn-tanca-tria">Tanca</button>
+        </div>
+    </dialog>
+
+    <script src="js/comu.js" defer></script>
+    <script src="js/busca-el-nombre/problemes.js" defer></script>
+    <script src="js/busca-el-nombre/motor.js" defer></script>
+    <script src="js/busca-el-nombre/tauler.js" defer></script>
+    <script src="js/busca-el-nombre/busca-el-nombre.js" defer></script>
+</body>
+</html>

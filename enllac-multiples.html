@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="ca">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Puzzle de múltiples: col·loca les targetes numerades perquè cada fletxa porti a un múltiple de la targeta d'on surt.">
+    <title>Enllaç de múltiples</title>
+    <link rel="icon" href="icon.png">
+    <link rel="stylesheet" href="css/comu.css">
+    <link rel="stylesheet" href="css/enllac-multiples.css">
+</head>
+<body>
+    <nav class="dalt">
+        <a class="tornar" href="index.html">← Tots els puzzles</a>
+    </nav>
+    <div class="title-row">
+        <a href="https://step-quiz.net/" class="home-icon-link" title="Tornar a l'inici" aria-label="Tornar a l'inici">
+            <img src="icon.png" alt="Inici">
+        </a>
+        <h1>Enllaç de múltiples</h1>
+    </div>
+
+    <!-- ══════════ INSTRUCCIONS (traducció de la pàgina 1 de src/blink_q.pdf) ══════════ -->
+    <details class="instruccions" id="instruccions">
+        <summary>Com es juga?</summary>
+        <div class="instr-cos">
+            <ul class="instr-regles">
+                <li>Col·loca les <strong>targetes numerades</strong> als llocs de vora discontínua.</li>
+                <li>A la punta de cada <strong>fletxa</strong> que surt d'una targeta hi va un <strong>múltiple</strong> d'aquella targeta.</li>
+            </ul>
+
+            <div class="instr-fila exemple">
+                <figure id="ex-problema"><figcaption>Exemple</figcaption></figure>
+                <span class="instr-fletxa-gran" aria-hidden="true">→</span>
+                <figure id="ex-solucio"><figcaption>Solució</figcaption></figure>
+            </div>
+
+            <div class="instr-caixa">
+                <h3>Col·loca les targetes numerades als llocs de vora discontínua</h3>
+                <div class="instr-fila">
+                    <div class="pila mostra" aria-label="Targetes numerades de l'exemple">
+                        <div class="targeta">4</div>
+                        <div class="targeta">5</div>
+                        <div class="targeta usada">10</div>
+                        <div class="targeta">20</div>
+                    </div>
+                </div>
+                <ul>
+                    <li>La targeta del 10 ja està feta servir (✓): ja és al tauler.</li>
+                    <li>Cada targeta només es pot fer servir una vegada.</li>
+                </ul>
+                <p class="instr-compte">Compte! En alguns problemes sobren targetes.</p>
+            </div>
+
+            <div class="instr-caixa">
+                <h3>A la punta de cada fletxa hi va un múltiple de la targeta d'on surt</h3>
+                <div class="instr-fila">
+                    <figure id="ex-be-1"><figcaption class="instr-veredicte be"><b>✓</b>10 és múltiple de 5</figcaption></figure>
+                    <figure id="ex-be-2"><figcaption class="instr-veredicte be"><b>✓</b>20 és múltiple de 4</figcaption></figure>
+                    <figure id="ex-malament"><figcaption class="instr-veredicte malament"><b>✗</b>10 no és múltiple de 4</figcaption></figure>
+                </div>
+            </div>
+        </div>
+    </details>
+
+    <!-- ══════════ JOC ══════════ -->
+    <main class="panel">
+        <div class="header-info">
+            <div class="level-text"><span id="titol-problema">Problema 1 de 42</span><span class="ja-resolt" id="ja-resolt" hidden>✓ resolt</span></div>
+            <div class="score-text" id="comptador">Resolts: 0 / 42</div>
+            <nav class="nav-problemes" aria-label="Problemes">
+                <button type="button" class="btn-nav" id="btn-anterior" aria-label="Problema anterior"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15 4l-8 8 8 8" fill="none" stroke="currentColor" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+                <button type="button" class="btn-nav" id="btn-tria">Escull…</button>
+                <button type="button" class="btn-nav" id="btn-seguent" aria-label="Problema següent"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 4l8 8-8 8" fill="none" stroke="currentColor" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+            </nav>
+        </div>
+
+        <p class="regla">Cada fletxa porta a un <strong>múltiple</strong> de la targeta d'on surt.</p>
+        <div id="tauler-wrap"></div>
+
+        <div class="pila-wrap">
+            <div class="pila-titol" id="pila-titol">Targetes</div>
+            <div class="pila" id="pila" role="group" aria-labelledby="pila-titol"></div>
+        </div>
+
+        <div class="missatge" id="missatge" aria-live="polite"></div>
+
+        <div class="accions">
+            <button type="button" class="btn-sec" id="btn-reinicia">↺ Torna a començar</button>
+        </div>
+    </main>
+
+    <p class="credits">Puzzle original de Naoki Inaba</p>
+    <footer class="peu-llicencia">
+        <a rel="license" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.ca">
+            <img alt="Llicència CC BY-NC-SA" src="https://licensebuttons.net/l/by-nc-sa/4.0/88x31.png">
+        </a>
+        <span>
+            © 2026 <strong>David Arso Civil</strong> · Departament de Matemàtiques, INS Miquel Tarradell.
+            Contingut: <a rel="license" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.ca">CC BY-NC-SA 4.0</a> · Codi: <a href="https://opensource.org/license/mit">MIT</a>.
+        </span>
+    </footer>
+
+    <!-- ══════════ TRIA DE PROBLEMA ══════════ -->
+    <dialog class="dialeg-tria" id="dialeg-tria" aria-labelledby="tria-titol">
+        <h2 id="tria-titol">Escull un problema</h2>
+        <p>Van de més fàcils a més difícils. Els que ja has resolt tenen un ✓.</p>
+        <div class="graella" id="graella-problemes"></div>
+        <div class="dialeg-peu">
+            <button type="button" class="btn-text" id="btn-esborra-progres">Esborra els ✓</button>
+            <button type="button" class="btn-sec" id="btn-tanca-tria">Tanca</button>
+        </div>
+    </dialog>
+
+    <script src="js/comu.js" defer></script>
+    <script src="js/enllac-multiples/problemes.js" defer></script>
+    <script src="js/enllac-multiples/motor.js" defer></script>
+    <script src="js/enllac-multiples/tauler.js" defer></script>
+    <script src="js/enllac-multiples/enllac-multiples.js" defer></script>
+</body>
+</html>

@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="ca">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Puzzles matemàtics de Naoki Inaba, traduïts al català i fets interactius.">
+    <title>Puzzles matemàtics</title>
+    <link rel="icon" href="icon.png">
+    <link rel="stylesheet" href="css/comu.css">
+    <style>
+        :root {
+            --primary: #4f46e5;
+            --primary-light: #eef2ff;
+            --primary-hover: #4338ca;
+            --primary-dark: #312e81;
+        }
+        .llista {
+            width: 100%;
+            max-width: 760px;
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+            gap: 14px;
+        }
+        .puzzle {
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+            padding: 16px 18px;
+            background: white;
+            border: 1px solid var(--border-color);
+            border-top: 5px solid var(--primary);
+            border-radius: 8px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+            color: var(--text-main);
+            text-decoration: none;
+        }
+        .puzzle strong {
+            font-size: 1.15em;
+            color: var(--primary-dark);
+        }
+        .puzzle .jp {
+            color: var(--text-muted);
+            font-size: 0.85em;
+        }
+        .puzzle .desc {
+            font-size: 0.95em;
+            line-height: 1.4;
+        }
+        .puzzle .progres {
+            margin-top: 6px;
+            font-family: monospace;
+            font-weight: bold;
+            color: var(--primary);
+        }
+        a.puzzle:hover {
+            border-color: var(--primary);
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(79, 70, 229, 0.15);
+        }
+        a.puzzle {
+            transition: transform 0.15s, box-shadow 0.15s;
+        }
+        /* Cada puzzle, amb el color del seu tema */
+        .puzzle.laberint {
+            border-top-color: #0369a1;
+        }
+        .puzzle.laberint strong,
+        .puzzle.laberint .progres {
+            color: #0c4a6e;
+        }
+        a.puzzle.laberint:hover {
+            border-color: #0369a1;
+            box-shadow: 0 8px 20px rgba(3, 105, 161, 0.15);
+        }
+        .puzzle.bessones {
+            border-top-color: #b45309;
+        }
+        .puzzle.bessones strong,
+        .puzzle.bessones .progres {
+            color: #78350f;
+        }
+        a.puzzle.bessones:hover {
+            border-color: #b45309;
+            box-shadow: 0 8px 20px rgba(180, 83, 9, 0.15);
+        }
+        .puzzle.rectangles {
+            border-top-color: #6d28d9;
+        }
+        .puzzle.rectangles strong,
+        .puzzle.rectangles .progres {
+            color: #4c1d95;
+        }
+        a.puzzle.rectangles:hover {
+            border-color: #6d28d9;
+            box-shadow: 0 8px 20px rgba(109, 40, 217, 0.15);
+        }
+        .puzzle.creuat-multiples {
+            border-top-color: #0f766e;
+        }
+        .puzzle.creuat-multiples strong,
+        .puzzle.creuat-multiples .progres {
+            color: #134e4a;
+        }
+        a.puzzle.creuat-multiples:hover {
+            border-color: #0f766e;
+            box-shadow: 0 8px 20px rgba(15, 118, 110, 0.15);
+        }
+        .puzzle.on-es-la-xifra {
+            border-top-color: #a21caf;
+        }
+        .puzzle.on-es-la-xifra strong,
+        .puzzle.on-es-la-xifra .progres {
+            color: #701a75;
+        }
+        a.puzzle.on-es-la-xifra:hover {
+            border-color: #a21caf;
+            box-shadow: 0 8px 20px rgba(162, 28, 175, 0.15);
+        }
+        .puzzle.busca-el-nombre {
+            border-top-color: #c2410c;
+        }
+        .puzzle.busca-el-nombre strong,
+        .puzzle.busca-el-nombre .progres {
+            color: #7c2d12;
+        }
+        a.puzzle.busca-el-nombre:hover {
+            border-color: #c2410c;
+            box-shadow: 0 8px 20px rgba(194, 65, 12, 0.15);
+        }
+        .puzzle.aviat {
+            border-top-color: var(--border-heavy);
+            box-shadow: none;
+            background: #f8fafc;
+        }
+        .puzzle.aviat strong {
+            color: var(--text-muted);
+        }
+        h2 {
+            width: 100%;
+            max-width: 760px;
+            margin: 28px 0 10px 0;
+            font-size: 1em;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            color: var(--text-muted);
+        }
+    </style>
+</head>
+<body>
+    <div class="title-row">
+        <a href="https://step-quiz.net/" class="home-icon-link" title="Tornar a l'inici" aria-label="Tornar a l'inici">
+            <img src="icon.png" alt="Inici">
+        </a>
+        <h1>Puzzles matemàtics</h1>
+    </div>
+    <p class="subtitol">Els puzzles de Naoki Inaba, en català</p>
+
+    <div class="llista">
+        <a class="puzzle" href="enllac-multiples.html">
+            <strong>Enllaç de múltiples</strong>
+            <span class="jp">倍数リンク</span>
+            <span class="desc">Col·loca les targetes perquè cada fletxa porti a un múltiple.</span>
+            <span class="progres" id="progres-enllac">42 problemes</span>
+        </a>
+        <a class="puzzle laberint" href="laberint-angles.html">
+            <strong>Laberint d'angles</strong>
+            <span class="jp">角度メイズ</span>
+            <span class="desc">Ves de la S a la G: a cada cercle amb número, el camí hi ha de formar l'angle que hi diu.</span>
+            <span class="progres" id="progres-laberint">38 problemes</span>
+        </a>
+        <a class="puzzle bessones" href="expressions-bessones.html">
+            <strong>Expressions bessones</strong>
+            <span class="jp">双子式</span>
+            <span class="desc">Posa els mateixos signes a dues targetes perquè totes dues igualtats siguin correctes.</span>
+            <span class="progres" id="progres-bessones">42 problemes</span>
+        </a>
+        <a class="puzzle rectangles" href="talla-rectangles.html">
+            <strong>Talla en rectangles</strong>
+            <span class="jp">四角カット</span>
+            <span class="desc">Talla la figura en rectangles que tinguin el nombre de quadrets indicat.</span>
+            <span class="progres" id="progres-rectangles">42 problemes</span>
+        </a>
+        <a class="puzzle creuat-multiples" href="creuat-multiples.html">
+            <strong>Creuat de múltiples</strong>
+            <span class="jp">倍数クロス</span>
+            <span class="desc">Escriu xifres a les caselles blanques perquè cada nombre que es veu des d'un triangle sigui múltiple del seu número.</span>
+            <span class="progres" id="progres-creuat">42 problemes</span>
+        </a>
+        <a class="puzzle on-es-la-xifra" href="on-es-la-xifra.html">
+            <strong>On és la xifra?</strong>
+            <span class="jp">どこかな算</span>
+            <span class="desc">Escriu una xifra a cada casella perquè la suma sigui correcta i cada número de fora sigui a la seva fila o columna.</span>
+            <span class="progres" id="progres-xifra">42 problemes</span>
+        </a>
+        <a class="puzzle busca-el-nombre" href="busca-el-nombre.html">
+            <strong>Busca el nombre</strong>
+            <span class="jp">かずさがし</span>
+            <span class="desc">Posa el quadrat on hi ha el nombre de pomes o mandarines que et demanen.</span>
+            <span class="progres" id="progres-nombre">42 problemes</span>
+        </a>
+    </div>
+
+    <h2>Properament</h2>
+    <div class="llista">
+        <div class="puzzle aviat"><strong>Dipòsits d'aigua</strong><span class="jp">水そうと水</span></div>
+        <div class="puzzle aviat"><strong>Busca el triangle</strong><span class="jp">三角探し</span></div>
+        <div class="puzzle aviat"><strong>L'escala de nombres</strong><span class="jp">数字の階段</span></div>
+        <div class="puzzle aviat"><strong>Afegeix zeros</strong><span class="jp">ゼロゼロ式</span></div>
+        <div class="puzzle aviat"><strong>Busca la figura</strong><span class="jp">図形探し</span></div>
+    </div>
+
+    <p class="credits">Puzzles originals de Naoki Inaba</p>
+    <footer class="peu-llicencia">
+        <a rel="license" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.ca">
+            <img alt="Llicència CC BY-NC-SA" src="https://licensebuttons.net/l/by-nc-sa/4.0/88x31.png">
+        </a>
+        <span>
+            © 2026 <strong>David Arso Civil</strong> · Departament de Matemàtiques, INS Miquel Tarradell.
+            Contingut: <a rel="license" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.ca">CC BY-NC-SA 4.0</a> · Codi: <a href="https://opensource.org/license/mit">MIT</a>.
+        </span>
+    </footer>
+
+    <script src="js/portada.js" defer></script>
+</body>
+</html>

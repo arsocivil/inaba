@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="ca">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Puzzle d'angles: ves de la S a la G per les línies; a cada cercle amb número, el camí hi ha de formar l'angle que hi diu.">
+    <title>Laberint d'angles</title>
+    <link rel="icon" href="icon.png">
+    <link rel="stylesheet" href="css/comu.css">
+    <link rel="stylesheet" href="css/laberint-angles.css">
+</head>
+<body>
+    <nav class="dalt">
+        <a class="tornar" href="index.html">← Tots els puzzles</a>
+    </nav>
+    <div class="title-row">
+        <a href="https://step-quiz.net/" class="home-icon-link" title="Tornar a l'inici" aria-label="Tornar a l'inici">
+            <img src="icon.png" alt="Inici">
+        </a>
+        <h1>Laberint d'angles</h1>
+    </div>
+
+    <!-- ══════════ INSTRUCCIONS (traducció de la pàgina 1 de src/kmaze_q.pdf) ══════════ -->
+    <details class="instruccions" id="instruccions">
+        <summary>Com es juga?</summary>
+        <div class="instr-cos">
+            <ul class="instr-regles">
+                <li>Ves de la <strong>S</strong> (sortida) a la <strong>G</strong> (meta) seguint les línies.</li>
+                <li>Només pots passar <strong>una vegada</strong> per cada cercle.</li>
+                <li>Als cercles amb un <strong>número</strong>, les dues línies del camí hi formen aquest <strong>angle</strong>.</li>
+            </ul>
+
+            <div class="instr-fila exemple">
+                <figure id="ex-problema"><figcaption>Exemple</figcaption></figure>
+                <span class="instr-fletxa-gran" aria-hidden="true">→</span>
+                <figure id="ex-solucio"><figcaption>Solució</figcaption></figure>
+            </div>
+
+            <div class="instr-caixa">
+                <h3>Només pots passar una vegada per cada cercle</h3>
+                <div class="instr-fila">
+                    <figure id="ex-dues-vegades"><figcaption class="instr-veredicte malament"><b>✗</b>Aquest camí passa dues vegades pel cercle del mig.</figcaption></figure>
+                </div>
+            </div>
+
+            <div class="instr-caixa">
+                <h3>Als cercles amb un número, les dues línies del camí hi formen aquest angle</h3>
+                <div class="instr-fila">
+                    <figure id="ex-angles"></figure>
+                </div>
+                <ul>
+                    <li>Al cercle del 60, l'angle que fa el camí és de 60°.</li>
+                    <li>Al cercle del 90 del mig, l'angle és de 90° (un angle recte).</li>
+                    <li>Pel cercle del 90 de la dreta no hi passa: hi ha cercles per on no cal passar.</li>
+                </ul>
+                <div class="instr-fila">
+                    <figure id="ex-pla"><figcaption>Al cercle del 180, l'angle és pla.</figcaption></figure>
+                </div>
+                <p class="instr-compte">180° és un angle pla: les dues línies queden alineades i el camí continua recte.</p>
+            </div>
+        </div>
+    </details>
+
+    <!-- ══════════ JOC ══════════ -->
+    <main class="panel">
+        <div class="header-info">
+            <div class="level-text"><span id="titol-problema">Problema 1 de 38</span><span class="ja-resolt" id="ja-resolt" hidden>✓ resolt</span></div>
+            <div class="score-text" id="comptador">Resolts: 0 / 38</div>
+            <nav class="nav-problemes" aria-label="Problemes">
+                <button type="button" class="btn-nav" id="btn-anterior" aria-label="Problema anterior"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15 4l-8 8 8 8" fill="none" stroke="currentColor" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+                <button type="button" class="btn-nav" id="btn-tria">Escull…</button>
+                <button type="button" class="btn-nav" id="btn-seguent" aria-label="Problema següent"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 4l8 8-8 8" fill="none" stroke="currentColor" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+            </nav>
+        </div>
+
+        <p class="regla">Ves de la <strong>S</strong> a la <strong>G</strong>. Als cercles amb número, el camí hi ha de formar aquest <strong>angle</strong>.</p>
+        <div id="tauler-wrap"></div>
+
+        <div class="missatge" id="missatge" aria-live="polite"></div>
+
+        <div class="accions">
+            <button type="button" class="btn-sec" id="btn-desfes">↶ Desfés</button>
+            <button type="button" class="btn-sec" id="btn-reinicia">↺ Torna a començar</button>
+        </div>
+    </main>
+
+    <p class="credits">Puzzle original de Naoki Inaba</p>
+    <footer class="peu-llicencia">
+        <a rel="license" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.ca">
+            <img alt="Llicència CC BY-NC-SA" src="https://licensebuttons.net/l/by-nc-sa/4.0/88x31.png">
+        </a>
+        <span>
+            © 2026 <strong>David Arso Civil</strong> · Departament de Matemàtiques, INS Miquel Tarradell.
+            Contingut: <a rel="license" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.ca">CC BY-NC-SA 4.0</a> · Codi: <a href="https://opensource.org/license/mit">MIT</a>.
+        </span>
+    </footer>
+
+    <!-- ══════════ TRIA DE PROBLEMA ══════════ -->
+    <dialog class="dialeg-tria" id="dialeg-tria" aria-labelledby="tria-titol">
+        <h2 id="tria-titol">Escull un problema</h2>
+        <p>Van de més fàcils a més difícils. Els que ja has resolt tenen un ✓.</p>
+        <div class="graella" id="graella-problemes"></div>
+        <div class="dialeg-peu">
+            <button type="button" class="btn-text" id="btn-esborra-progres">Esborra els ✓</button>
+            <button type="button" class="btn-sec" id="btn-tanca-tria">Tanca</button>
+        </div>
+    </dialog>
+
+    <script src="js/comu.js" defer></script>
+    <script src="js/laberint-angles/problemes.js" defer></script>
+    <script src="js/laberint-angles/motor.js" defer></script>
+    <script src="js/laberint-angles/tauler.js" defer></script>
+    <script src="js/laberint-angles/laberint-angles.js" defer></script>
+</body>
+</html>

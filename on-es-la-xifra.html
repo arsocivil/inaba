@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="ca">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Puzzle de sumes: escriu una xifra a cada casella perquè la suma en columna sigui correcta i cada número de fora sigui a la fila o la columna a què apunta.">
+    <title>On és la xifra?</title>
+    <link rel="icon" href="icon.png">
+    <link rel="stylesheet" href="css/comu.css">
+    <link rel="stylesheet" href="css/on-es-la-xifra.css">
+</head>
+<body>
+    <nav class="dalt">
+        <a class="tornar" href="index.html">← Tots els puzzles</a>
+        <a class="per-imprimir" href="imprimir/on-es-la-xifra.html"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 9V3h10v6M7 17H4.5A1.5 1.5 0 0 1 3 15.5v-5A1.5 1.5 0 0 1 4.5 9h15a1.5 1.5 0 0 1 1.5 1.5v5a1.5 1.5 0 0 1-1.5 1.5H17M7 13h10v8H7z" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/></svg>Versió per imprimir</a>
+    </nav>
+    <div class="title-row">
+        <a href="https://step-quiz.net/" class="home-icon-link" title="Tornar a l'inici" aria-label="Tornar a l'inici">
+            <img src="icon.png" alt="Inici">
+        </a>
+        <h1>On és la xifra?</h1>
+    </div>
+
+    <!-- ══════════ INSTRUCCIONS (traducció de la pàgina 1 de src/dokoeq_q.pdf) ══════════ -->
+    <details class="instruccions" id="instruccions">
+        <summary>Com es juga?</summary>
+        <div class="instr-cos">
+            <ul class="instr-regles">
+                <li>Escriu una <strong>xifra del 0 al 9</strong> a cada <strong>□</strong> perquè la suma en columna sigui correcta.</li>
+                <li>La <strong>primera xifra</strong> d'un nombre no pot ser 0 (i un nombre tampoc pot ser només un 0).</li>
+                <li>Cada <strong>número de fora</strong> va en algun lloc de la <strong>fila o la columna</strong> a què apunta la seva fletxa.</li>
+            </ul>
+
+            <div class="instr-fila exemple">
+                <figure id="ex-problema"><figcaption>Exemple</figcaption></figure>
+                <span class="instr-fletxa-gran" aria-hidden="true">→</span>
+                <figure id="ex-solucio"><figcaption>Solució</figcaption></figure>
+            </div>
+
+            <div class="instr-caixa">
+                <h3>La suma ha de ser correcta</h3>
+                <div class="instr-fila">
+                    <figure id="ex-suma-be"><figcaption class="instr-veredicte be"><b>✓</b>Aquesta suma és correcta (8 + 5 = 13).</figcaption></figure>
+                    <figure id="ex-suma-zero"><figcaption class="instr-veredicte malament"><b>✗</b>Compte! La primera xifra no pot ser 0 (3 + 5 = 08).</figcaption></figure>
+                </div>
+            </div>
+
+            <div class="instr-caixa">
+                <h3>Cada número de fora va en algun lloc de la fila o la columna a què apunta la seva fletxa</h3>
+                <div class="instr-fila">
+                    <figure id="ex-pista-be"><figcaption class="instr-veredicte be"><b>✓</b>El 3 i el 5 són a la columna i a la fila on apunten les fletxes.</figcaption></figure>
+                    <figure id="ex-pista-mal"><figcaption class="instr-veredicte malament"><b>✗</b>El 3 no és enlloc de la columna.</figcaption></figure>
+                </div>
+                <p class="instr-compte">Si fora hi ha dos números junts, com «4, 8», els dos han de ser a la fila o la columna.</p>
+            </div>
+        </div>
+    </details>
+
+    <!-- ══════════ JOC ══════════ -->
+    <main class="panel">
+        <div class="header-info">
+            <div class="level-text"><span id="titol-problema">Problema 1 de 42</span><span class="ja-resolt" id="ja-resolt" hidden>✓ resolt</span></div>
+            <div class="score-text" id="comptador">Resolts: 0 / 42</div>
+            <nav class="nav-problemes" aria-label="Problemes">
+                <button type="button" class="btn-nav" id="btn-anterior" aria-label="Problema anterior"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15 4l-8 8 8 8" fill="none" stroke="currentColor" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+                <button type="button" class="btn-nav" id="btn-tria">Escull…</button>
+                <button type="button" class="btn-nav" id="btn-seguent" aria-label="Problema següent"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 4l8 8-8 8" fill="none" stroke="currentColor" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+            </nav>
+        </div>
+
+        <p class="regla">Escriu una xifra a cada casella perquè la suma sigui correcta i cada número de fora sigui a la seva <strong>fila</strong> o <strong>columna</strong>.</p>
+        <div id="tauler-wrap"></div>
+
+        <div class="pila-wrap">
+            <div class="pila-titol" id="pila-titol">Xifres</div>
+            <div class="pila xifres" id="pila" role="group" aria-labelledby="pila-titol"></div>
+        </div>
+
+        <div class="missatge" id="missatge" aria-live="polite"></div>
+
+        <div class="accions">
+            <button type="button" class="btn-sec" id="btn-reinicia">↺ Torna a començar</button>
+        </div>
+    </main>
+
+    <p class="credits">Puzzle original de Naoki Inaba</p>
+    <footer class="peu-llicencia">
+        <a rel="license" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.ca">
+            <img alt="Llicència CC BY-NC-SA" src="https://licensebuttons.net/l/by-nc-sa/4.0/88x31.png">
+        </a>
+        <span>
+            © 2026 <strong>David Arso Civil</strong> · Departament de Matemàtiques, INS Miquel Tarradell.
+            Contingut: <a rel="license" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.ca">CC BY-NC-SA 4.0</a> · Codi: <a href="https://opensource.org/license/mit">MIT</a>.
+        </span>
+    </footer>
+
+    <!-- ══════════ TRIA DE PROBLEMA ══════════ -->
+    <dialog class="dialeg-tria" id="dialeg-tria" aria-labelledby="tria-titol">
+        <h2 id="tria-titol">Escull un problema</h2>
+        <p>Van de més fàcils a més difícils. Els que ja has resolt tenen un ✓.</p>
+        <div class="graella" id="graella-problemes"></div>
+        <div class="dialeg-peu">
+            <button type="button" class="btn-text" id="btn-esborra-progres">Esborra els ✓</button>
+            <button type="button" class="btn-sec" id="btn-tanca-tria">Tanca</button>
+        </div>
+    </dialog>
+
+    <script src="js/comu.js" defer></script>
+    <script src="js/on-es-la-xifra/problemes.js" defer></script>
+    <script src="js/on-es-la-xifra/motor.js" defer></script>
+    <script src="js/on-es-la-xifra/tauler.js" defer></script>
+    <script src="js/on-es-la-xifra/on-es-la-xifra.js" defer></script>
+</body>
+</html>
