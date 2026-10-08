@@ -128,10 +128,22 @@ figure {
     gap: 2.5mm;
 }
 .problemes {
+    gap: 6mm 0; /* sense espai entre columnes: així la línia entre files és contínua */
     align-items: stretch;
 }
 .problema {
     justify-content: flex-start;
+}
+.problema:nth-child(odd) {
+    padding-right: 1.5mm;
+}
+.problema:nth-child(even) {
+    padding-left: 1.5mm;
+}
+/* Una línia entre fila i fila de problemes, d'una vora a l'altra del full */
+.problema:nth-child(n + 3) {
+    padding-top: 6mm;
+    border-top: 0.3mm solid var(--tinta);
 }
 
 /* ---- Full d'instruccions ---- */

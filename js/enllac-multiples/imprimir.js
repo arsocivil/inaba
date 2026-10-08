@@ -69,7 +69,7 @@
             // Els taulers de dues files (2 × 2) són alts: les targetes van a la dreta, en columna
             const duesFiles = p.llocs.some(l => l[1] > 0);
             div.classList.toggle('en-columna', duesFiles);
-            div.append(duesFiles ? amida(tauler, 0.36, 76, 63) : amida(tauler, 0.36, 92, 50), targetes(p));
+            div.append(duesFiles ? amida(tauler, 0.3, 70, 52) : amida(tauler, 0.3, 84, 40), targetes(p));
             return div;
         },
     });

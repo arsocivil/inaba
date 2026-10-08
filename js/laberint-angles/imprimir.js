@@ -2,7 +2,7 @@
  * ============================================================================
  * FITXER: js/laberint-angles/imprimir.js
  * ROL: Omple imprimir/laberint-angles.html: els exemples del full
- *      d'instruccions i els 7 fulls de problemes (6 per full, sense resoldre).
+ *      d'instruccions i els 10 fulls de problemes (4 per full, sense resoldre).
  * ARQUITECTURA: Els laberints són els del joc (TaulerLaberint), amb l'amplada
  *   en mm: --k = mm per unitat de tauler. Als laberints petits en paper, els
  *   cercles s'engrandeixen (--cercle) perquè els números es llegeixin bé.
@@ -59,20 +59,12 @@
     };
     $('ex-pla').prepend(instr(T.estatic(pla, [0, 1, 2], { marques: [{ pos: 1, angle: 180 }] }), 0.22));
 
-    // ---- Fulls de problemes ----
-    // L'últim full només té els 2 laberints més grans (37 i 38): hi van a tota l'amplada, un sota l'altre
-    const total = P.llista.length;
-    const solts = total % 6 === 0 ? 0 : total % 6;
-    const solt = i => solts <= 2 && i >= total - solts;
+    // ---- Fulls de problemes: 4 per full (2 × 2), perquè els laberints no quedin atapeïts ----
     window.Imprimir.problemes({
-        total,
-        perFull: 6,
+        total: P.llista.length,
+        perFull: 4,
         regla: 'Ves de la <strong>S</strong> a la <strong>G</strong>. Als cercles amb un número, el camí hi forma aquest <strong>angle</strong>.',
-        dibuixa: i => {
-            const t = T.estatic(P.llista[i], []);
-            return solt(i) ? amida(t, 0.45, 180, 100) : amida(t, 0.3, 92, 64);
-        },
+        dibuixa: i => amida(T.estatic(P.llista[i], []), 0.42, 92, 104),
     });
-    if (solts && solts <= 2) [...document.querySelectorAll('.problemes')].pop().classList.add('grans');
     window.Imprimir.capsIPeus({ titol: "Laberint d'angles", jp: '角度メイズ' });
 })();

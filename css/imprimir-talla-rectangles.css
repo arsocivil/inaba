@@ -50,8 +50,9 @@ figure {
     display: none;
 }
 
-/* ---- Fulls de problemes: la llista de mides al costat del número, i la figura centrada ---- */
+/* ---- Fulls de problemes: 4 per full (2 × 2); la llista de mides al costat del número, i la figura centrada ---- */
 .problemes {
+    grid-template-rows: repeat(2, 1fr);
     align-items: stretch;
 }
 .problema {

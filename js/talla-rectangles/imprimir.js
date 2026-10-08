@@ -2,7 +2,7 @@
  * ============================================================================
  * FITXER: js/talla-rectangles/imprimir.js
  * ROL: Omple imprimir/talla-rectangles.html: els exemples del full
- *      d'instruccions i els 7 fulls de problemes (6 per full, sense resoldre).
+ *      d'instruccions i els 11 fulls de problemes (4 per full, sense resoldre).
  * ARQUITECTURA: Les figures són les del joc (TaulerRectangles), amb l'amplada
  *   en mm: --k = mm per unitat de l'SVG (un quadret fa 10 unitats). La llista
  *   de mides va a dalt de cada targeta, al costat del número.
@@ -53,10 +53,10 @@
         $(id).prepend(figura(files.map(f => f.replace(/A/g, '#')), pecesDeText(files), 10, 80, 40));
     });
 
-    // ---- Fulls de problemes ----
+    // ---- Fulls de problemes: 4 per full (2 × 2), perquè les figures no quedin atapeïdes ----
     window.Imprimir.problemes({
         total: P.llista.length,
-        perFull: 6,
+        perFull: 4,
         regla: 'Divideix la figura en <strong>rectangles</strong>: un de cada nombre de quadrets de la llista.',
         dibuixa: i => {
             const p = P.llista[i];
@@ -70,7 +70,7 @@
                 el.textContent = m;
                 mides.appendChild(el);
             });
-            div.append(mides, figura(p.figura, [], 13, 92, 64));
+            div.append(mides, figura(p.figura, [], 16, 92, 104));
             return div;
         },
     });

@@ -87,8 +87,9 @@ figure {
     border-style: double;
 }
 
-/* ---- Fulls de problemes: el laberint centrat a la targeta ---- */
+/* ---- Fulls de problemes: 4 per full (2 × 2), el laberint centrat a la targeta ---- */
 .problemes {
+    grid-template-rows: repeat(2, 1fr);
     align-items: stretch;
 }
 .problema {
@@ -96,12 +97,6 @@ figure {
 }
 .problema .tauler-laberint {
     margin: auto 0;
-}
-
-/* L'últim full, amb només 2 laberints grans: un sota l'altre, a tota l'amplada */
-.problemes.grans {
-    grid-template-columns: 1fr;
-    grid-template-rows: 1fr 1fr;
 }
 
 /* ---- Full d'instruccions ---- */
