@@ -8,8 +8,11 @@
  * ARQUITECTURA: Tot es mesura en «unitats de tauler»: un quadret fa CEL
  *   unitats. L'SVG (amb viewBox) i els punts (en %) fan servir les mateixes
  *   unitats, i el tauler s'encongeix sencer en una pantalla estreta.
- *   El fa servir el joc, els exemples de les instruccions i la versió per imprimir.
- * DEPENDÈNCIES: motor.js (MotorTriangle.text, per escriure 1,5).
+ *   El fa servir el joc, els exemples de les instruccions i la versió per imprimir,
+ *   i també «Busca la figura» (polígons de 4 vèrtexs i les marques de les
+ *   propietats: angles rectes, costats iguals i costats paral·lels).
+ * DEPENDÈNCIES: motor.js (MotorTriangle.text, per escriure 1,5), només per al
+ *   càlcul de l'àrea (Busca la figura no el fa servir).
  * ============================================================================
  */
 window.TaulerTriangle = (() => {
@@ -42,8 +45,9 @@ window.TaulerTriangle = (() => {
     /**
      * Crea una quadrícula amb els punts del problema p. Retorna:
      *   el, punts (un div per punt, en l'ordre de p.punts);
-     *   pinta({ tria, estat, d }): el triangle (o el costat, o res) dels punts triats; estat '' | 'be' |
-     *       'malament'; d = el desglossament de motor.js per dibuixar com es calcula l'àrea (o null);
+     *   pinta({ tria, estat, d, ordre, marques }): el triangle (o el costat, o res) dels punts triats; estat
+     *       '' | 'be' | 'malament'; d = el desglossament de motor.js per dibuixar com es calcula l'àrea (o null);
+     *       ordre i marques: el polígon i les seves propietats (Busca la figura);
      *   guia(i, punt): línia del punt i fins al punt (unitats de tauler), o guia(null) per amagar-la;
      *   posicio(clientX, clientY): el punt de la pantalla en unitats de tauler;
      *   puntA(q, radi): el punt que hi ha en aquella posició (o -1).
@@ -169,17 +173,78 @@ window.TaulerTriangle = (() => {
             });
         }
 
-        function pinta({ tria = [], estat = '', d: dd = null } = {}) {
-            const v = tria.map(i => p.punts[i]);
+        // Les marques de les propietats d'una figura (Busca la figura), sobre el polígon v:
+        //   rectes: vèrtexs amb un escaire; iguals: grups de costats iguals (1, 2… ratlletes);
+        //   paralleles: parells de costats paral·lels (1, 2… fletxetes en el mateix sentit).
+        // Un costat k va de v[k] a v[k + 1].
+        function dibuixaMarques(v, { rectes = [], iguals = [], paralleles = [] }) {
+            const n = v.length;
+            const c = v.map(xy);
+            const unitari = (a, b) => {
+                const l = Math.hypot(b.x - a.x, b.y - a.y);
+                return { x: (b.x - a.x) / l, y: (b.y - a.y) / l };
+            };
+            rectes.forEach(i => {
+                const u = unitari(c[i], c[(i + 1) % n]);
+                const w = unitari(c[i], c[(i + n - 1) % n]);
+                const q = 21;
+                const d = `M${c[i].x + u.x * q} ${c[i].y + u.y * q}l${w.x * q} ${w.y * q}l${-u.x * q} ${-u.y * q}`;
+                calcul.appendChild(svg('path', { class: 'marca escaire', d }));
+            });
+            iguals.forEach((grup, g) => {
+                grup.forEach(k => {
+                    const a = c[k];
+                    const b = c[(k + 1) % n];
+                    const u = unitari(a, b);
+                    const m = { x: (a.x + b.x) / 2, y: (a.y + b.y) / 2 };
+                    for (let t = 0; t <= g; t++) {
+                        const o = (t - g / 2) * 6; // ratlletes separades al llarg del costat
+                        const px = m.x + u.x * o;
+                        const py = m.y + u.y * o;
+                        const d = `M${px - u.y * 8} ${py + u.x * 8}L${px + u.y * 8} ${py - u.x * 8}`;
+                        calcul.appendChild(svg('path', { class: 'marca', d }));
+                    }
+                });
+            });
+            paralleles.forEach((parella, g) => {
+                const [k0] = parella;
+                const ref = unitari(c[k0], c[(k0 + 1) % n]);
+                parella.forEach(k => {
+                    const a = c[k];
+                    const b = c[(k + 1) % n];
+                    let u = unitari(a, b);
+                    if (u.x * ref.x + u.y * ref.y < 0) u = { x: -u.x, y: -u.y };
+                    const m = { x: (a.x + b.x) / 2, y: (a.y + b.y) / 2 };
+                    for (let t = 0; t <= g; t++) {
+                        const o = (t - g / 2) * 7 + 4;
+                        const px = m.x + u.x * o;
+                        const py = m.y + u.y * o;
+                        const d =
+                            `M${px - u.x * 8 - u.y * 7} ${py - u.y * 8 + u.x * 7}L${px} ${py}` +
+                            `L${px - u.x * 8 + u.y * 7} ${py - u.y * 8 - u.x * 7}`;
+                        calcul.appendChild(svg('path', { class: 'marca fletxeta', d }));
+                    }
+                });
+            });
+        }
+
+        /**
+         * tria: els punts triats (índexs); ordre: els mateixos en l'ordre de la vora, quan fan un polígon
+         * (si no n'hi ha, es dibuixen en l'ordre de la tria, tancats si són 3); marques: vegeu dibuixaMarques.
+         */
+        function pinta({ tria = [], estat = '', d: dd = null, ordre = null, marques = null } = {}) {
+            const v = (ordre || tria).map(i => p.punts[i]);
+            const tancat = ordre ? v.length >= 3 : v.length === 3;
             calcul.replaceChildren();
             sobre.replaceChildren();
-            triangle.setAttribute('points', v.length === 3 ? llista(v) : '');
-            costats.setAttribute('points', v.length === 3 ? llista([...v, v[0]]) : llista(v));
+            triangle.setAttribute('points', tancat ? llista(v) : '');
+            costats.setAttribute('points', tancat ? llista([...v, v[0]]) : llista(v));
             el.classList.remove('be', 'malament');
             if (estat) el.classList.add(estat);
             punts.forEach((div, i) => div.classList.toggle('triat', tria.includes(i)));
             if (dd && dd.tipus === 'base') dibuixaBase(v, dd);
             if (dd && dd.tipus === 'caixa') dibuixaCaixa(dd);
+            if (marques && tancat) dibuixaMarques(v, marques);
         }
 
         function guia(i, q) {

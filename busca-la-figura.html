@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="ca">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Puzzle de geometria: tria els vèrtexs d'una quadrícula de punts per fer la figura que es demana (quadrat, rombe, trapezi, triangle isòsceles…).">
+    <title>Busca la figura</title>
+    <link rel="icon" href="icon.png">
+    <link rel="stylesheet" href="css/comu.css">
+    <link rel="stylesheet" href="css/busca-la-figura.css">
+</head>
+<body>
+    <nav class="dalt">
+        <a class="tornar" href="index.html">← Tots els puzzles</a>
+    </nav>
+    <div class="title-row">
+        <a href="https://step-quiz.net/" class="home-icon-link" title="Tornar a l'inici" aria-label="Tornar a l'inici">
+            <img src="icon.png" alt="Inici">
+        </a>
+        <h1>Busca la figura</h1>
+    </div>
+
+    <!-- ══════════ INSTRUCCIONS (traducció de la pàgina 1 de src/zukei_q.pdf) ══════════ -->
+    <details class="instruccions" id="instruccions">
+        <summary>Com es juga?</summary>
+        <div class="instr-cos">
+            <ul class="instr-regles">
+                <li>Tria <strong>vèrtexs</strong> i uneix-los amb costats per fer la <strong>figura</strong> que hi ha escrita a sota.</li>
+            </ul>
+
+            <div class="instr-fila exemple">
+                <figure id="ex-problema"><figcaption>Exemple: triangle isòsceles</figcaption></figure>
+                <span class="instr-fletxa-gran" aria-hidden="true">→</span>
+                <figure id="ex-solucio"><figcaption>Solució</figcaption></figure>
+            </div>
+
+            <div class="instr-caixa">
+                <h3>Exemples de figures</h3>
+                <p class="instr-compte">Compte! No sempre estan en la mateixa posició (poden estar girades).</p>
+                <div class="figures">
+                    <figure id="ex-isosceles"><figcaption><strong>Triangle isòsceles</strong><br>Té dos costats iguals.</figcaption></figure>
+                    <figure id="ex-quadrat"><figcaption><strong>Quadrat</strong><br>Té els quatre costats iguals<br>i els quatre angles iguals.</figcaption></figure>
+                    <figure id="ex-rectangle"><figcaption><strong>Rectangle</strong><br>Té els quatre angles iguals.</figcaption></figure>
+                    <figure id="ex-rombe"><figcaption><strong>Rombe</strong><br>Té els quatre costats iguals.</figcaption></figure>
+                    <figure id="ex-trapezi"><figcaption><strong>Trapezi</strong><br>Té un parell de costats paral·lels.</figcaption></figure>
+                    <figure id="ex-parallelogram"><figcaption><strong>Paral·lelogram</strong><br>Té dos parells de costats paral·lels.</figcaption></figure>
+                    <figure id="ex-rectangle-triangle"><figcaption><strong>Triangle rectangle</strong><br>Té un angle recte.</figcaption></figure>
+                </div>
+                <p class="instr-nota">Un <strong>triangle rectangle isòsceles</strong> té un angle recte i dos costats iguals. A les figures, l'escaire marca els angles rectes; les ratlletes, els costats iguals, i les fletxetes, els costats paral·lels.</p>
+                <p class="instr-compte">Toca els vèrtexs (o arrossega d'un punt a l'altre); per treure un punt, toca'l un altre cop.</p>
+            </div>
+        </div>
+    </details>
+
+    <!-- ══════════ JOC ══════════ -->
+    <main class="panel">
+        <div class="header-info">
+            <div class="level-text"><span id="titol-problema">Problema 1 de 42</span><span class="ja-resolt" id="ja-resolt" hidden>✓ resolt</span></div>
+            <div class="score-text" id="comptador">Resolts: 0 / 42</div>
+            <nav class="nav-problemes" aria-label="Problemes">
+                <button type="button" class="btn-nav" id="btn-anterior" aria-label="Problema anterior"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15 4l-8 8 8 8" fill="none" stroke="currentColor" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+                <button type="button" class="btn-nav" id="btn-tria">Escull…</button>
+                <button type="button" class="btn-nav" id="btn-seguent" aria-label="Problema següent"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 4l8 8-8 8" fill="none" stroke="currentColor" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+            </nav>
+        </div>
+
+        <p class="regla">Tria els <strong>vèrtexs</strong> de la figura que hi ha a sota.</p>
+        <div id="tauler-wrap"></div>
+        <p class="figura-objectiu"><strong id="figura-demanada">Quadrat</strong></p>
+
+        <div class="missatge" id="missatge" aria-live="polite"></div>
+
+        <div class="accions">
+            <button type="button" class="btn-sec" id="btn-reinicia">↺ Torna a començar</button>
+        </div>
+    </main>
+
+    <p class="credits">Puzzle original de Naoki Inaba</p>
+    <footer class="peu-llicencia">
+        <a rel="license" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.ca">
+            <img alt="Llicència CC BY-NC-SA" src="https://licensebuttons.net/l/by-nc-sa/4.0/88x31.png">
+        </a>
+        <span>
+            © 2026 <strong>David Arso Civil</strong> · Departament de Matemàtiques, INS Miquel Tarradell.
+            Contingut: <a rel="license" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.ca">CC BY-NC-SA 4.0</a> · Codi: <a href="https://opensource.org/license/mit">MIT</a>.
+        </span>
+    </footer>
+
+    <!-- ══════════ TRIA DE PROBLEMA ══════════ -->
+    <dialog class="dialeg-tria" id="dialeg-tria" aria-labelledby="tria-titol">
+        <h2 id="tria-titol">Escull un problema</h2>
+        <p>Van de més fàcils a més difícils. Els que ja has resolt tenen un ✓.</p>
+        <div class="graella" id="graella-problemes"></div>
+        <div class="dialeg-peu">
+            <button type="button" class="btn-text" id="btn-esborra-progres">Esborra els ✓</button>
+            <button type="button" class="btn-sec" id="btn-tanca-tria">Tanca</button>
+        </div>
+    </dialog>
+
+    <script src="js/comu.js" defer></script>
+    <script src="js/busca-la-figura/problemes.js" defer></script>
+    <script src="js/busca-la-figura/motor.js" defer></script>
+    <script src="js/busca-el-triangle/tauler.js" defer></script>
+    <script src="js/busca-la-figura/busca-la-figura.js" defer></script>
+</body>
+</html>

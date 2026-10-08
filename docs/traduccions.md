@@ -7,7 +7,7 @@ on no coincidien i per què.
 Quan es faci un puzzle, la seva part passa al seu propi fitxer (com
 [`enllac-multiples.md`](enllac-multiples.md), [`laberint-angles.md`](laberint-angles.md),
 [`expressions-bessones.md`](expressions-bessones.md), [`talla-rectangles.md`](talla-rectangles.md),
-[`creuat-multiples.md`](creuat-multiples.md), [`on-es-la-xifra.md`](on-es-la-xifra.md), [`busca-el-nombre.md`](busca-el-nombre.md), [`busca-el-triangle.md`](busca-el-triangle.md) i [`escala-nombres.md`](escala-nombres.md)).
+[`creuat-multiples.md`](creuat-multiples.md), [`on-es-la-xifra.md`](on-es-la-xifra.md), [`busca-el-nombre.md`](busca-el-nombre.md), [`busca-el-triangle.md`](busca-el-triangle.md), [`escala-nombres.md`](escala-nombres.md) i [`busca-la-figura.md`](busca-la-figura.md)).
 
 **Criteris:**
 
@@ -22,7 +22,6 @@ Quan es faci un puzzle, la seva part passa al seu propi fitxer (com
 |---|---|---|
 | [Dipòsits d'aigua](#dipòsits-daigua) | 水そうと水 | `mizu` |
 | [Afegeix zeros](#afegeix-zeros) | ゼロゼロ式 | `zero` |
-| [Busca la figura](#busca-la-figura) | 図形探し | `zukei` |
 
 ---
 
@@ -75,32 +74,3 @@ Notes:
   com a màxim (la traducció de Gemini ho presentava com a norma).
 - Totes les targetes dels 49 problemes tenen **una sola xifra**, així que els zeros només poden anar al
   final (2 → 200). A l'exemple ✗, el 18 i el 210 hi afegeixen un 8 i un 1.
-
----
-
-## Busca la figura
-
-`src/zukei_q.pdf` · 図形探し
-
-| Japonès | Català |
-|---|---|
-| 図形探し | Busca la figura |
-| ・下に書かれた図形ができるように頂点を選んで辺で結びましょう | · Tria vèrtexs i uneix-los amb costats per fer la figura que hi ha escrita a sota. |
-| 二等辺三角形 | Triangle isòsceles |
-| いろいろな図形の例 | Exemples de figures |
-| ！注意！ いつも同じ向きとは限りません | Compte! No sempre estan en la mateixa posició (poden estar girades). |
-| 二等辺三角形 ・二辺が等しい | Triangle isòsceles: té dos costats iguals. |
-| 正方形 ・四つの辺が等しい ・四つの角が等しい | Quadrat: té els quatre costats iguals i els quatre angles iguals. |
-| 長方形 ・四つの角が等しい | Rectangle: té els quatre angles iguals. |
-| ひし形 ・四つの辺が等しい | Rombe: té els quatre costats iguals. |
-| 台形 ・一組の辺が平行 | Trapezi: té un parell de costats paral·lels. |
-| 平行四辺形 ・二組の辺が平行 | Paral·lelogram: té dos parells de costats paral·lels. |
-| 直角三角形 ・直角な角を持つ | Triangle rectangle: té un angle recte. |
-
-Notes:
-
-- Als problemes també es demana el **triangle rectangle isòsceles** (直角二等辺三角形, en 5 problemes), que no
-  surt a la pàgina d'instruccions.
-- Les definicions del PDF són **inclusives**: un quadrat també té els quatre angles iguals (és un rectangle)
-  i els quatre costats iguals (és un rombe). Pel trapezi, «un parell de costats paral·lels» pot voler dir
-  «almenys un» o «només un»: quan es faci el puzzle, s'haurà de mirar a les solucions quin criteri fa servir.
