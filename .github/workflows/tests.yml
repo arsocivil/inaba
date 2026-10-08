@@ -1,0 +1,37 @@
+# Revisió automàtica: cada cop que es puja alguna cosa a main (o s'obre una
+# pull request), GitHub comprova que els puzzles estan ben escrits.
+#   ✓ verd    → tot correcte
+#   ✗ vermell → alguna cosa s'ha trencat (el detall és a la pestanya "Actions")
+# Només cal Node: no s'instal·la res.
+name: Tests
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  tests:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Enllaç de múltiples
+        run: node tests/enllac-multiples.test.js
+      - name: Laberint d'angles
+        run: node tests/laberint-angles.test.js
+      - name: Expressions bessones
+        run: node tests/expressions-bessones.test.js
+      - name: Talla en rectangles
+        run: node tests/talla-rectangles.test.js
+      - name: Creuat de múltiples
+        run: node tests/creuat-multiples.test.js
+      - name: On és la xifra?
+        run: node tests/on-es-la-xifra.test.js
