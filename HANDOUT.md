@@ -13,7 +13,7 @@ pipeline, the testing method and the traps already found.
 | Typical request | «Implementa «<nom>»» | «Fes la versió per imprimir de «<nom>»» |
 | Output | `<slug>.html` + `js/<slug>/*` + `css/<slug>.css` + test + integrations | `imprimir/<slug>.html` (ready to print) + `imprimir/<slug>.pdf` + link on the game page |
 | Read | §1–4 (shared) + **Part A** §5–12 | §1–4 (shared) + **Part B** §13 (it reuses the game's `tauler.js`, see §5 and §8) |
-| Status | 9 of 12 done (§8; On és la xifra?, Busca el nombre, Busca el triangle and L'escala de nombres are documented in `docs/<slug>.md`), **3 pending** (§12; the Busca el nombre, Busca el triangle and L'escala de nombres rows are done) | **9 of 9 done** — every finished puzzle has its print version (§13.5) |
+| Status | 10 of 12 done (§8; On és la xifra?, Busca el nombre, Busca el triangle, L'escala de nombres and Busca la figura are documented in `docs/<slug>.md`), **2 pending**: Dipòsits d'aigua and Afegeix zeros (§12) | **10 of 10 done** — every finished puzzle has its print version (§13.5) |
 
 After finishing Task A, do not start Task B on your own: offer it in one line and let the user decide.
 
@@ -217,7 +217,7 @@ concrete mathematical reason («10 no és múltiple de 4», «Al cercle del 180,
 the underlying maths (×k labels, base × altura, step-by-step calculation). Local, non-revealing aids are OK
 during play (e.g. rectangle size label, angle arcs, ✓ on used cards/sizes).
 
-## 8. Finished puzzles (the first five + Busca el triangle + L'escala de nombres; the others are in `docs/`)
+## 8. Finished puzzles (the first five + Busca el triangle, L'escala de nombres and Busca la figura; the others are in `docs/`)
 
 ### 8.1 Enllaç de múltiples (`blink`, 倍数リンク) — 42 problems, indigo
 - Data (hand-transcribed, `js/enllac-multiples/problemes.js`): `{ llocs: [[col, fila, valor?]], fletxes:
@@ -328,6 +328,21 @@ during play (e.g. rectangle size label, angle arcs, ✓ on used cards/sizes).
   already selected it: it deselected at once — bug found and fixed).
 - **Print version done** (13 pages, **4 per page**, user's choice: at 6 per page circles were 8–10 mm);
   in the instructions the wrong filera is dotted and its circles have a double border.
+
+### 8.8 Busca la figura (`zukei`, 図形探し) — 42 problems, purple `#9333ea`
+- Data **generated** by `tools/extreu-figura.py` (a copy of `extreu-triangle.py`; the grid cell is computed as
+  width / cells, because 28 pt cells drift): `{ amp, alt, punts, figura }`, figura ∈ quadrat, rectangle, rombe,
+  paral·lelogram, trapezi, isosceles, rectangle-triangle, rectangle-isosceles.
+- `motor.js`: `analitza` (alineats | concau | triangle/quadrilàter with border order, right angles, equal-side
+  groups, parallel pairs; exact integers), `comprova` (inclusive PDF definitions; `motiu` = the missing property,
+  `nom` = the most specific figure made), `marques`, `resol`. Inclusive and exclusive readings give the same
+  unique answer in 40 problems; **17** and **19** have 2 solutions (PDF errors, both accepted, documented).
+- **Reuses `js/busca-el-triangle/tauler.js`** (loaded from the figura pages): `pinta` gained `ordre` (polygon
+  order) and `marques` (`rectes`, `iguals`, `paralleles`: right-angle square, ticks, chevrons). Any change there
+  must keep both puzzles working (re-run both browser tests and both print PDFs).
+- Controller = the triangle one (tap/trace/keyboard), with `cal` = 3 or 4 vertices.
+- **Print version done** (9 pages, 6 per page): figure name boxed next to the number pill; page 1 shows the
+  seven PDF example figures with their marks.
 
 ## 9. PDF data extraction (the technique that works)
 
@@ -517,6 +532,7 @@ Also: reset `figure { margin: 0 }` (browser default 40 px); width, not height, i
 | Laberint d'angles | 12 | **4 per page**. Lines `#333` 0.55 mm, dotted cut lines with ×, circles white with black numbers, S/G thick border; no arcs on problems (only in the instructions). Circles are scaled up (`--cercle`) to ≥ 8.6 mm on small boards, but not in the instructions (they would hide the angle arcs). The «Amb el retolador» box explains the dotted × lines (19 problems have them; the game does not say it). |
 | Busca el triangle | 9 | See §8.6. |
 | L'escala de nombres | 13 | **4 per page**; see §8.7. |
+| Busca la figura | 9 | See §8.8. |
 | Talla en rectangles | 13 | **4 per page**. Cell up to 16 mm (`min(16, 92/amp, 104/alt)`), grid `#333` 0.3 mm, outline black 1 mm, no piece colours; «Quadrets: 3 5 6» boxes next to the number pill (absolute, `left: 11 mm`). Wide figures (10–12 cells) stay ≈ 7.5 mm per cell: width is the limit. |
 
 Lesson from Creuat de múltiples: boards of different height share a sheet, so align the number pills per row and
