@@ -160,6 +160,17 @@
             border-color: #9333ea;
             box-shadow: 0 8px 20px rgba(147, 51, 234, 0.15);
         }
+        .puzzle.afegeix-zeros {
+            border-top-color: #1d4ed8;
+        }
+        .puzzle.afegeix-zeros strong,
+        .puzzle.afegeix-zeros .progres {
+            color: #1e3a8a;
+        }
+        a.puzzle.afegeix-zeros:hover {
+            border-color: #1d4ed8;
+            box-shadow: 0 8px 20px rgba(29, 78, 216, 0.15);
+        }
         .puzzle.aviat {
             border-top-color: var(--border-heavy);
             box-shadow: none;
@@ -249,12 +260,17 @@
             <span class="desc">Tria els vèrtexs d'una quadrícula de punts per fer un quadrat, un rombe, un trapezi, un triangle isòsceles…</span>
             <span class="progres" id="progres-figura">42 problemes</span>
         </a>
+        <a class="puzzle afegeix-zeros" href="afegeix-zeros.html">
+            <strong>Afegeix zeros</strong>
+            <span class="jp">ゼロゼロ式</span>
+            <span class="desc">Afegeix zeros a les targetes (3 → 30 → 300) perquè la suma sigui correcta.</span>
+            <span class="progres" id="progres-zeros">49 problemes</span>
+        </a>
     </div>
 
     <h2>Properament</h2>
     <div class="llista">
         <div class="puzzle aviat"><strong>Dipòsits d'aigua</strong><span class="jp">水そうと水</span></div>
-        <div class="puzzle aviat"><strong>Afegeix zeros</strong><span class="jp">ゼロゼロ式</span></div>
     </div>
 
     <p class="credits">Puzzles originals de Naoki Inaba</p>

@@ -7,7 +7,7 @@ on no coincidien i per què.
 Quan es faci un puzzle, la seva part passa al seu propi fitxer (com
 [`enllac-multiples.md`](enllac-multiples.md), [`laberint-angles.md`](laberint-angles.md),
 [`expressions-bessones.md`](expressions-bessones.md), [`talla-rectangles.md`](talla-rectangles.md),
-[`creuat-multiples.md`](creuat-multiples.md), [`on-es-la-xifra.md`](on-es-la-xifra.md), [`busca-el-nombre.md`](busca-el-nombre.md), [`busca-el-triangle.md`](busca-el-triangle.md), [`escala-nombres.md`](escala-nombres.md) i [`busca-la-figura.md`](busca-la-figura.md)).
+[`creuat-multiples.md`](creuat-multiples.md), [`on-es-la-xifra.md`](on-es-la-xifra.md), [`busca-el-nombre.md`](busca-el-nombre.md), [`busca-el-triangle.md`](busca-el-triangle.md), [`escala-nombres.md`](escala-nombres.md), [`busca-la-figura.md`](busca-la-figura.md) i [`afegeix-zeros.md`](afegeix-zeros.md)).
 
 **Criteris:**
 
@@ -21,7 +21,6 @@ Quan es faci un puzzle, la seva part passa al seu propi fitxer (com
 | Puzzle | Original | PDF |
 |---|---|---|
 | [Dipòsits d'aigua](#dipòsits-daigua) | 水そうと水 | `mizu` |
-| [Afegeix zeros](#afegeix-zeros) | ゼロゼロ式 | `zero` |
 
 ---
 
@@ -47,30 +46,3 @@ Notes:
 - Un dipòsit (vora gruixuda) pot ocupar uns quants cubs, separats per línies fines: un dipòsit ample (l'aigua
   hi fa la mateixa altura a tots els cubs) o alt (de dos pisos).
 - Les fletxes apunten a una fila (des de l'esquerra) o a una columna (des de dalt).
-
----
-
-## Afegeix zeros
-
-`src/zero_q.pdf` · ゼロゼロ式
-
-| Japonès | Català |
-|---|---|
-| ゼロゼロ式 | Afegeix zeros |
-| 数字の書かれたカードで作られた式があります | Hi ha una igualtat feta amb targetes que tenen un número. |
-| ・いくつかのカードに０を書きくわえて正しい式にしましょう | · Afegeix zeros a algunes targetes perquè la igualtat sigui correcta. |
-| 【例題】 １＋２＋３＝２３１ | Exemple: 1 + 2 + 3 = 231 |
-| 【解答】 １＋２００＋３０＝２３１ | Solució: 1 + 200 + 30 = 231 |
-| カードに０を書き加えます | Afegeix zeros a les targetes |
-| １ 一つも書かない ／ ２００ 二つ書く ／ ３０ 一つ書く | 1: no n'hi escrius cap / 200: n'hi escrius dos / 30: n'hi escrius un |
-| １８ ／ ２１０ ０でない数字を書いてはいけません | 18 / 210: no pots escriure xifres que no siguin 0. ✗ |
-| 正しい式にしましょう | La igualtat ha de ser correcta |
-| １＋２００＋３０＝２３１ 正しい式です | 1 + 200 + 30 = 231: és correcta. ✓ |
-| １０＋２＋３００＝２３１ 計算が合っていません | 10 + 2 + 300 = 231: el càlcul no surt. ✗ |
-
-Notes:
-
-- «Cap, dos, un» són les etiquetes de l'exemple, **no una regla**: el PDF no diu que se'n puguin posar dos
-  com a màxim (la traducció de Gemini ho presentava com a norma).
-- Totes les targetes dels 49 problemes tenen **una sola xifra**, així que els zeros només poden anar al
-  final (2 → 200). A l'exemple ✗, el 18 i el 210 hi afegeixen un 8 i un 1.

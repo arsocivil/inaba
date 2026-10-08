@@ -19,8 +19,9 @@ Els PDF originals (en japonès) són a [`src/`](src/): `*_q.pdf` són els enunci
 | Busca el triangle | 三角探し (`sankaku`) | [`busca-el-triangle.html`](busca-el-triangle.html) | 42 |
 | L'escala de nombres | 数字の階段 (`step`) | [`escala-nombres.html`](escala-nombres.html) | 42 |
 | Busca la figura | 図形探し (`zukei`) | [`busca-la-figura.html`](busca-la-figura.html) | 42 |
+| Afegeix zeros | ゼロゼロ式 (`zero`) | [`afegeix-zeros.html`](afegeix-zeros.html) | 49 |
 
-La portada ([`index.html`](index.html)) també llista els altres 2 puzzles de `src/` com a «Properament».
+La portada ([`index.html`](index.html)) també llista l'altre puzzle de `src/` com a «Properament».
 La traducció de les instruccions de cada puzzle i les notes sobre els problemes són a [`docs/`](docs/).
 Les dels puzzles que encara no s'han fet són a [`docs/traduccions.md`](docs/traduccions.md).
 
@@ -145,6 +146,14 @@ quadrilàters), **traçar** d'un punt a l'altre o fer-ho amb el **teclat**. Amb 
 dibuixen les marques de la definició (angles rectes, costats iguals, costats paral·lels) i, si no és la figura que
 es demana, es diu quina propietat li falta i quina figura s'ha fet.
 
+## Com es juga a Afegeix zeros
+
+- **Tocar** una targeta hi afegeix un zero (3 → 30 → 300); **tocar un zero** el treu.
+- **Arrossegar** el «0» de sota fins a una targeta; arrossegar un zero fora de la targeta el treu.
+- **Teclat**: Tab o fletxes, 0 (o Enter) per afegir un zero, ⌫ per treure'n un.
+
+Quan la igualtat és correcta, es diu sola. El botó «Comprova» mostra el càlcul tal com està i quant falta o sobra.
+
 ## Comú als puzzles
 
 - Els problemes resolts es desen al navegador (localStorage) i es veuen amb un ✓ a «Escull…» i a la
@@ -206,6 +215,7 @@ tools/extreu-kazu.py           ← llegeix els quadres del PDF i escriu js/busca
 tools/extreu-triangle.py       ← llegeix les quadrícules de punts del PDF i escriu js/busca-el-triangle/problemes.js
 tools/extreu-escala.py         ← llegeix els cercles i les fileres del PDF i escriu js/escala-nombres/problemes.js
 tools/extreu-figura.py         ← llegeix les quadrícules de punts del PDF i escriu js/busca-la-figura/problemes.js
+tools/extreu-zeros.py          ← llegeix les igualtats del PDF i escriu js/afegeix-zeros/problemes.js
 tools/genera-pdf.js            ← fa el PDF per imprimir d'un puzzle (imprimir/<puzzle>.html → .pdf)
 imprimir/<puzzle>.html, .pdf   ← versió per imprimir i el seu PDF
 css/imprimir.css               ← estils comuns de les versions per imprimir (+ css/imprimir-<puzzle>.css)
@@ -228,6 +238,7 @@ node tests/busca-el-nombre.test.js
 node tests/busca-el-triangle.test.js
 node tests/escala-nombres.test.js
 node tests/busca-la-figura.test.js
+node tests/afegeix-zeros.test.js
 ```
 
 GitHub els executa sols a cada pull request i a cada canvi a `main` (pestanya **Actions**).
