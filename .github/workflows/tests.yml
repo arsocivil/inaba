@@ -35,3 +35,5 @@ jobs:
         run: node tests/creuat-multiples.test.js
       - name: On és la xifra?
         run: node tests/on-es-la-xifra.test.js
+      - name: Busca el nombre
+        run: node tests/busca-el-nombre.test.js
