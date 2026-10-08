@@ -164,7 +164,8 @@ Quan la igualtat és correcta, es diu sola. El botó «Comprova» mostra el càl
 
 Fulls A4 per imprimir a doble cara (en blanc i negre), plastificar i escriure-hi amb retolador de pissarra:
 la pàgina 1 són les instruccions, la 2 és en blanc (el revers) i a partir de la 3 hi ha 6 problemes per full
-(4 al Laberint d'angles, al Talla en rectangles i a L'escala de nombres, que tenen figures més grans).
+(4 al Laberint d'angles, al Talla en rectangles i a L'escala de nombres, que tenen figures més grans;
+a Afegeix zeros, 7 igualtats per full, una per fila).
 
 | Puzzle | Pàgina | PDF |
 |---|---|---|
@@ -178,6 +179,7 @@ la pàgina 1 són les instruccions, la 2 és en blanc (el revers) i a partir de 
 | Busca el triangle | [`imprimir/busca-el-triangle.html`](imprimir/busca-el-triangle.html) | [`imprimir/busca-el-triangle.pdf`](imprimir/busca-el-triangle.pdf) (9 pàgines) |
 | L'escala de nombres | [`imprimir/escala-nombres.html`](imprimir/escala-nombres.html) | [`imprimir/escala-nombres.pdf`](imprimir/escala-nombres.pdf) (13 pàgines, 4 problemes per full) |
 | Busca la figura | [`imprimir/busca-la-figura.html`](imprimir/busca-la-figura.html) | [`imprimir/busca-la-figura.pdf`](imprimir/busca-la-figura.pdf) (9 pàgines) |
+| Afegeix zeros | [`imprimir/afegeix-zeros.html`](imprimir/afegeix-zeros.html) | [`imprimir/afegeix-zeros.pdf`](imprimir/afegeix-zeros.pdf) (9 pàgines, 7 igualtats per full, una per fila) |
 
 S'hi arriba des de l'enllaç «Versió per imprimir» de dalt de la pàgina del joc. La pàgina té un botó per
 imprimir-la o desar-la com a PDF des del navegador. El PDF del repositori el fa
