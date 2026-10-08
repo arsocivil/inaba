@@ -146,6 +146,7 @@ la pàgina 1 són les instruccions, la 2 és en blanc (el revers) i a partir de 
 | Enllaç de múltiples | [`imprimir/enllac-multiples.html`](imprimir/enllac-multiples.html) | [`imprimir/enllac-multiples.pdf`](imprimir/enllac-multiples.pdf) (9 pàgines) |
 | Laberint d'angles | [`imprimir/laberint-angles.html`](imprimir/laberint-angles.html) | [`imprimir/laberint-angles.pdf`](imprimir/laberint-angles.pdf) (12 pàgines, 4 problemes per full) |
 | Talla en rectangles | [`imprimir/talla-rectangles.html`](imprimir/talla-rectangles.html) | [`imprimir/talla-rectangles.pdf`](imprimir/talla-rectangles.pdf) (13 pàgines, 4 problemes per full) |
+| Busca el triangle | [`imprimir/busca-el-triangle.html`](imprimir/busca-el-triangle.html) | [`imprimir/busca-el-triangle.pdf`](imprimir/busca-el-triangle.pdf) (9 pàgines) |
 
 S'hi arriba des de l'enllaç «Versió per imprimir» de dalt de la pàgina del joc. La pàgina té un botó per
 imprimir-la o desar-la com a PDF des del navegador. El PDF del repositori el fa
