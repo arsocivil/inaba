@@ -13,7 +13,7 @@ pipeline, the testing method and the traps already found.
 | Typical request | «Implementa «<nom>»» | «Fes la versió per imprimir de «<nom>»» |
 | Output | `<slug>.html` + `js/<slug>/*` + `css/<slug>.css` + test + integrations | `imprimir/<slug>.html` (ready to print) + `imprimir/<slug>.pdf` + link on the game page |
 | Read | §1–4 (shared) + **Part A** §5–12 | §1–4 (shared) + **Part B** §13 (it reuses the game's `tauler.js`, see §5 and §8) |
-| Status | 8 of 12 done (§8; On és la xifra?, Busca el nombre and Busca el triangle are documented in `docs/<slug>.md`), **4 pending** (§12; the Busca el nombre and Busca el triangle rows are done) | **8 of 8 done** — every finished puzzle has its print version (§13.5) |
+| Status | 9 of 12 done (§8; On és la xifra?, Busca el nombre, Busca el triangle and L'escala de nombres are documented in `docs/<slug>.md`), **3 pending** (§12; the Busca el nombre, Busca el triangle and L'escala de nombres rows are done) | **9 of 9 done** — every finished puzzle has its print version (§13.5) |
 
 After finishing Task A, do not start Task B on your own: offer it in one line and let the user decide.
 
@@ -217,7 +217,7 @@ concrete mathematical reason («10 no és múltiple de 4», «Al cercle del 180,
 the underlying maths (×k labels, base × altura, step-by-step calculation). Local, non-revealing aids are OK
 during play (e.g. rectangle size label, angle arcs, ✓ on used cards/sizes).
 
-## 8. Finished puzzles (the first five + Busca el triangle; the others are in `docs/`)
+## 8. Finished puzzles (the first five + Busca el triangle + L'escala de nombres; the others are in `docs/`)
 
 ### 8.1 Enllaç de múltiples (`blink`, 倍数リンク) — 42 problems, indigo
 - Data (hand-transcribed, `js/enllac-multiples/problemes.js`): `{ llocs: [[col, fila, valor?]], fletxes:
@@ -310,6 +310,24 @@ during play (e.g. rectangle size label, angle arcs, ✓ on used cards/sizes).
 - PDF error: **26** has 3 solutions (the game accepts any triangle with the right area).
 - **Print version done** (9 pages, 6 per page): grids 64 mm, «Àrea N» box next to the number pill; students
   circle three dots and join them.
+
+### 8.7 L'escala de nombres (`step`, 数字の階段) — 42 problems, cyan `#0e7490`
+- Data **generated** by `tools/extreu-escala.py`: `{ nodes: [[x, y, valor?]], fileres: [[i, j, k, …]] }` (x, y
+  in PDF points; a *filera* = a maximal straight chain of edges, ±8°; two lines meeting at an angle are
+  different fileres). Circles = black 12.5 stroked curves; lines = black 18.75 strokes. Problem labels form a
+  2 × 3 grid: each problem takes the label of its cell (lowest label above its centroid, nearest column) —
+  a nearest-circle greedy matching mis-assigned labels. Example hard-coded (page 1).
+- `motor.js`: `filera(vs)` → `be` (with d) | `repetit` | `salt` (with a concrete `motiu`); `comprova`; `resol`
+  propagates (two known values fix a filera), then branches on the difference (values 1–200). Unique and equal
+  to the PDF for all 42; repeated values in *different* fileres are fine (27, 28, 29, 41).
+- `tauler.js`: SVG polylines + HTML circles (`R 14` pt); on success «+d» labels on each segment, placed on
+  the side farthest from circles, other segments and labels already placed.
+- UI: tap a circle then the digit pad (multi-digit: 1, 2 → 12; the first digit after selecting replaces);
+  ⌫ removes the last digit; no circle selected → first empty one; drag a digit onto a circle; drag a number
+  out to clear; keyboard digits/arrows/Enter/Supr. 0 refused. Do not toggle the selection on click (focus has
+  already selected it: it deselected at once — bug found and fixed).
+- **Print version done** (13 pages, **4 per page**, user's choice: at 6 per page circles were 8–10 mm);
+  in the instructions the wrong filera is dotted and its circles have a double border.
 
 ## 9. PDF data extraction (the technique that works)
 
@@ -415,7 +433,7 @@ Reference implementation: Expressions bessones (`imprimir/expressions-bessones.h
 3. **Page order**: **1 = instructions** (the game's «Com es juga?» text and examples + a box «Amb el
    retolador» saying where to write), **2 = blank** (back of the instructions), **3… = problems, 6 per page**
    (2 columns × 3 rows, in order). Pages = 2 + ⌈N/6⌉ (42 → 9, 38 → 9, 49 → 11). **Exception decided by the user:
-   Laberint d'angles and Talla en rectangles always 4 per page** (2 × 2; 6 was «massa atapeït»). If a puzzle's figures cannot
+   Laberint d'angles, Talla en rectangles and L'escala de nombres always 4 per page** (2 × 2; 6 was «massa atapeït»). If a puzzle's figures cannot
    be made writable at 6 per page, propose fewer per page in the sample message — do not decide alone.
 4. **Always show pages 1 and 3 first** (`--pagines 1,3`, sent with `SendUserFile`) and wait for the user's
    «OK»; iterate on their remarks. Only then generate the full PDF, commit and open the PR.
@@ -498,6 +516,7 @@ Also: reset `figure { margin: 0 }` (browser default 40 px); width, not height, i
 | Enllaç de múltiples | 9 | Boards in mm (`--k` = mm per board unit, set by `js/enllac-multiples/imprimir.js`); empty slots dashed `#333`; under each board the problem's cards (the one already on the board grey with ✓) to cross out; 2 × 2 boards (13–24) put the cards in a column at the right. After the first sample the user asked for **smaller boards, more room between the 3 rows and a black line between rows**: `.problemes` has no column gap (cards pad 1.5 mm instead) so the `border-top` of rows 2–3 is continuous. Never draw the line with an absolutely positioned `::after` outside the card: `genera-pdf.js` counts it as overflow. |
 | Laberint d'angles | 12 | **4 per page**. Lines `#333` 0.55 mm, dotted cut lines with ×, circles white with black numbers, S/G thick border; no arcs on problems (only in the instructions). Circles are scaled up (`--cercle`) to ≥ 8.6 mm on small boards, but not in the instructions (they would hide the angle arcs). The «Amb el retolador» box explains the dotted × lines (19 problems have them; the game does not say it). |
 | Busca el triangle | 9 | See §8.6. |
+| L'escala de nombres | 13 | **4 per page**; see §8.7. |
 | Talla en rectangles | 13 | **4 per page**. Cell up to 16 mm (`min(16, 92/amp, 104/alt)`), grid `#333` 0.3 mm, outline black 1 mm, no piece colours; «Quadrets: 3 5 6» boxes next to the number pill (absolute, `left: 11 mm`). Wide figures (10–12 cells) stay ≈ 7.5 mm per cell: width is the limit. |
 
 Lesson from Creuat de múltiples: boards of different height share a sheet, so align the number pills per row and

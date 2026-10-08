@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="ca">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>L'escala de nombres — per imprimir</title>
+    <link rel="icon" href="../icon.png">
+    <link rel="stylesheet" href="../css/imprimir.css">
+    <link rel="stylesheet" href="../css/imprimir-escala-nombres.css">
+    <!-- Fulls A4 per imprimir a doble cara i plastificar. El PDF el fa tools/genera-pdf.js. -->
+    <script src="../js/imprimir.js" defer></script>
+    <script src="../js/escala-nombres/problemes.js" defer></script>
+    <script src="../js/escala-nombres/motor.js" defer></script>
+    <script src="../js/escala-nombres/tauler.js" defer></script>
+    <script src="../js/escala-nombres/imprimir.js" defer></script>
+</head>
+<body>
+    <!-- Només a la pantalla: no s'imprimeix -->
+    <nav class="barra">
+        <a href="../escala-nombres.html">← Torna al joc</a>
+        <button type="button" data-imprimeix>Imprimeix o desa com a PDF</button>
+        <a href="escala-nombres.pdf" download>Descarrega el PDF</a>
+        <span>13 pàgines A4, per imprimir a doble cara i plastificar</span>
+    </nav>
+
+    <!-- ══════════ FULL 1: INSTRUCCIONS (les mateixes del joc) ══════════ -->
+    <section class="pagina mida-instr" data-quins="Instruccions">
+        <ul class="regles">
+            <li>Escriu un <strong>nombre enter més gran o igual que 1</strong> a cada cercle buit.</li>
+            <li>En una mateixa <strong>filera</strong> no hi pot haver dos nombres iguals.</li>
+            <li>Els nombres d'una filera <strong>augmenten sempre la mateixa quantitat</strong>, començant per una de les puntes.</li>
+        </ul>
+
+        <div class="fila">
+            <figure id="ex-problema"><figcaption>Exemple</figcaption></figure>
+            <span class="fletxa-gran" aria-hidden="true">→</span>
+            <figure id="ex-solucio"><figcaption>Solució</figcaption></figure>
+        </div>
+
+        <div class="caixa">
+            <h2>En una mateixa filera no hi pot haver dos nombres iguals</h2>
+            <div class="fila">
+                <figure id="ex-repetit"><figcaption class="veredicte"><b>✗</b>La filera de punts (doble vora) té el 3 tres vegades.</figcaption></figure>
+                <p class="compte"><strong>Compte!</strong> No es pot fer servir el 0.<br>Hi pot haver nombres de dues xifres o més.</p>
+            </div>
+        </div>
+
+        <div class="caixa">
+            <h2>Els nombres d'una filera augmenten sempre la mateixa quantitat, començant per una de les puntes</h2>
+            <div class="fila">
+                <figure id="ex-salts"></figure>
+                <ul class="salts-llista">
+                    <li>1, 2, 3: augmenten d'1 en 1.</li>
+                    <li>1, 3, 5: augmenten de 2 en 2.</li>
+                    <li>2, 5, 8: augmenten de 3 en 3.</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="caixa retolador">
+            <h2>Amb el retolador</h2>
+            <ul>
+                <li>Escriu <strong>un nombre a cada cercle buit</strong>, ben gros.</li>
+                <li>Si t'ajuda, escriu al costat de cada tram quant augmenta (+2, +3…), com a l'exemple de dalt.</li>
+                <li>Per esborrar, fes servir un drap o un mocador de paper. No hi escriguis mai amb retolador permanent!</li>
+            </ul>
+        </div>
+    </section>
+
+    <!-- ══════════ FULL 2: EN BLANC (el revers de les instruccions) ══════════ -->
+    <section class="pagina"></section>
+
+    <!-- ══════════ FULLS 3 A 13: PROBLEMES 1–42 (4 per full), els afegeix js/escala-nombres/imprimir.js ══════════ -->
+</body>
+</html>

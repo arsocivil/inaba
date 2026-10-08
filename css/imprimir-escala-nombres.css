@@ -1,0 +1,101 @@
+/*
+============================================================================
+FITXER: css/imprimir-escala-nombres.css
+ROL: Els problemes de «L'escala de nombres» en paper: línies negres
+     gruixudes, cercles blancs grans per escriure-hi un nombre amb un retolador
+     gruixut, i els números que ja hi són en negreta.
+ARQUITECTURA: Fa servir el mateix DOM que el joc (TaulerEscala), però amb
+     mides en mm: --k (el posa js/escala-nombres/imprimir.js) són els mm d'una
+     unitat del tauler. Només blanc, negre i gris fosc (impressora en B/N):
+     la filera dolenta de les instruccions, de punts en lloc de vermella.
+DEPENDÈNCIES: css/imprimir.css (s'ha de carregar abans).
+============================================================================
+*/
+figure {
+    margin: 0;
+}
+
+/* ---- El tauler: fileres (SVG) + cercles (HTML), en unitats de tauler.js ---- */
+.tauler-escala {
+    position: relative;
+    flex-shrink: 0;
+}
+.dibuix {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    overflow: visible;
+}
+.filera {
+    fill: none;
+    stroke: var(--tinta);
+    stroke-width: calc(1.1 / var(--k));
+    stroke-linecap: round;
+    stroke-linejoin: round;
+}
+.filera.malament {
+    stroke-dasharray: calc(0.8 / var(--k)) calc(0.9 / var(--k));
+    stroke-linecap: butt;
+}
+.salt {
+    font-family: Inter, 'Segoe UI', Arial, sans-serif;
+    font-size: 10px;
+    font-weight: 800;
+    fill: var(--tinta);
+    stroke: white;
+    stroke-width: 3;
+    stroke-linejoin: round;
+    paint-order: stroke;
+}
+
+/* ---- Un cercle: blanc, vora negra; els números que ja hi són, en negreta ---- */
+.cercle {
+    position: absolute;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    background: white;
+    border: calc(var(--k) * 2.2mm) solid var(--tinta);
+    color: var(--tinta);
+    font-size: calc(var(--k) * 14mm);
+    font-weight: 800;
+    font-variant-numeric: tabular-nums;
+    letter-spacing: -0.03em;
+}
+.cercle.erroni {
+    border: calc(var(--k) * 4mm) double var(--tinta);
+}
+.cercle.llarg {
+    font-size: calc(var(--k) * 10.5mm);
+}
+
+/* ---- Fulls de problemes: el tauler centrat a la targeta ---- */
+.problemes {
+    align-items: stretch;
+}
+.problema {
+    justify-content: flex-start;
+}
+.problema .tauler-escala {
+    margin: auto 0;
+}
+.quatre-per-full .problemes {
+    grid-template-rows: repeat(2, 1fr);
+}
+
+/* ---- Full d'instruccions ---- */
+.mida-instr .fila {
+    gap: 9mm;
+}
+.compte,
+.salts-llista {
+    margin: 0;
+    font-size: 11pt;
+    line-height: 1.5;
+}
+.salts-llista {
+    padding-left: 6mm;
+    font-weight: 600;
+}
