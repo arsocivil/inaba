@@ -1,0 +1,285 @@
+/*
+============================================================================
+FITXER: css/creuat-multiples.css
+ROL: Estils propis del «Creuat de múltiples»: el quadre (caselles negres amb
+     els números als triangles i caselles blanques per a les xifres) i les
+     xifres de la pila.
+DEPENDÈNCIES: css/comu.css (s'ha de carregar abans).
+============================================================================
+*/
+:root {
+    --primary: #0f766e;
+    --primary-light: #f0fdfa;
+    --primary-hover: #115e59;
+    --primary-dark: #134e4a;
+    --tinta: #334155; /* vores del quadre, com el llapis del paper */
+    --negre: #0f172a; /* caselles negres */
+}
+
+/* ══════════════════════════════════════════════
+   EL QUADRE: una graella, una casella per cel·la (vegeu tauler.js)
+══════════════════════════════════════════════ */
+#tauler-wrap {
+    padding-top: 22px;
+}
+.creuat {
+    --cel: min(76px, 20vw);
+    display: grid;
+    grid-template-columns: repeat(var(--amp), var(--cel));
+    grid-auto-rows: var(--cel);
+    gap: 2px; /* el fons de la graella és el color de la vora */
+    width: max-content;
+    margin: 0 auto;
+    background: var(--tinta);
+    border: 2.5px solid var(--tinta);
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 2px 0 rgba(15, 23, 42, 0.12);
+    font-size: calc(var(--cel) * 0.52);
+    font-weight: 800;
+    font-variant-numeric: tabular-nums;
+    user-select: none;
+    -webkit-user-select: none;
+}
+
+/* ---- Casella negra: diagonal blanca de dalt-esquerra a baix-dreta i un número a cada triangle ---- */
+.negra {
+    position: relative;
+    background-color: var(--negre);
+    background-image: linear-gradient(
+        to top right,
+        transparent calc(50% - 1.2px),
+        #fff calc(50% - 1.2px),
+        #fff calc(50% + 1.2px),
+        transparent calc(50% + 1.2px)
+    );
+    color: #fff;
+}
+.n-d,
+.n-a {
+    position: absolute;
+    font-size: 0.6em;
+    line-height: 1;
+    transition: color 0.2s;
+}
+.n-d {
+    top: 7%;
+    right: 10%;
+}
+.n-a {
+    bottom: 7%;
+    left: 10%;
+}
+.n-d.be,
+.n-a.be {
+    color: #6ee7b7;
+}
+.n-d.malament,
+.n-a.malament {
+    color: #fca5a5;
+}
+
+/* ---- Casella blanca: s'hi escriu una xifra ---- */
+.blanca {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: white;
+    color: var(--text-main);
+    line-height: 1;
+    cursor: pointer;
+    touch-action: none;
+    transition:
+        transform 0.15s,
+        background 0.15s,
+        box-shadow 0.15s;
+}
+.blanca:focus-visible {
+    outline: 3px solid var(--primary-dark);
+    outline-offset: -3px;
+    z-index: 1;
+}
+.blanca.cursor {
+    background: var(--primary-light);
+    box-shadow: inset 0 0 0 3.5px var(--primary);
+}
+.blanca.ple {
+    cursor: grab;
+}
+.amb-seleccio .blanca {
+    box-shadow: inset 0 0 0 3px var(--primary);
+    animation: batec 1.2s ease-in-out infinite;
+}
+.blanca.sobre {
+    background: #99f6e4;
+    transform: scale(1.07);
+    z-index: 2;
+    animation: none;
+}
+.blanca.be {
+    background: var(--success-light);
+    color: #065f46;
+}
+.blanca.malament {
+    background: var(--danger-light);
+    color: var(--danger);
+}
+.creuat.resolt .blanca,
+.creuat.estatic .blanca {
+    cursor: default;
+}
+.blanca.acaba-de-posar {
+    animation: posa 0.25s ease-out;
+}
+.blanca.celebra {
+    animation: celebra 0.45s ease-out;
+}
+@keyframes batec {
+    50% {
+        box-shadow: inset 0 0 0 5px rgba(15, 118, 110, 0.35);
+    }
+}
+@keyframes posa {
+    from {
+        transform: scale(0.7);
+    }
+}
+@keyframes celebra {
+    40% {
+        transform: scale(1.12);
+    }
+}
+
+/* ══════════════════════════════════════════════
+   LES XIFRES DE LA PILA (i el fantasma d'arrossegar)
+══════════════════════════════════════════════ */
+.pila.xifres {
+    gap: 8px;
+    max-width: 640px;
+}
+.xifra {
+    min-width: 48px;
+    height: 56px;
+    padding: 0 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: white;
+    border: 2.5px solid var(--tinta);
+    border-radius: 10px;
+    font-size: 1.8em;
+    font-weight: 800;
+    color: var(--text-main);
+    box-shadow: 0 2px 0 rgba(15, 23, 42, 0.12);
+    cursor: grab;
+    user-select: none;
+    -webkit-user-select: none;
+    touch-action: none;
+    transition:
+        transform 0.15s,
+        box-shadow 0.15s,
+        background 0.15s,
+        opacity 0.15s;
+}
+.xifra.esborra {
+    font-size: 1.5em;
+    cursor: pointer;
+    color: var(--danger);
+}
+.xifra.esborra.inactiu {
+    opacity: 0.45;
+}
+.xifra.seleccionat {
+    background: var(--primary);
+    border-color: var(--primary-dark);
+    color: white;
+    transform: translateY(-4px) scale(1.06);
+    box-shadow: 0 6px 16px rgba(15, 118, 110, 0.4);
+}
+.xifra.arrossegant {
+    opacity: 0.4;
+}
+@media (hover: hover) {
+    .pila .xifra:not(.seleccionat):hover {
+        border-color: var(--primary);
+        background: var(--primary-light);
+        transform: translateY(-2px);
+    }
+}
+.xifra.fantasma {
+    position: fixed;
+    z-index: 1000;
+    pointer-events: none;
+    transform: translate(-50%, -50%) rotate(-4deg) scale(1.08);
+    border-color: var(--primary);
+    color: var(--primary-dark);
+    box-shadow: 0 10px 24px rgba(15, 23, 42, 0.3);
+    transition: none;
+}
+
+/* ══════════════════════════════════════════════
+   INSTRUCCIONS
+══════════════════════════════════════════════ */
+.instr-fila .creuat,
+.instr-quadres .creuat {
+    --cel: 44px;
+    gap: 1.5px;
+    border-width: 2px;
+    border-radius: 6px;
+}
+/* El tram que «veu» un número: caselles ressaltades i una fletxa a la primera */
+.blanca.veu {
+    background: var(--primary-light);
+    box-shadow: inset 0 0 0 2.5px var(--primary);
+}
+.blanca.veu-ini-d::before,
+.blanca.veu-ini-a::before {
+    position: absolute;
+    top: 2px;
+    left: 4px;
+    font-size: 0.4em;
+    font-weight: 800;
+    color: var(--primary);
+}
+.blanca.veu-ini-d::before {
+    content: '→';
+}
+.blanca.veu-ini-a::before {
+    content: '↓';
+}
+.instr-quadres {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    gap: 14px 12px;
+    justify-items: center;
+}
+.instr-quadres figure {
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 6px;
+}
+.instr-quadres figcaption {
+    font-size: 0.9em;
+    text-align: center;
+}
+.instr-multiples {
+    margin: 10px 0 0 0;
+    padding-left: 1.4em;
+}
+
+/* ---- Pantalles estretes ---- */
+@media (max-width: 480px) {
+    .pila.xifres {
+        gap: 7px;
+        padding: 8px 8px;
+    }
+    .xifra {
+        min-width: 44px;
+        height: 50px;
+        padding: 0 6px;
+        font-size: 1.6em;
+    }
+}

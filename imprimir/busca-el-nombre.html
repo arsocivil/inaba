@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="ca">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Busca el nombre — per imprimir</title>
+    <link rel="icon" href="../icon.png">
+    <link rel="stylesheet" href="../css/imprimir.css">
+    <link rel="stylesheet" href="../css/imprimir-busca-el-nombre.css">
+    <!-- Fulls A4 per imprimir a doble cara i plastificar. El PDF el fa tools/genera-pdf.js. -->
+    <script src="../js/imprimir.js" defer></script>
+    <script src="../js/busca-el-nombre/problemes.js" defer></script>
+    <script src="../js/busca-el-nombre/motor.js" defer></script>
+    <script src="../js/busca-el-nombre/tauler.js" defer></script>
+    <script src="../js/busca-el-nombre/imprimir.js" defer></script>
+</head>
+<body>
+    <!-- Només a la pantalla: no s'imprimeix -->
+    <nav class="barra">
+        <a href="../busca-el-nombre.html">← Torna al joc</a>
+        <button type="button" data-imprimeix>Imprimeix o desa com a PDF</button>
+        <a href="busca-el-nombre.pdf" download>Descarrega el PDF</a>
+        <span>9 pàgines A4, per imprimir a doble cara i plastificar</span>
+    </nav>
+
+    <!-- ══════════ FULL 1: INSTRUCCIONS (les mateixes del joc) ══════════ -->
+    <section class="pagina mida-instr" data-quins="Instruccions">
+        <ul class="regles">
+            <li>Envolta el lloc que et demanen amb un <strong>quadrat</strong>: de <strong>2 × 2</strong> o de <strong>3 × 3</strong>, segons el que digui a dalt de cada full.</li>
+        </ul>
+
+        <div class="fila">
+            <figure id="ex-problema"><figcaption>Problema: on n'hi ha 2?</figcaption></figure>
+            <span class="fletxa-gran" aria-hidden="true">→</span>
+            <figure id="ex-solucio"><figcaption>Resposta</figcaption></figure>
+        </div>
+
+        <div class="caixa">
+            <h2>Compta les pomes que queden dins del quadrat</h2>
+            <div class="fila">
+                <figure id="ex-1"><figcaption class="gran">1</figcaption></figure>
+                <figure id="ex-3"><figcaption class="gran">3</figcaption></figure>
+                <figure id="ex-4"><figcaption class="gran">4</figcaption></figure>
+            </div>
+        </div>
+
+        <div class="caixa">
+            <h2>Compte!</h2>
+            <div class="fila">
+                <figure id="ex-surt"><figcaption class="veredicte malament"><b>✗</b>No pots sortir de la línia de punts.</figcaption></figure>
+                <figure id="ex-mida"><figcaption class="veredicte malament"><b>✗</b>Aquest quadrat no és de la mida que toca.</figcaption></figure>
+            </div>
+        </div>
+
+        <div class="caixa" id="llegenda">
+            <h2>Pomes i mandarines</h2>
+            <div class="fila">
+                <figure id="ex-poma"><figcaption>Poma</figcaption></figure>
+                <figure id="ex-mandarina"><figcaption>Mandarina</figcaption></figure>
+            </div>
+        </div>
+
+        <div class="caixa retolador">
+            <h2>Amb el retolador</h2>
+            <ul>
+                <li>Dibuixa el quadrat <strong>damunt de la quadrícula</strong>, seguint les línies de punts. Ha de ser de la mida que diu a dalt del full i no pot sortir de la zona de punts.</li>
+                <li>Si no és el lloc que toca, esborra'l i prova'n un altre.</li>
+                <li>Per esborrar, fes servir un drap o un mocador de paper. No hi escriguis mai amb retolador permanent!</li>
+            </ul>
+        </div>
+    </section>
+
+    <!-- ══════════ FULL 2: EN BLANC (el revers de les instruccions) ══════════ -->
+    <section class="pagina"></section>
+
+    <!-- ══════════ FULLS 3 A 9: PROBLEMES 1–42, els afegeix js/busca-el-nombre/imprimir.js ══════════ -->
+</body>
+</html>

@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="ca">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Creuat de múltiples — per imprimir</title>
+    <link rel="icon" href="../icon.png">
+    <link rel="stylesheet" href="../css/imprimir.css">
+    <link rel="stylesheet" href="../css/imprimir-creuat-multiples.css">
+    <!-- Fulls A4 per imprimir a doble cara i plastificar. El PDF el fa tools/genera-pdf.js. -->
+    <script src="../js/imprimir.js" defer></script>
+    <script src="../js/creuat-multiples/problemes.js" defer></script>
+    <script src="../js/creuat-multiples/motor.js" defer></script>
+    <script src="../js/creuat-multiples/tauler.js" defer></script>
+    <script src="../js/creuat-multiples/imprimir.js" defer></script>
+</head>
+<body>
+    <!-- Només a la pantalla: no s'imprimeix -->
+    <nav class="barra">
+        <a href="../creuat-multiples.html">← Torna al joc</a>
+        <button type="button" data-imprimeix>Imprimeix o desa com a PDF</button>
+        <a href="creuat-multiples.pdf" download>Descarrega el PDF</a>
+        <span>9 pàgines A4, per imprimir a doble cara i plastificar</span>
+    </nav>
+
+    <!-- ══════════ FULL 1: INSTRUCCIONS (les mateixes del joc) ══════════ -->
+    <section class="pagina mida-instr" data-quins="Instruccions">
+        <ul class="regles">
+            <li>Escriu una <strong>xifra del 0 al 9</strong> a cada casella blanca buida.</li>
+            <li>Des de cada triangle amb un número, mira les xifres de la <strong>columna cap avall</strong>: el nombre que hi veus ha de ser un <strong>múltiple</strong> del número del triangle. (Des dels triangles de dalt a la dreta, mira <strong>cap a la dreta</strong>.)</li>
+        </ul>
+
+        <div class="fila">
+            <figure id="ex-problema"><figcaption>Exemple</figcaption></figure>
+            <span class="fletxa-gran" aria-hidden="true">→</span>
+            <figure id="ex-solucio"><figcaption>Solució</figcaption></figure>
+        </div>
+
+        <div class="caixa">
+            <h2>El nombre que es veu des d'un triangle</h2>
+            <div class="fila">
+                <figure id="ex-veu-96"><figcaption>Des d'aquest triangle es veu el «96».</figcaption></figure>
+                <figure id="ex-veu-9"><figcaption>Des d'aquest triangle es veu el «9».</figcaption></figure>
+                <figure id="ex-veu-65"><figcaption>Des d'aquest triangle es veu el «65».</figcaption></figure>
+                <figure id="ex-veu-5"><figcaption>Des d'aquest triangle es veu el «5».</figcaption></figure>
+            </div>
+        </div>
+
+        <div class="caixa">
+            <h2>El nombre que es veu és un múltiple del número del triangle</h2>
+            <p>96 és 12 vegades 8 · 9 és 3 vegades 3 · 65 és 5 vegades 13 · 5 és 1 vegada 5</p>
+        </div>
+
+        <div class="caixa">
+            <div class="fila">
+                <figure id="ex-zero"><figcaption class="veredicte"><b>✗</b>06 no val: no pot començar per 0.</figcaption></figure>
+                <p class="compte"><strong>Compte!</strong> La primera xifra d'un nombre no pot ser 0.</p>
+            </div>
+        </div>
+
+        <div class="caixa retolador">
+            <h2>Amb el retolador</h2>
+            <ul>
+                <li>Escriu <strong>una xifra a cada casella blanca</strong>, ben grossa.</li>
+                <li>Una casella pot formar part de dos nombres: el que es veu cap a la dreta i el que es veu cap avall. Totes dues lectures han de ser múltiples.</li>
+                <li>Per esborrar, fes servir un drap o un mocador de paper. No hi escriguis mai amb retolador permanent!</li>
+            </ul>
+        </div>
+    </section>
+
+    <!-- ══════════ FULL 2: EN BLANC (el revers de les instruccions) ══════════ -->
+    <section class="pagina"></section>
+
+    <!-- ══════════ FULLS 3 A 9: PROBLEMES 1–42, els afegeix js/creuat-multiples/imprimir.js ══════════ -->
+</body>
+</html>

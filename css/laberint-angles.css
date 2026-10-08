@@ -1,0 +1,173 @@
+/*
+============================================================================
+FITXER: css/laberint-angles.css
+ROL: Estils propis del «Laberint d'angles»: línies, camí, arcs i cercles.
+     Les mides del tauler són relatives a la seva amplada (--amplada, en
+     unitats de tauler.js), perquè s'encongeixi sencer en una pantalla estreta.
+DEPENDÈNCIES: css/comu.css (s'ha de carregar abans).
+============================================================================
+*/
+:root {
+    --primary: #0369a1;
+    --primary-light: #e0f2fe;
+    --primary-hover: #075985;
+    --primary-dark: #0c4a6e;
+    --tinta: #334155; /* vores dels cercles, com el llapis del paper */
+    --cami: #0284c7;
+}
+
+/* ══════════════════════════════════════════════
+   EL TAULER: línies, camí i arcs (SVG) + cercles (HTML)
+══════════════════════════════════════════════ */
+.tauler-laberint {
+    position: relative;
+    max-width: 100%;
+    container-type: inline-size;
+    flex-shrink: 0;
+    user-select: none;
+    -webkit-user-select: none;
+}
+.linies {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    overflow: visible;
+    pointer-events: none;
+}
+.linia {
+    stroke: #b8c2cf;
+    stroke-width: 5;
+}
+.linia.tallada {
+    stroke-dasharray: 4 6;
+}
+.creu {
+    stroke: var(--tinta);
+    stroke-width: 2.5;
+    stroke-linecap: round;
+}
+.cami {
+    fill: none;
+    stroke: var(--cami);
+    stroke-width: 10;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+}
+.guia {
+    stroke: var(--cami);
+    stroke-width: 4;
+    stroke-dasharray: 6 6;
+    stroke-linecap: round;
+    opacity: 0.6;
+}
+.arc {
+    fill: none;
+    stroke: var(--tinta);
+    stroke-width: 3;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+}
+.arc.erroni {
+    stroke: var(--danger);
+    stroke-width: 3.5;
+}
+.tauler-laberint.resolt .cami,
+.tauler-laberint.resolt .guia {
+    stroke: var(--success);
+}
+.tauler-laberint.resolt .arc {
+    stroke: var(--success);
+}
+
+/* ---- Un cercle ---- */
+.cercle {
+    position: absolute;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    background: white;
+    border: 2.5px solid var(--tinta);
+    color: var(--text-main);
+    font-size: calc(100cqw * 14 / var(--amplada));
+    font-weight: 800;
+    font-variant-numeric: tabular-nums;
+    letter-spacing: -0.02em;
+    cursor: pointer;
+    touch-action: none;
+    transition:
+        background 0.15s,
+        border-color 0.15s,
+        box-shadow 0.15s,
+        transform 0.15s;
+}
+/* Zona tàctil una mica més gran que el cercle (els laberints grans, al mòbil, tenen cercles petits) */
+.cercle::before {
+    content: '';
+    position: absolute;
+    inset: -30%;
+    border-radius: 50%;
+}
+.cercle.sortida,
+.cercle.arribada {
+    font-size: calc(100cqw * 20 / var(--amplada));
+    border-width: 3.5px;
+}
+.cercle.al-cami {
+    background: var(--primary-light);
+    border-color: var(--cami);
+    color: var(--primary-dark);
+}
+/* El final del camí: «ets aquí» */
+.cercle.final {
+    background: var(--cami);
+    border-color: var(--primary-dark);
+    color: white;
+    box-shadow: 0 0 0 5px rgba(2, 132, 199, 0.25);
+}
+/* On es pot anar ara */
+.cercle.candidat {
+    border-color: var(--cami);
+    border-style: dashed;
+}
+@media (hover: hover) {
+    .tauler-laberint:not(.resolt):not(.estatic) .cercle.candidat:hover {
+        background: var(--primary-light);
+        transform: scale(1.08);
+    }
+}
+.cercle.erroni {
+    background: var(--danger-light);
+    border-color: var(--danger);
+    color: #991b1b;
+}
+.tauler-laberint.resolt .cercle.al-cami {
+    background: var(--success-light);
+    border-color: var(--success);
+    color: #065f46;
+}
+.tauler-laberint.resolt .cercle.final {
+    background: var(--success);
+    border-color: #065f46;
+    color: white;
+    box-shadow: 0 0 0 5px rgba(4, 120, 87, 0.25);
+}
+.tauler-laberint.resolt .cercle,
+.tauler-laberint.estatic .cercle {
+    cursor: default;
+}
+.tauler-laberint.traçant .cercle {
+    cursor: crosshair;
+}
+.cercle.acaba-de-posar {
+    animation: posa 0.25s ease-out;
+}
+.cercle.sacseja {
+    animation: sacseja 0.3s;
+}
+@keyframes posa {
+    from {
+        transform: scale(0.8);
+    }
+}

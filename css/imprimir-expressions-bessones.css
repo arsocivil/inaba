@@ -1,0 +1,107 @@
+/*
+============================================================================
+FITXER: css/imprimir-expressions-bessones.css
+ROL: Les targetes de les «Expressions bessones» en paper: forats grans per
+     escriure-hi el signe amb un retolador gruixut i espai per als parèntesis.
+ARQUITECTURA: Fa servir el mateix DOM que el joc (TaulerBessones), però amb
+     mides en mm. Columnes: marge ( a ○ ( b ) ○ c ) = r marge estat.
+     Els forats no toquen la vora de la targeta (marge de dalt i de baix),
+     perquè es vegi el requadre sencer. Només blanc, negre i gris fosc.
+DEPENDÈNCIES: css/imprimir.css (s'ha de carregar abans).
+============================================================================
+*/
+.bessones {
+    --forat: 14mm; /* costat del forat d'un signe */
+    --paren: 5mm; /* espai per escriure un parèntesi */
+    --aire: 2.2mm; /* entre el forat i la vora de dalt i de baix de la targeta */
+    --marge: 0.6mm; /* entre el forat i el número */
+    display: grid;
+    grid-template-columns:
+        1.5mm var(--paren) auto auto var(--paren) auto var(--paren) auto auto var(--paren) auto auto
+        1.5mm auto;
+    row-gap: 4mm;
+    align-items: center;
+    justify-content: center;
+    font-size: 19.5pt;
+    font-weight: 800;
+    font-variant-numeric: tabular-nums;
+    color: var(--tinta);
+}
+/* Els problemes amb números de dues xifres (37–42): els números una mica més
+   petits perquè la targeta hi càpiga; els forats són iguals que als altres. */
+.bessones.dues-xifres {
+    font-size: 15pt;
+}
+.targeta-fons {
+    align-self: stretch;
+    border: 0.5mm solid var(--tinta);
+    border-radius: 2.5mm;
+    background: white;
+}
+.num {
+    padding: 0 0.5mm;
+    text-align: center;
+}
+/* Si un número d'una xifra comparteix columna amb un de dues (12 sobre 6),
+   el primer s'arrambla al forat de la dreta i l'últim al de l'esquerra. */
+.num.pos-a {
+    text-align: right;
+}
+.num.pos-c {
+    text-align: left;
+}
+.igual {
+    padding: 0 0.6mm 0 1.6mm;
+}
+.estat {
+    padding-left: 1.5mm;
+    font-size: 0.8em;
+}
+.estat:empty {
+    padding: 0;
+}
+.paren {
+    text-align: center;
+}
+.paren.posat {
+    font-weight: 700;
+}
+.forat {
+    width: var(--forat);
+    height: var(--forat);
+    margin: var(--aire) var(--marge);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 0.45mm dashed var(--gris);
+    border-radius: 2mm;
+    line-height: 1;
+}
+/* El mateix espai a banda i banda de cada forat, perquè quedi centrat entre els
+   dos números: a l'altre costat hi ha l'espai d'un parèntesi (b) o ( c). */
+.forat[data-forat='0'] {
+    margin-left: calc(var(--paren) + var(--marge));
+}
+.forat[data-forat='1'] {
+    margin-right: calc(var(--paren) + var(--marge));
+}
+.forat.ple {
+    border-style: solid;
+    border-color: var(--tinta);
+}
+
+/* Les targetes més petites de les instruccions */
+.mida-instr .bessones {
+    --forat: 9mm;
+    --paren: 3.5mm;
+    --aire: 1.3mm;
+    --marge: 0.8mm;
+    row-gap: 2.5mm;
+    font-size: 15pt;
+}
+.mida-instr .num {
+    padding: 0 0.6mm;
+}
+.mida-instr .forat {
+    border-width: 0.35mm;
+}

@@ -1,0 +1,202 @@
+/*
+============================================================================
+FITXER: css/talla-rectangles.css
+ROL: Estils propis del «Talla en rectangles»: la figura (SVG), les peces de
+     colors, el rectangle que s'està dibuixant i la llista de mides.
+     Dins de l'SVG, un quadret fa 10 unitats (vegeu tauler.js).
+DEPENDÈNCIES: css/comu.css (s'ha de carregar abans).
+============================================================================
+*/
+:root {
+    --primary: #6d28d9;
+    --primary-light: #f5f3ff;
+    --primary-hover: #5b21b6;
+    --primary-dark: #4c1d95;
+    --tinta: #1e293b; /* la vora i els talls, com el llapis del paper */
+    /* Un color per a cada mida de la llista (la 1a, la 2a…) */
+    --mida-0: #bfdbfe;
+    --mida-1: #fde68a;
+    --mida-2: #f5d0fe;
+    --mida-3: #99f6e4;
+}
+
+/* ══════════════════════════════════════════════
+   LA LLISTA DE MIDES
+══════════════════════════════════════════════ */
+.mides {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 10px;
+    margin: 10px 16px 0 16px;
+}
+.mida {
+    position: relative;
+    min-width: 48px;
+    height: 42px;
+    padding: 0 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 2.5px solid var(--tinta);
+    border-radius: 8px;
+    font-size: 1.35em;
+    font-weight: 800;
+    font-variant-numeric: tabular-nums;
+}
+.mida.mida-0 {
+    background: var(--mida-0);
+}
+.mida.mida-1 {
+    background: var(--mida-1);
+}
+.mida.mida-2 {
+    background: var(--mida-2);
+}
+.mida.mida-3 {
+    background: var(--mida-3);
+}
+/* La marca ✓: aquesta mida ja té el seu rectangle */
+.mida.feta::after {
+    content: '✓';
+    position: absolute;
+    top: -0.75em;
+    right: -0.4em;
+    font-size: 0.9em;
+    font-weight: 900;
+    color: var(--success);
+}
+
+/* ══════════════════════════════════════════════
+   LA FIGURA
+══════════════════════════════════════════════ */
+#tauler-wrap {
+    padding-top: 18px;
+}
+.tauler-rect {
+    display: block;
+    max-width: 100%;
+    height: auto;
+    overflow: visible;
+    touch-action: none;
+    user-select: none;
+    -webkit-user-select: none;
+    cursor: crosshair;
+    border-radius: 4px;
+}
+.tauler-rect.estatic {
+    cursor: default;
+    touch-action: auto;
+}
+.tauler-rect:focus {
+    outline: none;
+}
+.tauler-rect:focus-visible {
+    outline: 3px solid var(--primary-dark);
+    outline-offset: 6px;
+}
+.fons rect {
+    fill: white;
+}
+.peca rect {
+    shape-rendering: crispEdges;
+}
+.peca.mida-0 rect {
+    fill: var(--mida-0);
+}
+.peca.mida-1 rect {
+    fill: var(--mida-1);
+}
+.peca.mida-2 rect {
+    fill: var(--mida-2);
+}
+.peca.mida-3 rect {
+    fill: var(--mida-3);
+}
+.peca.erroni rect {
+    fill: #fecaca;
+}
+.quadricula {
+    fill: none;
+    stroke: #cbd5e1;
+    stroke-width: 0.5;
+}
+.talls {
+    fill: none;
+    stroke: var(--tinta);
+    stroke-width: 1.6;
+    stroke-linecap: square;
+}
+.etiqueta {
+    font-size: 5.4px;
+    font-weight: 800;
+    fill: var(--tinta);
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+.etiqueta.erroni {
+    fill: #b91c1c;
+}
+/* El rectangle que s'està dibuixant */
+.previsio {
+    fill: rgba(109, 40, 217, 0.2);
+    stroke: var(--primary);
+    stroke-width: 1.2;
+    stroke-dasharray: 2 1.4;
+    pointer-events: none;
+}
+.previsio.invalida {
+    fill: rgba(220, 38, 38, 0.18);
+    stroke: var(--danger);
+}
+.previsio-text {
+    font-size: 6px;
+    font-weight: 800;
+    fill: var(--primary-dark);
+    pointer-events: none;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+/* El quadret marcat amb el teclat */
+.cursor {
+    fill: none;
+    stroke: var(--primary);
+    stroke-width: 1.4;
+    pointer-events: none;
+}
+.tauler-rect.resolt {
+    cursor: default;
+    filter: drop-shadow(0 0 6px rgba(4, 120, 87, 0.35));
+}
+.tauler-rect.acaba-de-posar .peca:last-child {
+    animation: posa 0.25s ease-out;
+    transform-box: fill-box;
+    transform-origin: center;
+}
+.tauler-rect.sacseja {
+    animation: sacseja 0.3s;
+}
+@keyframes posa {
+    from {
+        transform: scale(0.92);
+        opacity: 0.6;
+    }
+}
+
+/* «base × altura = quadrets» mentre es dibuixa */
+.estat-dibuix {
+    min-height: 1.5em;
+    margin: 8px 16px 0 16px;
+    text-align: center;
+    font-weight: 700;
+    font-size: 1.1em;
+    color: var(--primary-dark);
+}
+.estat-dibuix.invalid {
+    color: var(--danger);
+}
+
+/* ══════════════════════════════════════════════
+   INSTRUCCIONS
+══════════════════════════════════════════════ */
+.instr-fila.peces {
+    align-items: flex-end;
+}

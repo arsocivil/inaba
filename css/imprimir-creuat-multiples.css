@@ -1,0 +1,120 @@
+/*
+============================================================================
+FITXER: css/imprimir-creuat-multiples.css
+ROL: Els quadres del «Creuat de múltiples» en paper: caselles blanques grans
+     per escriure-hi una xifra amb un retolador gruixut, i caselles negres
+     amb els números en blanc als dos triangles.
+ARQUITECTURA: Fa servir el mateix DOM que el joc (TaulerCreuat), però amb mides
+     en mm. La casella s'ajusta a l'alçada (fins a 4 files per full) i a
+     l'amplada del full. Només blanc, negre i gris fosc: sense verd ni vermell
+     i sense farcits clars (la impressora és en blanc i negre).
+DEPENDÈNCIES: css/imprimir.css (s'ha de carregar abans).
+============================================================================
+*/
+.creuat {
+    /* L'alçada disponible d'una targeta és d'uns 72 mm, i el número en pren 10: el quadre en fa uns 62, amb aire a dalt i a baix */
+    --cel: min(22mm, calc(60mm / var(--alt)));
+    display: grid;
+    grid-template-columns: repeat(var(--amp), var(--cel));
+    grid-auto-rows: var(--cel);
+    gap: 0.5mm; /* el fons de la graella és el color de la vora */
+    width: max-content;
+    background: var(--tinta);
+    border: 0.7mm solid var(--tinta);
+    border-radius: 1.5mm;
+    overflow: hidden;
+    font-size: calc(var(--cel) * 0.52);
+    font-weight: 800;
+    color: var(--tinta);
+}
+
+/* ---- Casella negra: diagonal blanca de dalt-esquerra a baix-dreta i un número a cada triangle ---- */
+.negra {
+    position: relative;
+    background-color: var(--tinta);
+    background-image: linear-gradient(
+        to top right,
+        transparent calc(50% - 0.35mm),
+        #fff calc(50% - 0.35mm),
+        #fff calc(50% + 0.35mm),
+        transparent calc(50% + 0.35mm)
+    );
+    color: #fff;
+}
+.n-d,
+.n-a {
+    position: absolute;
+    font-size: 0.6em;
+    line-height: 1;
+}
+.n-d {
+    top: 7%;
+    right: 10%;
+}
+.n-a {
+    bottom: 7%;
+    left: 10%;
+}
+
+/* ---- Casella blanca: s'hi escriu una xifra ---- */
+.blanca {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #fff;
+    line-height: 1;
+}
+
+/* ---- Instruccions: el tram que «veu» un número (vora gruixuda i una fletxa a la primera casella) ---- */
+.blanca.veu {
+    box-shadow: inset 0 0 0 0.9mm var(--tinta);
+}
+.blanca.veu-ini-d::before,
+.blanca.veu-ini-a::before {
+    position: absolute;
+    top: 1mm;
+    left: 1.5mm;
+    font-size: 0.4em;
+    font-weight: 800;
+    color: var(--tinta);
+}
+.blanca.veu-ini-d::before {
+    content: '→';
+}
+.blanca.veu-ini-a::before {
+    content: '↓';
+}
+.compte {
+    margin: 0;
+    max-width: 90mm;
+    font-size: 11pt;
+    line-height: 1.45;
+}
+
+/* Els quadres més petits de les instruccions */
+.mida-instr .creuat {
+    --cel: 10.5mm;
+    gap: 0.4mm;
+    border-width: 0.5mm;
+    border-radius: 1mm;
+}
+.mida-instr .fila:first-of-type .creuat {
+    --cel: 13.5mm;
+}
+.mida-instr .caixa .fila {
+    gap: 5mm;
+}
+
+/* Fulls de problemes: el número de cada targeta queda alineat amb els de la mateixa fila, i el quadre es
+   centra verticalment en l'espai que queda (els quadres de 2 i de 3 files no tenen la mateixa alçada). */
+.problemes {
+    align-items: stretch;
+}
+.problema {
+    justify-content: flex-start;
+}
+.problema .creuat {
+    margin-top: auto;
+    margin-bottom: auto;
+}

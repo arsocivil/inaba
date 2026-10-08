@@ -1,0 +1,679 @@
+/*
+============================================================================
+FITXER: css/comu.css
+ROL: Estils comuns a tots els puzzles (colors, títol, panell, capçalera,
+     botons, peu). Segueix l'aspecte de les activitats de step-quiz.net.
+ARQUITECTURA: Cada puzzle té el seu CSS (css/<puzzle>.css), que es carrega
+     DESPRÉS d'aquest i hi defineix els colors de tema (--primary…).
+============================================================================
+*/
+:root {
+    /* Text */
+    --text-main: #1e293b;
+    --text-muted: #64748b;
+
+    /* Fons i vores */
+    --bg-color: #f8fafc;
+    --panel-bg: #ffffff;
+    --border-color: #e2e8f0;
+    --border-heavy: #cbd5e1;
+    --border-strong: #94a3b8;
+
+    /* Estats */
+    --success: #047857;
+    --success-light: #d1fae5;
+    --danger: #dc2626;
+    --danger-light: #fee2e2;
+    --warning: #d97706;
+
+    /* Tema (cada puzzle el canvia) */
+    --primary: #0369a1;
+    --primary-light: #e0f2fe;
+    --primary-hover: #075985;
+    --primary-dark: #0c4a6e;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+button,
+a,
+[role='button'],
+[tabindex] {
+    touch-action: manipulation;
+}
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: var(--bg-color);
+    color: var(--text-main);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 0;
+    padding: 16px 16px 28px 16px;
+    min-height: 100vh;
+    min-height: 100dvh;
+}
+
+/* ---- Fila de dalt: tornar a la portada i, si el puzzle en té, la versió per imprimir ---- */
+.dalt {
+    align-self: center;
+    width: 100%;
+    max-width: 760px;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: 4px 16px;
+}
+.tornar,
+.per-imprimir {
+    color: var(--text-muted);
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 0.95em;
+}
+.tornar:hover,
+.per-imprimir:hover {
+    color: var(--primary-dark);
+    text-decoration: underline;
+}
+.per-imprimir {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+}
+.per-imprimir svg {
+    width: 1.15em;
+    height: 1.15em;
+}
+
+/* ---- Títol, amb la sabatilla que porta a step-quiz.net (com a operacions) ---- */
+.title-row {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 14px;
+    margin: 6px 0 4px 0;
+}
+.title-row h1 {
+    margin: 0;
+}
+.home-icon-link {
+    display: block;
+    width: 78px;
+    height: 78px;
+    flex-shrink: 0;
+    opacity: 0.75;
+    transition: opacity 0.2s ease;
+}
+.home-icon-link:hover {
+    opacity: 1;
+    animation: home-blink-shake 0.55s ease forwards;
+}
+.home-icon-link img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+}
+@media (max-width: 600px) {
+    .home-icon-link {
+        width: 52px;
+        height: 52px;
+    }
+    .title-row {
+        gap: 10px;
+    }
+}
+h1 {
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: var(--primary-dark);
+    font-size: 1.6em;
+    margin: 10px 0 4px 0;
+    text-align: center;
+}
+.subtitol {
+    color: var(--text-muted);
+    font-size: 1.05em;
+    margin: 0 0 18px 0;
+    text-align: center;
+}
+
+/* ---- Panell principal ---- */
+.panel {
+    background-color: var(--panel-bg);
+    border-radius: 8px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+    width: 100%;
+    max-width: 760px;
+    border: 1px solid var(--border-color);
+    border-top: 6px solid var(--primary);
+    overflow: hidden;
+}
+
+/* ---- Capçalera del panell ---- */
+.header-info {
+    background-color: var(--primary-light);
+    padding: 12px 18px;
+    border-bottom: 1px solid var(--border-color);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-weight: bold;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+.level-text {
+    font-size: 1.1em;
+    color: var(--primary-dark);
+}
+.score-text {
+    font-family: monospace;
+    font-size: 1.05em;
+    color: var(--primary);
+}
+
+/* ---- Botons ---- */
+.btn-principal,
+.btn-sec,
+.btn-nav {
+    font: inherit;
+    font-weight: bold;
+    border-radius: 8px;
+    cursor: pointer;
+    min-height: 44px;
+}
+.btn-principal {
+    background: var(--primary);
+    color: white;
+    border: none;
+    padding: 11px 26px;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.12);
+}
+.btn-sec {
+    white-space: nowrap;
+    background: white;
+    color: var(--primary-dark);
+    border: 2px solid var(--border-heavy);
+    padding: 8px 18px;
+}
+.btn-nav {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    background: white;
+    color: var(--primary-dark);
+    border: 2px solid var(--border-heavy);
+    min-width: 48px;
+    padding: 4px 12px;
+    font-size: 1.05em;
+}
+.btn-nav svg {
+    display: block;
+    width: 24px;
+    height: 24px;
+}
+.btn-nav:disabled {
+    opacity: 0.35;
+    cursor: default;
+}
+@media (hover: hover) {
+    .btn-principal:hover {
+        background: var(--primary-hover);
+    }
+    .btn-sec:hover,
+    .btn-nav:not(:disabled):hover {
+        border-color: var(--primary);
+        background: var(--primary-light);
+    }
+}
+:focus-visible {
+    outline: 3px solid var(--primary-dark);
+    outline-offset: 2px;
+}
+
+/* ══════════════════════════════════════════════
+   INSTRUCCIONS (es despleguen)
+══════════════════════════════════════════════ */
+.instruccions {
+    width: 100%;
+    max-width: 760px;
+    margin: 8px 0 16px 0;
+    background: white;
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.04);
+}
+.instruccions > summary {
+    cursor: pointer;
+    padding: 12px 18px;
+    font-weight: bold;
+    color: var(--primary-dark);
+    list-style: none;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    min-height: 44px;
+}
+.instruccions > summary::-webkit-details-marker {
+    display: none;
+}
+.instruccions > summary::before {
+    content: '▸';
+    transition: transform 0.2s;
+}
+.instruccions[open] > summary::before {
+    transform: rotate(90deg);
+}
+.instr-cos {
+    padding: 0 18px 18px 18px;
+    line-height: 1.5;
+}
+.instr-regles {
+    margin: 0 0 14px 0;
+    padding-left: 1.2em;
+    font-size: 1.05em;
+}
+.instr-regles li + li {
+    margin-top: 4px;
+}
+.instr-fila {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    gap: 6px 22px;
+}
+.instr-fila figure {
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 2px;
+}
+.instr-fila figcaption {
+    font-weight: bold;
+    color: var(--text-muted);
+    font-size: 0.9em;
+}
+.instr-fletxa-gran {
+    font-size: 1.8em;
+    color: var(--border-strong);
+}
+.instr-caixa {
+    margin-top: 16px;
+    padding: 12px 16px;
+    background: #f8fafc;
+    border: 1px solid var(--border-color);
+    border-radius: 12px;
+}
+.instr-caixa h3 {
+    margin: 0 0 10px 0;
+    font-size: 1em;
+    color: var(--primary-dark);
+    text-align: center;
+}
+.instr-caixa ul {
+    margin: 8px 0 0 0;
+    padding-left: 1.2em;
+}
+.instr-compte {
+    margin: 12px auto 0 auto;
+    padding: 6px 12px;
+    width: fit-content;
+    border: 2px solid var(--warning);
+    border-radius: 8px;
+    background: #fffbeb;
+    font-weight: bold;
+    color: #92400e;
+    text-align: center;
+}
+.instr-veredicte {
+    font-size: 0.9em;
+    text-align: center;
+    color: var(--text-main);
+}
+.instr-veredicte b {
+    font-size: 1.3em;
+    display: block;
+}
+.instr-veredicte.be b {
+    color: var(--success);
+}
+.instr-veredicte.malament b {
+    color: var(--danger);
+}
+
+/* ══════════════════════════════════════════════
+   ZONA DE JOC (capçalera, regla, lloc del tauler)
+══════════════════════════════════════════════ */
+.nav-problemes {
+    display: flex;
+    gap: 8px;
+}
+.ja-resolt {
+    display: inline-block;
+    margin-left: 6px;
+    padding: 1px 8px;
+    border-radius: 99px;
+    background: var(--success-light);
+    color: var(--success);
+    font-size: 0.8em;
+    vertical-align: middle;
+}
+.ja-resolt[hidden] {
+    display: none;
+}
+.regla {
+    margin: 18px 16px 0 16px;
+    text-align: center;
+    color: #475569;
+    font-weight: 600;
+    font-size: 1.05em;
+}
+#tauler-wrap {
+    display: flex;
+    justify-content: center;
+    padding: 14px 16px 6px 16px;
+}
+
+/* ══════════════════════════════════════════════
+   MISSATGE (error / encert / avís), sota la pila
+══════════════════════════════════════════════ */
+.missatge {
+    margin: 10px auto 4px auto;
+    padding: 10px 16px;
+    max-width: 520px;
+    width: calc(100% - 32px);
+    text-align: center;
+    border-radius: 10px;
+    font-weight: 600;
+    line-height: 1.4;
+    animation: fadeIn 0.3s;
+}
+.missatge:empty {
+    display: none;
+}
+.missatge ul {
+    list-style: none;
+    margin: 6px 0 0 0;
+    padding: 0;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 6px 14px;
+    font-family: 'Courier New', Courier, monospace;
+    font-size: 1.05em;
+}
+.missatge .btn-principal {
+    margin-top: 12px;
+}
+.missatge.error {
+    color: #991b1b;
+    background: var(--danger-light);
+    border: 1px solid #fecaca;
+}
+.missatge.ok {
+    color: #065f46;
+    background: var(--success-light);
+    border: 1px solid #a7f3d0;
+}
+.missatge.info {
+    color: var(--primary-dark);
+    background: var(--primary-light);
+    border: 1px solid #c7d2fe;
+}
+
+.accions {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 10px;
+    padding: 12px 16px 20px 16px;
+}
+
+/* ══════════════════════════════════════════════
+   TRIA DE PROBLEMA (diàleg)
+══════════════════════════════════════════════ */
+.dialeg-tria {
+    border: none;
+    border-radius: 12px;
+    padding: 18px;
+    width: min(420px, calc(100vw - 32px));
+    box-shadow: 0 20px 50px rgba(15, 23, 42, 0.3);
+    color: var(--text-main);
+}
+.dialeg-tria::backdrop {
+    background: rgba(15, 23, 42, 0.45);
+}
+.dialeg-tria h2 {
+    margin: 0 0 4px 0;
+    font-size: 1.15em;
+    color: var(--primary-dark);
+}
+.dialeg-tria p {
+    margin: 0 0 12px 0;
+    color: var(--text-muted);
+    font-size: 0.9em;
+}
+.graella {
+    display: grid;
+    grid-template-columns: repeat(6, 1fr);
+    gap: 8px;
+}
+.graella button {
+    position: relative;
+    font: inherit;
+    font-weight: bold;
+    min-height: 44px;
+    border-radius: 8px;
+    border: 2px solid var(--border-heavy);
+    background: white;
+    color: var(--text-main);
+    cursor: pointer;
+}
+.graella button.fet {
+    background: var(--success-light);
+    border-color: #6ee7b7;
+    color: #065f46;
+}
+.graella button.fet::after {
+    content: '✓';
+    position: absolute;
+    top: -2px;
+    right: 3px;
+    font-size: 0.75em;
+}
+.graella button.actual {
+    border-color: var(--primary);
+    box-shadow: 0 0 0 2px var(--primary);
+}
+@media (hover: hover) {
+    .graella button:hover {
+        border-color: var(--primary);
+    }
+}
+.dialeg-peu {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 10px;
+    margin-top: 16px;
+    flex-wrap: wrap;
+}
+.btn-text {
+    font: inherit;
+    font-size: 0.85em;
+    background: none;
+    border: none;
+    color: var(--text-muted);
+    text-decoration: underline;
+    cursor: pointer;
+    padding: 8px 0;
+}
+
+/* ══════════════════════════════════════════════
+   PILA: les fitxes de sota el tauler (targetes, signes…)
+══════════════════════════════════════════════ */
+.pila-wrap {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+    padding: 6px 16px 4px 16px;
+}
+.pila-titol {
+    font-size: 0.8em;
+    font-weight: bold;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+    color: var(--text-muted);
+}
+.pila {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 14px;
+    padding: 10px 16px;
+    border-radius: 14px;
+    border: 2px dashed transparent;
+}
+.pila.avisa {
+    animation: avisa 0.9s;
+}
+@keyframes avisa {
+    0%,
+    100% {
+        border-color: transparent;
+    }
+    30%,
+    70% {
+        border-color: var(--primary);
+        background: var(--primary-light);
+    }
+}
+
+/* ---- Pantalles estretes ---- */
+@media (max-width: 480px) {
+    h1 {
+        font-size: 1.3em;
+    }
+    .header-info {
+        padding: 10px 12px;
+    }
+    .instr-cos {
+        padding: 0 12px 14px 12px;
+    }
+    .instr-fila.exemple {
+        flex-direction: column;
+    }
+    .instr-fila.exemple .instr-fletxa-gran {
+        transform: rotate(90deg);
+    }
+    .pila {
+        gap: 10px;
+        padding: 8px 4px;
+    }
+}
+
+/* ---- Peu ---- */
+.credits {
+    max-width: 760px;
+    margin-top: 18px;
+    color: var(--text-muted);
+    font-size: 0.85em;
+    text-align: center;
+    line-height: 1.5;
+}
+/* Barra de la llicència, com la de la portada de step-quiz.net. No és fixa:
+   va al final de la pàgina (o a baix de tot, si la pàgina és curta). */
+.peu-llicencia {
+    align-self: stretch;
+    margin: auto -16px -28px -16px;
+    padding: 10px 16px;
+    background-color: #f8f9fa;
+    border-top: 1px solid #ccc;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 15px;
+    flex-wrap: wrap;
+    text-align: center;
+    font-size: 0.85em;
+    color: #333;
+}
+.credits + .peu-llicencia {
+    margin-top: 24px;
+}
+.peu-llicencia img {
+    display: block;
+    height: 31px;
+    border: 0;
+}
+.peu-llicencia a {
+    color: #333;
+}
+
+@keyframes home-blink-shake {
+    0% {
+        transform: scale(1) rotate(0deg);
+        opacity: 1;
+    }
+    15% {
+        transform: scale(1.15) rotate(-8deg);
+        opacity: 0.3;
+    }
+    30% {
+        transform: scale(1.15) rotate(8deg);
+        opacity: 1;
+    }
+    45% {
+        transform: scale(1.1) rotate(-5deg);
+        opacity: 0.3;
+    }
+    60% {
+        transform: scale(1.1) rotate(5deg);
+        opacity: 1;
+    }
+    80% {
+        transform: scale(1.05) rotate(-2deg);
+        opacity: 0.7;
+    }
+    100% {
+        transform: scale(1) rotate(0deg);
+        opacity: 1;
+    }
+}
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(-4px);
+    }
+    to {
+        opacity: 1;
+        transform: none;
+    }
+}
+@keyframes sacseja {
+    0%,
+    100% {
+        transform: translateX(0);
+    }
+    25% {
+        transform: translateX(-6px);
+    }
+    75% {
+        transform: translateX(6px);
+    }
+}
+@media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+        animation-duration: 0.01ms !important;
+        transition-duration: 0.01ms !important;
+    }
+}

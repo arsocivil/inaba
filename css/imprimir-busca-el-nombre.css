@@ -1,0 +1,130 @@
+/*
+============================================================================
+FITXER: css/imprimir-busca-el-nombre.css
+ROL: «Busca el nombre» en paper: la pregunta a sobre de cada quadrícula de
+     punts, i espai per dibuixar-hi el quadrat amb un retolador gruixut.
+ARQUITECTURA: Fa servir el mateix SVG que el joc (TaulerKazu.estatic). Només
+     blanc, negre i gris fosc: la poma és un cercle blanc amb tija i la
+     mandarina, un cercle gris fosc amb el full en blanc; els quadrats ✗ de
+     les instruccions van amb traç discontinu (sense vermell). La mida de cada
+     quadrícula la posa js/busca-el-nombre/imprimir.js (en mm, en línia).
+     El número del problema va a la cantonada de la targeta.
+DEPENDÈNCIES: css/imprimir.css (s'ha de carregar abans).
+============================================================================
+*/
+.problemes {
+    margin-bottom: 3mm;
+}
+.problema {
+    position: relative;
+    align-self: stretch;
+    justify-content: flex-start;
+    gap: 0;
+    border: 0.4mm solid var(--gris);
+    border-radius: 3mm;
+}
+.problema .num-problema {
+    position: absolute;
+    top: 2.5mm;
+    left: 2.5mm;
+}
+.targeta {
+    flex: 1;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+    padding: 3mm 3mm 3mm 3mm;
+}
+.pregunta {
+    margin: 0 0 1mm 0;
+    padding-left: 10mm; /* deixa lloc al número del problema */
+    padding-right: 1mm;
+    min-height: 11mm;
+    display: flex;
+    align-items: center;
+    align-self: stretch;
+    font-size: 12.5pt;
+    font-weight: 800;
+    line-height: 1.2;
+    color: var(--tinta);
+}
+.targeta .tauler-kazu {
+    margin: auto 0;
+}
+
+/* ---- El tauler, en blanc i negre ---- */
+.tauler-kazu {
+    display: block;
+    height: auto;
+    overflow: visible;
+}
+.quadret {
+    fill: white;
+    stroke: var(--gris);
+    stroke-width: 2.6;
+    stroke-dasharray: 7 5;
+}
+.fruita circle {
+    stroke: var(--tinta);
+    stroke-width: 3;
+}
+.poma circle {
+    fill: white;
+}
+.mandarina circle {
+    fill: var(--gris);
+}
+.tija {
+    stroke: var(--tinta);
+    stroke-width: 3.6;
+}
+.full {
+    stroke: white;
+    stroke-width: 5.5;
+}
+.marc {
+    fill: none;
+    stroke: var(--tinta);
+    stroke-width: 6;
+}
+.marc.erroni {
+    stroke-dasharray: 10 6;
+}
+
+/* ---- Full d'instruccions ---- */
+.mida-instr .tauler-kazu {
+    width: 38mm !important;
+}
+.mida-instr .fila.petit .tauler-kazu {
+    width: 38mm !important;
+}
+.mida-instr #ex-poma .tauler-kazu,
+.mida-instr #ex-mandarina .tauler-kazu {
+    width: 11mm !important;
+}
+.mida-instr #ex-1 .tauler-kazu,
+.mida-instr #ex-3 .tauler-kazu,
+.mida-instr #ex-4 .tauler-kazu {
+    width: 29mm !important;
+}
+.mida-instr #ex-surt .tauler-kazu,
+.mida-instr #ex-mida .tauler-kazu {
+    width: 29mm !important;
+}
+.fila figcaption.gran {
+    font-size: 20pt;
+    font-weight: 800;
+    color: var(--tinta);
+}
+.mida-instr .regles {
+    margin-bottom: 3mm;
+}
+.mida-instr .caixa {
+    margin-top: 3mm;
+    padding: 2.5mm 5mm;
+}
+.mida-instr .caixa h2 {
+    margin-bottom: 2mm;
+}

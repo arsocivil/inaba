@@ -1,0 +1,295 @@
+/*
+============================================================================
+FITXER: css/on-es-la-xifra.css
+ROL: Estils propis d'«On és la xifra?»: la suma en columna (caselles □, signe +,
+     ratlla i números de fora amb fletxa) i les xifres de la pila.
+DEPENDÈNCIES: css/comu.css (s'ha de carregar abans).
+============================================================================
+*/
+:root {
+    --primary: #a21caf;
+    --primary-light: #fdf4ff;
+    --primary-hover: #86198f;
+    --primary-dark: #701a75;
+    --tinta: #334155; /* vores de les caselles, com el llapis del paper */
+}
+
+/* ══════════════════════════════════════════════
+   LA SUMA: una graella [signe][caselles…][pista de fila] (vegeu tauler.js)
+══════════════════════════════════════════════ */
+#tauler-wrap {
+    padding-top: 10px;
+}
+.suma {
+    --cel: min(64px, 15vw);
+    display: grid;
+    grid-template-columns: calc(var(--cel) * 1.4) repeat(var(--amp), var(--cel)) calc(var(--cel) * 1.4);
+    grid-template-rows: calc(var(--cel) * 1.25) var(--cel) var(--cel) 5px var(--cel);
+    gap: 8px 6px;
+    width: max-content;
+    margin: 0 auto;
+    font-size: calc(var(--cel) * 0.58);
+    font-weight: 800;
+    font-variant-numeric: tabular-nums;
+    user-select: none;
+    -webkit-user-select: none;
+}
+
+/* Sense cap número a sobre de les columnes, la fila de dalt no ocupa lloc */
+.suma.sense-col {
+    grid-template-rows: 0 var(--cel) var(--cel) 5px var(--cel);
+    margin-top: -8px;
+}
+
+/* ---- Números de fora: ↓ a sobre d'una columna, ← a la dreta d'una fila ---- */
+.pista {
+    display: flex;
+    align-items: center;
+    color: var(--text-main);
+    font-size: 0.85em;
+    line-height: 1;
+}
+.pista-col {
+    flex-direction: column;
+    justify-content: flex-end;
+    gap: 2px;
+    white-space: nowrap;
+}
+.pista-fila {
+    gap: 6px;
+    justify-content: flex-start;
+    white-space: nowrap;
+}
+.pista .fl {
+    font-size: 0.8em;
+    color: var(--tinta);
+}
+.pista .p {
+    transition: color 0.2s;
+}
+/* Ajuda local: el número ja és a la seva fila o columna (no diu si la suma va bé) */
+.pista .p.feta {
+    color: var(--text-muted);
+}
+.pista .p.feta::after {
+    content: '✓';
+    font-size: 0.55em;
+    margin-left: 1px;
+    vertical-align: top;
+}
+.pista .p.be {
+    color: var(--success);
+}
+.pista .p.malament {
+    color: var(--danger);
+}
+
+/* ---- Signe + i ratlla de la suma ---- */
+.signe {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    padding-right: 6px;
+    color: var(--text-main);
+}
+.ratlla {
+    align-self: center;
+    height: 5px;
+    border-radius: 3px;
+    background: var(--tinta);
+    transition: background 0.2s;
+}
+.ratlla.be {
+    background: var(--success);
+}
+.ratlla.malament {
+    background: var(--danger);
+}
+.signe.be {
+    color: var(--success);
+}
+.signe.malament {
+    color: var(--danger);
+}
+
+/* ---- Casella: s'hi escriu una xifra ---- */
+.caixa {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: white;
+    color: var(--text-main);
+    border: 3px solid var(--tinta);
+    border-radius: 9px;
+    box-shadow: 0 2px 0 rgba(15, 23, 42, 0.12);
+    line-height: 1;
+    cursor: pointer;
+    touch-action: none;
+    transition:
+        transform 0.15s,
+        background 0.15s,
+        box-shadow 0.15s,
+        border-color 0.15s;
+}
+.caixa:focus-visible {
+    outline: 3px solid var(--primary-dark);
+    outline-offset: 2px;
+    z-index: 1;
+}
+.caixa.cursor {
+    background: var(--primary-light);
+    border-color: var(--primary);
+    box-shadow: 0 0 0 3px var(--primary);
+}
+.caixa.ple {
+    cursor: grab;
+}
+.amb-seleccio .caixa {
+    border-color: var(--primary);
+    animation: batec 1.2s ease-in-out infinite;
+}
+.caixa.sobre {
+    background: #f5d0fe;
+    transform: scale(1.07);
+    z-index: 2;
+    animation: none;
+}
+.caixa.be {
+    background: var(--success-light);
+    border-color: var(--success);
+    color: #065f46;
+}
+.caixa.malament {
+    background: var(--danger-light);
+    border-color: var(--danger);
+    color: var(--danger);
+}
+.suma.resolt .caixa,
+.suma.estatic .caixa {
+    cursor: default;
+}
+.caixa.acaba-de-posar {
+    animation: posa 0.25s ease-out;
+}
+.caixa.celebra {
+    animation: celebra 0.45s ease-out;
+}
+@keyframes batec {
+    50% {
+        box-shadow: 0 0 0 4px rgba(162, 28, 175, 0.3);
+    }
+}
+@keyframes posa {
+    from {
+        transform: scale(0.7);
+    }
+}
+@keyframes celebra {
+    40% {
+        transform: scale(1.12);
+    }
+}
+
+/* ══════════════════════════════════════════════
+   LES XIFRES DE LA PILA (i el fantasma d'arrossegar)
+══════════════════════════════════════════════ */
+.pila.xifres {
+    gap: 8px;
+    max-width: 640px;
+}
+.xifra {
+    min-width: 48px;
+    height: 56px;
+    padding: 0 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: white;
+    border: 2.5px solid var(--tinta);
+    border-radius: 10px;
+    font-size: 1.8em;
+    font-weight: 800;
+    color: var(--text-main);
+    box-shadow: 0 2px 0 rgba(15, 23, 42, 0.12);
+    cursor: grab;
+    user-select: none;
+    -webkit-user-select: none;
+    touch-action: none;
+    transition:
+        transform 0.15s,
+        box-shadow 0.15s,
+        background 0.15s,
+        opacity 0.15s;
+}
+.xifra.esborra {
+    font-size: 1.5em;
+    cursor: pointer;
+    color: var(--danger);
+}
+.xifra.esborra.inactiu {
+    opacity: 0.45;
+}
+.xifra.seleccionat {
+    background: var(--primary);
+    border-color: var(--primary-dark);
+    color: white;
+    transform: translateY(-4px) scale(1.06);
+    box-shadow: 0 6px 16px rgba(162, 28, 175, 0.4);
+}
+.xifra.arrossegant {
+    opacity: 0.4;
+}
+@media (hover: hover) {
+    .pila .xifra:not(.seleccionat):hover {
+        border-color: var(--primary);
+        background: var(--primary-light);
+        transform: translateY(-2px);
+    }
+}
+.xifra.fantasma {
+    position: fixed;
+    z-index: 1000;
+    pointer-events: none;
+    transform: translate(-50%, -50%) rotate(-4deg) scale(1.08);
+    border-color: var(--primary);
+    color: var(--primary-dark);
+    box-shadow: 0 10px 24px rgba(15, 23, 42, 0.3);
+    transition: none;
+}
+
+/* ══════════════════════════════════════════════
+   INSTRUCCIONS
+══════════════════════════════════════════════ */
+.instr-fila .suma {
+    --cel: 38px;
+    gap: 6px 4px;
+}
+.instr-fila figure {
+    max-width: 250px;
+}
+.instr-fila figcaption {
+    text-align: center;
+}
+/* La xifra que es busca (a les instruccions): marcada amb un cercle com al PDF */
+.caixa.cercle::after {
+    content: '';
+    position: absolute;
+    inset: 12%;
+    border: 2.5px solid var(--primary-dark);
+    border-radius: 50%;
+}
+
+/* ---- Pantalles estretes ---- */
+@media (max-width: 480px) {
+    .pila.xifres {
+        gap: 7px;
+        padding: 8px 8px;
+    }
+    .xifra {
+        min-width: 44px;
+        height: 50px;
+        padding: 0 6px;
+        font-size: 1.6em;
+    }
+}

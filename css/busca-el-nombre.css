@@ -1,0 +1,159 @@
+/*
+============================================================================
+FITXER: css/busca-el-nombre.css
+ROL: Estils propis del «Busca el nombre»: la quadrícula de punts, les pomes i
+     mandarines, el quadrat (posat, bo, dolent, fantasma i cursor) i la pregunta.
+     Dins de l'SVG un quadret fa 60 unitats (vegeu tauler.js).
+DEPENDÈNCIES: css/comu.css (s'ha de carregar abans).
+============================================================================
+*/
+:root {
+    --primary: #c2410c;
+    --primary-light: #fff7ed;
+    --primary-hover: #9a3412;
+    --primary-dark: #7c2d12;
+    --tinta: #1e293b; /* el quadrat, com el retolador gruixut del paper */
+    --poma: #fa5c3c;
+    --mandarina: #ff9900;
+    --full: #339966;
+}
+
+/* ══════════════════════════════════════════════
+   LA PREGUNTA
+══════════════════════════════════════════════ */
+.pregunta {
+    margin: 14px 16px 0 16px;
+    text-align: center;
+    font-size: 1.7em;
+    font-weight: 800;
+    line-height: 1.2;
+    color: var(--primary-dark);
+}
+@media (max-width: 480px) {
+    .pregunta {
+        font-size: 1.4em;
+    }
+}
+
+/* ══════════════════════════════════════════════
+   EL TAULER
+══════════════════════════════════════════════ */
+#tauler-wrap {
+    padding-top: 16px;
+}
+.tauler-kazu {
+    display: block;
+    max-width: 100%;
+    height: auto;
+    margin: 0 auto;
+    overflow: visible;
+    touch-action: none;
+    user-select: none;
+    -webkit-user-select: none;
+    cursor: pointer;
+}
+.tauler-kazu.estatic {
+    cursor: default;
+    touch-action: auto;
+}
+.tauler-kazu:focus {
+    outline: none;
+}
+.tauler-kazu:focus-visible {
+    outline: 3px solid var(--primary-dark);
+    outline-offset: 6px;
+    border-radius: 4px;
+}
+.quadret {
+    fill: white;
+    stroke: #808080;
+    stroke-width: 1.6;
+    stroke-dasharray: 5 4;
+}
+
+/* Les fruites, com al PDF: poma vermella amb una tija, mandarina taronja amb un full verd */
+.fruita circle {
+    stroke: #000;
+    stroke-width: 2.6;
+}
+.poma circle {
+    fill: var(--poma);
+}
+.mandarina circle {
+    fill: var(--mandarina);
+}
+.tija {
+    fill: none;
+    stroke: #000;
+    stroke-width: 3.2;
+    stroke-linecap: round;
+}
+.full {
+    fill: none;
+    stroke: var(--full);
+    stroke-width: 5;
+    stroke-linecap: round;
+}
+
+/* El quadrat */
+.marc {
+    fill: none;
+    stroke: var(--tinta);
+    stroke-width: 5;
+    pointer-events: none;
+}
+.marc.correcte {
+    stroke: var(--success);
+    fill: rgba(4, 120, 87, 0.1);
+}
+.marc.erroni {
+    stroke: var(--danger);
+    fill: rgba(220, 38, 38, 0.08);
+}
+.marc.previsio {
+    stroke: var(--primary);
+    stroke-width: 4;
+    stroke-dasharray: 9 6;
+    fill: rgba(194, 65, 12, 0.1);
+}
+.marc.cursor {
+    stroke: var(--primary);
+    stroke-width: 4;
+    stroke-dasharray: 2 6;
+    stroke-linecap: round;
+}
+.tauler-kazu.resolt {
+    cursor: default;
+    filter: drop-shadow(0 0 6px rgba(4, 120, 87, 0.35));
+}
+.tauler-kazu.acaba-de-posar .marc.posat {
+    animation: posa 0.25s ease-out;
+    transform-box: fill-box;
+    transform-origin: center;
+}
+.tauler-kazu.sacseja {
+    animation: sacseja 0.3s;
+}
+@keyframes posa {
+    from {
+        transform: scale(0.94);
+        opacity: 0.6;
+    }
+}
+
+/* ══════════════════════════════════════════════
+   INSTRUCCIONS
+══════════════════════════════════════════════ */
+.instr-fila.pomes figure,
+.instr-fila.errors figure {
+    flex: 0 0 auto;
+}
+.instr-fila.pomes figcaption {
+    font-size: 1.3em;
+    font-weight: 800;
+    color: var(--tinta);
+}
+.instr-fila.errors figcaption {
+    max-width: 190px;
+    font-size: 0.95em;
+}

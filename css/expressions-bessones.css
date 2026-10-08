@@ -1,0 +1,256 @@
+/*
+============================================================================
+FITXER: css/expressions-bessones.css
+ROL: Estils propis de les «Expressions bessones»: les targetes, els forats
+     dels signes, els parèntesis i els signes de la pila.
+DEPENDÈNCIES: css/comu.css (s'ha de carregar abans).
+============================================================================
+*/
+:root {
+    --primary: #b45309;
+    --primary-light: #fffbeb;
+    --primary-hover: #92400e;
+    --primary-dark: #78350f;
+    --tinta: #334155; /* vores de les targetes, com el llapis del paper */
+}
+
+/* ══════════════════════════════════════════════
+   LES TARGETES: una graella, una fila per targeta (vegeu tauler.js)
+══════════════════════════════════════════════ */
+#tauler-wrap {
+    padding-top: 22px;
+}
+.bessones {
+    display: grid;
+    grid-template-columns: 10px repeat(11, auto) 10px auto;
+    row-gap: 16px;
+    align-items: center;
+    justify-content: center;
+    font-size: clamp(1.2rem, 5.4vw, 2.3rem);
+    font-weight: 800;
+    font-variant-numeric: tabular-nums;
+    color: var(--text-main);
+    user-select: none;
+    -webkit-user-select: none;
+}
+.targeta-fons {
+    align-self: stretch;
+    background: white;
+    border: 2.5px solid var(--tinta);
+    border-radius: 8px;
+    box-shadow: 0 2px 0 rgba(15, 23, 42, 0.12);
+    transition:
+        background 0.2s,
+        border-color 0.2s;
+}
+.targeta-fons.be {
+    border-color: var(--success);
+    background: var(--success-light);
+}
+.targeta-fons.malament {
+    border-color: var(--danger);
+    background: var(--danger-light);
+}
+.num {
+    padding: 0.4em 0.16em;
+    text-align: center;
+}
+.igual {
+    padding: 0 0.12em 0 0.3em;
+    color: var(--text-muted);
+}
+.estat {
+    padding-left: 6px;
+    font-size: 0.8em;
+}
+.estat.be {
+    color: var(--success);
+}
+.estat.malament {
+    color: var(--danger);
+}
+
+/* ---- Els parèntesis (clicar-los els treu) ---- */
+.paren.posat {
+    padding: 0 0.04em;
+    color: var(--primary);
+    font-weight: 700;
+    cursor: pointer;
+}
+@media (hover: hover) {
+    .bessones:not(.resolt):not(.estatic) .paren.posat:hover {
+        color: var(--danger);
+    }
+}
+
+/* ---- Un forat per a un signe (el de dalt i el de baix són bessons) ---- */
+.forat {
+    width: max(1.5em, 44px);
+    height: max(1.5em, 44px);
+    margin: 0 0.12em;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 2.5px dashed var(--border-strong);
+    border-radius: 10px;
+    background: rgba(255, 255, 255, 0.8);
+    color: var(--primary-dark);
+    line-height: 1;
+    cursor: pointer;
+    touch-action: none;
+    transition:
+        transform 0.15s,
+        background 0.15s,
+        border-color 0.15s,
+        box-shadow 0.15s;
+}
+.forat.ple {
+    border-style: solid;
+    border-color: var(--primary);
+    background: var(--primary-light);
+    cursor: grab;
+}
+.forat.germa {
+    border-color: var(--primary);
+    box-shadow: 0 0 0 4px rgba(180, 83, 9, 0.18);
+}
+.amb-seleccio .forat {
+    border-color: var(--primary);
+    animation: batec 1.2s ease-in-out infinite;
+}
+.forat.sobre {
+    border-style: solid;
+    background: #fde68a;
+    transform: scale(1.1);
+    animation: none;
+}
+.bessones.resolt .forat {
+    border-color: var(--success);
+    background: white;
+    color: #065f46;
+    cursor: default;
+}
+.bessones.estatic .forat {
+    cursor: default;
+}
+.bessones.estatic .forat:not(.ple) {
+    background: white;
+}
+.forat.acaba-de-posar {
+    animation: posa 0.25s ease-out;
+}
+.targeta-fons.celebra {
+    animation: celebra 0.45s ease-out;
+}
+@keyframes batec {
+    50% {
+        box-shadow: 0 0 0 5px rgba(180, 83, 9, 0.18);
+    }
+}
+@keyframes posa {
+    from {
+        transform: scale(0.75);
+    }
+}
+@keyframes celebra {
+    40% {
+        transform: scale(1.03);
+    }
+}
+
+/* ══════════════════════════════════════════════
+   ELS SIGNES DE LA PILA (i el fantasma d'arrossegar)
+══════════════════════════════════════════════ */
+.signe {
+    min-width: 56px;
+    height: 56px;
+    padding: 0 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: white;
+    border: 2.5px solid var(--tinta);
+    border-radius: 10px;
+    font-size: 1.9em;
+    font-weight: 800;
+    color: var(--text-main);
+    box-shadow: 0 2px 0 rgba(15, 23, 42, 0.12);
+    cursor: grab;
+    user-select: none;
+    -webkit-user-select: none;
+    touch-action: none;
+    transition:
+        transform 0.15s,
+        box-shadow 0.15s,
+        background 0.15s;
+}
+.signe.parens {
+    font-size: 1.5em;
+    letter-spacing: 0.1em;
+}
+.signe.seleccionat {
+    background: var(--primary);
+    border-color: var(--primary-dark);
+    color: white;
+    transform: translateY(-4px) scale(1.06);
+    box-shadow: 0 6px 16px rgba(180, 83, 9, 0.4);
+}
+.signe.arrossegant {
+    opacity: 0.4;
+}
+@media (hover: hover) {
+    .pila .signe:not(.seleccionat):hover {
+        border-color: var(--primary);
+        background: var(--primary-light);
+        transform: translateY(-2px);
+    }
+}
+.signe.fantasma {
+    position: fixed;
+    z-index: 1000;
+    pointer-events: none;
+    transform: translate(-50%, -50%) rotate(-4deg) scale(1.08);
+    border-color: var(--primary);
+    color: var(--primary-dark);
+    box-shadow: 0 10px 24px rgba(15, 23, 42, 0.3);
+    transition: none;
+}
+
+/* ══════════════════════════════════════════════
+   INSTRUCCIONS
+══════════════════════════════════════════════ */
+.instr-fila .bessones {
+    font-size: 1.15rem;
+    row-gap: 8px;
+}
+.instr-fila .forat {
+    width: 1.5em;
+    height: 1.5em;
+    border-width: 2px;
+    border-radius: 7px;
+}
+@media (max-width: 480px) {
+    .pila {
+        gap: 8px;
+    }
+    .signe {
+        min-width: 48px;
+        height: 48px;
+        padding: 0 6px;
+        font-size: 1.6em;
+    }
+    .forat {
+        width: max(1.5em, 40px);
+        height: max(1.5em, 40px);
+        margin: 0 0.06em;
+    }
+}
+.instr-ordre {
+    margin: 0;
+    padding-left: 1.4em;
+}
+.instr-nota {
+    margin: 8px 0 0 0;
+    color: var(--text-muted);
+    font-size: 0.95em;
+}
