@@ -122,7 +122,8 @@ i es pot provar un altre lloc.
 ## Versions per imprimir
 
 Fulls A4 per imprimir a doble cara (en blanc i negre), plastificar i escriure-hi amb retolador de pissarra:
-la pàgina 1 són les instruccions, la 2 és en blanc (el revers) i a partir de la 3 hi ha 6 problemes per full.
+la pàgina 1 són les instruccions, la 2 és en blanc (el revers) i a partir de la 3 hi ha 6 problemes per full
+(4 al Laberint d'angles i al Talla en rectangles, que tenen figures més grans).
 
 | Puzzle | Pàgina | PDF |
 |---|---|---|
@@ -130,6 +131,9 @@ la pàgina 1 són les instruccions, la 2 és en blanc (el revers) i a partir de 
 | Creuat de múltiples | [`imprimir/creuat-multiples.html`](imprimir/creuat-multiples.html) | [`imprimir/creuat-multiples.pdf`](imprimir/creuat-multiples.pdf) (9 pàgines) |
 | On és la xifra? | [`imprimir/on-es-la-xifra.html`](imprimir/on-es-la-xifra.html) | [`imprimir/on-es-la-xifra.pdf`](imprimir/on-es-la-xifra.pdf) (9 pàgines) |
 | Busca el nombre | [`imprimir/busca-el-nombre.html`](imprimir/busca-el-nombre.html) | [`imprimir/busca-el-nombre.pdf`](imprimir/busca-el-nombre.pdf) (9 pàgines) |
+| Enllaç de múltiples | [`imprimir/enllac-multiples.html`](imprimir/enllac-multiples.html) | [`imprimir/enllac-multiples.pdf`](imprimir/enllac-multiples.pdf) (9 pàgines) |
+| Laberint d'angles | [`imprimir/laberint-angles.html`](imprimir/laberint-angles.html) | [`imprimir/laberint-angles.pdf`](imprimir/laberint-angles.pdf) (12 pàgines, 4 problemes per full) |
+| Talla en rectangles | [`imprimir/talla-rectangles.html`](imprimir/talla-rectangles.html) | [`imprimir/talla-rectangles.pdf`](imprimir/talla-rectangles.pdf) (13 pàgines, 4 problemes per full) |
 
 S'hi arriba des de l'enllaç «Versió per imprimir» de dalt de la pàgina del joc. La pàgina té un botó per
 imprimir-la o desar-la com a PDF des del navegador. El PDF del repositori el fa

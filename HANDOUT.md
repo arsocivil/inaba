@@ -13,7 +13,7 @@ pipeline, the testing method and the traps already found.
 | Typical request | «Implementa «<nom>»» | «Fes la versió per imprimir de «<nom>»» |
 | Output | `<slug>.html` + `js/<slug>/*` + `css/<slug>.css` + test + integrations | `imprimir/<slug>.html` (ready to print) + `imprimir/<slug>.pdf` + link on the game page |
 | Read | §1–4 (shared) + **Part A** §5–12 | §1–4 (shared) + **Part B** §13 (it reuses the game's `tauler.js`, see §5 and §8) |
-| Status | 6 of 12 done (§8; On és la xifra? is documented in `docs/on-es-la-xifra.md`), **6 pending** (§12) | 3 of 6 done (Expressions bessones, Creuat de múltiples, On és la xifra?), **3 pending** (§13.5) |
+| Status | 7 of 12 done (§8; On és la xifra? and Busca el nombre are documented in `docs/<slug>.md`), **5 pending** (§12; Busca el nombre is done) | **7 of 7 done** — every finished puzzle has its print version (§13.5) |
 
 After finishing Task A, do not start Task B on your own: offer it in one line and let the user decide.
 
@@ -395,7 +395,8 @@ Reference implementation: Expressions bessones (`imprimir/expressions-bessones.h
    ✓/✗ (the symbols are enough), no pale fills or light-grey lines (they vanish on a B/W laser).
 3. **Page order**: **1 = instructions** (the game's «Com es juga?» text and examples + a box «Amb el
    retolador» saying where to write), **2 = blank** (back of the instructions), **3… = problems, 6 per page**
-   (2 columns × 3 rows, in order). Pages = 2 + ⌈N/6⌉ (42 → 9, 38 → 9, 49 → 11). If a puzzle's figures cannot
+   (2 columns × 3 rows, in order). Pages = 2 + ⌈N/6⌉ (42 → 9, 38 → 9, 49 → 11). **Exception decided by the user:
+   Laberint d'angles and Talla en rectangles always 4 per page** (2 × 2; 6 was «massa atapeït»). If a puzzle's figures cannot
    be made writable at 6 per page, propose fewer per page in the sample message — do not decide alone.
 4. **Always show pages 1 and 3 first** (`--pagines 1,3`, sent with `SendUserFile`) and wait for the user's
    «OK»; iterate on their remarks. Only then generate the full PDF, commit and open the PR.
@@ -437,7 +438,7 @@ Reference implementation: Expressions bessones (`imprimir/expressions-bessones.h
 ### 13.3 Generate and verify
 
 ```bash
-node tools/genera-pdf.js <slug> --pagines 1,3 --sortida imprimir/<slug>-mostra.pdf   # sample (git-ignored)
+node tools/genera-pdf.js <slug> --pagines 1,3 --sortida <scratchpad>/<slug>-mostra.pdf   # sample (there is no .gitignore: never write it in the repo)
 node tools/genera-pdf.js <slug>                          # full → imprimir/<slug>.pdf (commit it)
 ```
 
@@ -467,13 +468,17 @@ parenthesis slots 5 mm, numbers 19.5 pt Inter 800, card border 0.5 mm black; pro
 operands (37–42) get `.dues-xifres` (15 pt) so they fit; first number right-aligned, last left-aligned.
 Also: reset `figure { margin: 0 }` (browser default 40 px); width, not height, is always the constraint.
 
-### 13.5 Pending print versions (suggestions to put in the sample message, not decisions)
+### 13.5 Print versions done (all 7) and what each one decided
 
-| Puzzle | Pages | Ideas |
+| Puzzle | Pages | Decisions |
 |---|---|---|
-| Enllaç de múltiples | 9 | Empty slots = large dashed boxes to write the number; arrows black; the spare cards printed as a row of numbers students can cross out. |
-| Laberint d'angles | 9 | Students draw the path over the lines: lines dark grey, circles big with black numbers, S/G bold; no angle arcs (they are play aids). Large mazes may need 4 per page — ask. |
-| Talla en rectangles | 9 | Cells ≥ 9 mm with dark-grey grid so cuts can be drawn with the marker; figure outline thick black; size list in bold under each figure. |
+| Expressions bessones | 9 | Reference implementation (§13.4). |
+| Creuat de múltiples | 9 | See §8.5. |
+| On és la xifra? | 9 | See `docs/on-es-la-xifra.md`. |
+| Busca el nombre | 9 | See `docs/busca-el-nombre.md`. |
+| Enllaç de múltiples | 9 | Boards in mm (`--k` = mm per board unit, set by `js/enllac-multiples/imprimir.js`); empty slots dashed `#333`; under each board the problem's cards (the one already on the board grey with ✓) to cross out; 2 × 2 boards (13–24) put the cards in a column at the right. After the first sample the user asked for **smaller boards, more room between the 3 rows and a black line between rows**: `.problemes` has no column gap (cards pad 1.5 mm instead) so the `border-top` of rows 2–3 is continuous. Never draw the line with an absolutely positioned `::after` outside the card: `genera-pdf.js` counts it as overflow. |
+| Laberint d'angles | 12 | **4 per page**. Lines `#333` 0.55 mm, dotted cut lines with ×, circles white with black numbers, S/G thick border; no arcs on problems (only in the instructions). Circles are scaled up (`--cercle`) to ≥ 8.6 mm on small boards, but not in the instructions (they would hide the angle arcs). The «Amb el retolador» box explains the dotted × lines (19 problems have them; the game does not say it). |
+| Talla en rectangles | 13 | **4 per page**. Cell up to 16 mm (`min(16, 92/amp, 104/alt)`), grid `#333` 0.3 mm, outline black 1 mm, no piece colours; «Quadrets: 3 5 6» boxes next to the number pill (absolute, `left: 11 mm`). Wide figures (10–12 cells) stay ≈ 7.5 mm per cell: width is the limit. |
 
 Lesson from Creuat de múltiples: boards of different height share a sheet, so align the number pills per row and
 centre each board vertically in the rest of the card (`margin: auto 0`), and size the cell from the board's

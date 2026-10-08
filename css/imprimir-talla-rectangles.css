@@ -1,0 +1,104 @@
+/*
+============================================================================
+FITXER: css/imprimir-talla-rectangles.css
+ROL: Les figures del «Talla en rectangles» en paper: quadrets grans amb la
+     quadrícula en gris fosc (s'hi repassen els talls amb el retolador), la
+     vora de la figura gruixuda i negra, i la llista de mides en negreta.
+ARQUITECTURA: Fa servir el mateix DOM que el joc (TaulerRectangles), però
+     amb mides en mm: --k (el posa js/talla-rectangles/imprimir.js) són els
+     mm d'una unitat de l'SVG; un quadret fa 10 unitats. Només blanc, negre i
+     gris fosc: sense els colors de les peces (impressora en B/N).
+DEPENDÈNCIES: css/imprimir.css (s'ha de carregar abans).
+============================================================================
+*/
+figure {
+    margin: 0;
+}
+
+/* ---- La figura (SVG) ---- */
+.tauler-rect {
+    display: block;
+    flex-shrink: 0;
+    height: auto;
+    overflow: visible;
+}
+.fons rect,
+.peca rect {
+    fill: white;
+}
+.quadricula {
+    fill: none;
+    stroke: var(--gris);
+    stroke-width: calc(0.3 / var(--k));
+}
+/* La vora de la figura (i, a les instruccions, els talls entre peces) */
+.talls {
+    fill: none;
+    stroke: var(--tinta);
+    stroke-width: calc(1 / var(--k));
+    stroke-linecap: square;
+}
+.etiqueta {
+    font-size: 5.4px;
+    font-weight: 800;
+    fill: var(--tinta);
+    font-family: Inter, 'Segoe UI', Arial, sans-serif;
+}
+.previsio,
+.previsio-text,
+.cursor {
+    display: none;
+}
+
+/* ---- Fulls de problemes: 4 per full (2 × 2); la llista de mides al costat del número, i la figura centrada ---- */
+.problemes {
+    grid-template-rows: repeat(2, 1fr);
+    align-items: stretch;
+}
+.problema {
+    position: relative;
+    justify-content: flex-start;
+}
+.talla {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.mides {
+    position: absolute;
+    top: 0;
+    left: 11mm; /* just a la dreta del número del problema */
+    display: flex;
+    align-items: center;
+    gap: 1.8mm;
+    height: 8mm;
+}
+.mides::before {
+    content: 'Quadrets:';
+    margin-right: 0.5mm;
+    font-size: 10.5pt;
+    font-weight: 700;
+    color: var(--gris);
+}
+.mida {
+    min-width: 8.5mm;
+    height: 8mm;
+    padding: 0 1.5mm;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 0.4mm solid var(--tinta);
+    border-radius: 1.5mm;
+    font-size: 13pt;
+    font-weight: 800;
+    font-variant-numeric: tabular-nums;
+}
+
+/* ---- Full d'instruccions ---- */
+.mida-instr .fila {
+    gap: 10mm;
+}
+.mida-instr .caixa .fila {
+    align-items: flex-end;
+}
