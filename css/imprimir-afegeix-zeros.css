@@ -1,7 +1,7 @@
 /*
 ============================================================================
 FITXER: css/imprimir-afegeix-zeros.css
-ROL: Les igualtats d'«Afegeix zeros» en paper: una per fila (com al PDF),
+ROL: Les igualtats d'«Afegeix zeros» en paper: una per fila, 5 per full,
      amb targetes amples i espai buit a la dreta de cada número per escriure-hi
      els zeros amb un retolador gruixut.
 ARQUITECTURA: Fa servir el mateix DOM que el joc (TaulerZeros), en mm i pt.
@@ -45,22 +45,22 @@ figure {
     margin-left: 1mm;
     letter-spacing: 0.05em;
 }
-/* Un zero afegit (instruccions): encerclat, com al PDF */
+/* Un zero afegit (instruccions): encerclat, com al PDF; el cercle, ben separat de la xifra */
 .zero {
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    width: 1em;
-    height: 1em;
+    width: 1.5em;
+    height: 1.5em;
     border: 0.35mm solid var(--tinta);
     border-radius: 50%;
-    font-size: 0.85em;
+    font-size: 0.72em;
 }
 
 /* ---- Fulls de problemes: una igualtat per fila, amb el número a l'esquerra ---- */
 .problemes {
     grid-template-columns: 1fr;
-    grid-template-rows: repeat(7, 1fr);
+    grid-template-rows: repeat(5, 1fr);
     gap: 0;
     align-items: stretch;
 }
@@ -84,7 +84,7 @@ figure {
     font-size: 12.5pt;
 }
 .mida-instr .igualtat {
-    font-size: 17pt;
+    font-size: 15pt;
     gap: 3mm;
 }
 .mida-instr .targeta {
@@ -100,11 +100,11 @@ figure {
 .parella {
     display: flex;
     gap: 4mm;
-    font-size: 17pt;
+    font-size: 15pt;
     font-weight: 800;
 }
 .mida-instr .fila .targeta {
-    font-size: 17pt;
+    font-size: 15pt;
     font-weight: 800;
 }
 .exemples {

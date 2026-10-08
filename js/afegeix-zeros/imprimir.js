@@ -2,8 +2,8 @@
  * ============================================================================
  * FITXER: js/afegeix-zeros/imprimir.js
  * ROL: Omple imprimir/afegeix-zeros.html: els exemples del full
- *      d'instruccions i els 7 fulls de problemes (7 per full, una igualtat per
- *      fila, com al PDF: les igualtats són amples i baixes).
+ *      d'instruccions i els 10 fulls de problemes (5 per full, una igualtat per
+ *      fila: les igualtats són amples i baixes; l'últim full en té 4).
  * ARQUITECTURA: Les igualtats són les del joc (TaulerZeros); el CSS d'impressió
  *   fa les targetes amples, amb espai buit per escriure-hi els zeros.
  * DEPENDÈNCIES: js/imprimir.js, problemes.js i tauler.js (s'han de carregar abans).
@@ -24,7 +24,7 @@
     // ---- Fulls de problemes ----
     window.Imprimir.problemes({
         total: P.llista.length,
-        perFull: 7,
+        perFull: 5,
         regla: 'Afegeix <strong>zeros</strong> a algunes targetes perquè la <strong>igualtat</strong> sigui correcta.',
         dibuixa: i => T.estatic(P.llista[i]),
     });

@@ -13,7 +13,7 @@ pipeline, the testing method and the traps already found.
 | Typical request | «Implementa «<nom>»» | «Fes la versió per imprimir de «<nom>»» |
 | Output | `<slug>.html` + `js/<slug>/*` + `css/<slug>.css` + test + integrations | `imprimir/<slug>.html` (ready to print) + `imprimir/<slug>.pdf` + link on the game page |
 | Read | §1–4 (shared) + **Part A** §5–12 | §1–4 (shared) + **Part B** §13 (it reuses the game's `tauler.js`, see §5 and §8) |
-| Status | 10 of 12 done (§8; On és la xifra?, Busca el nombre, Busca el triangle, L'escala de nombres and Busca la figura are documented in `docs/<slug>.md`), **2 pending**: Dipòsits d'aigua and Afegeix zeros (§12) | **10 of 10 done** — every finished puzzle has its print version (§13.5) |
+| Status | 11 of 12 done (§8; On és la xifra?, Busca el nombre, Busca el triangle, L'escala de nombres, Busca la figura and Afegeix zeros are documented in `docs/<slug>.md`), **1 pending**: Dipòsits d'aigua (§12) | **11 of 11 done** — every finished puzzle has its print version (§13.5) |
 
 After finishing Task A, do not start Task B on your own: offer it in one line and let the user decide.
 
@@ -217,7 +217,7 @@ concrete mathematical reason («10 no és múltiple de 4», «Al cercle del 180,
 the underlying maths (×k labels, base × altura, step-by-step calculation). Local, non-revealing aids are OK
 during play (e.g. rectangle size label, angle arcs, ✓ on used cards/sizes).
 
-## 8. Finished puzzles (the first five + Busca el triangle, L'escala de nombres and Busca la figura; the others are in `docs/`)
+## 8. Finished puzzles (the first five + Busca el triangle, L'escala de nombres, Busca la figura and Afegeix zeros; the others are in `docs/`)
 
 ### 8.1 Enllaç de múltiples (`blink`, 倍数リンク) — 42 problems, indigo
 - Data (hand-transcribed, `js/enllac-multiples/problemes.js`): `{ llocs: [[col, fila, valor?]], fletxes:
@@ -344,6 +344,20 @@ during play (e.g. rectangle size label, angle arcs, ✓ on used cards/sizes).
 - **Print version done** (9 pages, 6 per page): figure name boxed next to the number pill; page 1 shows the
   seven PDF example figures with their marks.
 
+### 8.9 Afegeix zeros (`zero`, ゼロゼロ式) — 49 problems, blue `#1d4ed8`
+- Data **generated** by `tools/extreu-zeros.py` from the PDF **text** (`pdftotext -layout`, NFKC): `{ targetes:
+  [digits], total }`; answers = zeros per card. 1–35 three cards, 36–49 four. Unique and equal to the PDF for
+  all; 16 and 20 are identical in the PDF (kept).
+- `motor.js`: `valor`, `maxZeros` (digits of the total − 1), `comprova` (with `calcul` «30 + 6 + 2 = 38»), `resol`.
+- `tauler.js`: HTML row (cards with the digit + one `span.zero` per added zero, circled like the PDF).
+- UI: tap a card adds a zero, tap a zero removes it; drag the «0» chip onto a card, drag a zero out; keyboard
+  0/Enter add, ⌫ remove. Success is automatic (every state is «complete»); a **Comprova** button shows the sum
+  and «Falten / Sobren n».
+- **Print version done** (12 pages, **5 per page, one equation per row**, the last page has 4 — user's choice;
+  7 per page was refused). Cards 38 × 19 mm (30 mm with four cards) with room to write the zeros. In the
+  instructions the circle around an added zero must be clearly bigger than the digit (user's remark):
+  `.zero` 1.5em with the digit at 0.72em.
+
 ## 9. PDF data extraction (the technique that works)
 
 All 12 PDFs are **vector** drawings. Only `shikaku_q.pdf` page 1 embeds raster images (its example was
@@ -448,7 +462,7 @@ Reference implementation: Expressions bessones (`imprimir/expressions-bessones.h
 3. **Page order**: **1 = instructions** (the game's «Com es juga?» text and examples + a box «Amb el
    retolador» saying where to write), **2 = blank** (back of the instructions), **3… = problems, 6 per page**
    (2 columns × 3 rows, in order). Pages = 2 + ⌈N/6⌉ (42 → 9, 38 → 9, 49 → 11). **Exception decided by the user:
-   Laberint d'angles, Talla en rectangles and L'escala de nombres always 4 per page** (2 × 2; 6 was «massa atapeït»). If a puzzle's figures cannot
+   Laberint d'angles, Talla en rectangles and L'escala de nombres always 4 per page; Afegeix zeros 5 per page, one equation per row** (2 × 2; 6 was «massa atapeït»). If a puzzle's figures cannot
    be made writable at 6 per page, propose fewer per page in the sample message — do not decide alone.
 4. **Always show pages 1 and 3 first** (`--pagines 1,3`, sent with `SendUserFile`) and wait for the user's
    «OK»; iterate on their remarks. Only then generate the full PDF, commit and open the PR.
@@ -533,6 +547,7 @@ Also: reset `figure { margin: 0 }` (browser default 40 px); width, not height, i
 | Busca el triangle | 9 | See §8.6. |
 | L'escala de nombres | 13 | **4 per page**; see §8.7. |
 | Busca la figura | 9 | See §8.8. |
+| Afegeix zeros | 12 | **5 per page**, one per row; see §8.9. |
 | Talla en rectangles | 13 | **4 per page**. Cell up to 16 mm (`min(16, 92/amp, 104/alt)`), grid `#333` 0.3 mm, outline black 1 mm, no piece colours; «Quadrets: 3 5 6» boxes next to the number pill (absolute, `left: 11 mm`). Wide figures (10–12 cells) stay ≈ 7.5 mm per cell: width is the limit. |
 
 Lesson from Creuat de múltiples: boards of different height share a sheet, so align the number pills per row and
