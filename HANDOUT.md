@@ -13,7 +13,7 @@ pipeline, the testing method and the traps already found.
 | Typical request | «Implementa «<nom>»» | «Fes la versió per imprimir de «<nom>»» |
 | Output | `<slug>.html` + `js/<slug>/*` + `css/<slug>.css` + test + integrations | `imprimir/<slug>.html` (ready to print) + `imprimir/<slug>.pdf` + link on the game page |
 | Read | §1–4 (shared) + **Part A** §5–12 | §1–4 (shared) + **Part B** §13 (it reuses the game's `tauler.js`, see §5 and §8) |
-| Status | 11 of 12 done (§8; On és la xifra?, Busca el nombre, Busca el triangle, L'escala de nombres, Busca la figura and Afegeix zeros are documented in `docs/<slug>.md`), **1 pending**: Dipòsits d'aigua (§12) | **11 of 11 done** — every finished puzzle has its print version (§13.5) |
+| Status | **12 of 12 done** (§8; On és la xifra?, Busca el nombre and the five of §8.6–8.10 are documented in `docs/<slug>.md`); nothing pending | **12 of 12 done** — every puzzle has its print version (§13.5) |
 
 After finishing Task A, do not start Task B on your own: offer it in one line and let the user decide.
 
@@ -119,7 +119,7 @@ tools/extreu-laberint.py      PDF → js/laberint-angles/problemes.js + tests/la
 tools/extreu-rectangles.py    PDF → js/talla-rectangles/problemes.js + tests/talla-rectangles-solucions.json
 tools/extreu-creuat.py        PDF → js/creuat-multiples/problemes.js + tests/creuat-multiples-solucions.json
 docs/<puzzle>.md              JA↔CA translation table + translation notes + problem notes + PDF errata
-docs/traduccions.md           reviewed translations of the PENDING puzzles (move a section out when done)
+docs/traduccions.md           translation criteria + index of the 12 docs/<slug>.md (all sections moved out)
 src/*_q.pdf, src/*_a.pdf      original problems / answers (8 pages q: p1 = instructions; 7 pages a)
 .github/workflows/tests.yml   CI: runs every tests/*.test.js step (add one step per new puzzle)
 .prettierrc.json              same config as operacions (4 spaces, single quotes, width 120)
@@ -217,7 +217,7 @@ concrete mathematical reason («10 no és múltiple de 4», «Al cercle del 180,
 the underlying maths (×k labels, base × altura, step-by-step calculation). Local, non-revealing aids are OK
 during play (e.g. rectangle size label, angle arcs, ✓ on used cards/sizes).
 
-## 8. Finished puzzles (the first five + Busca el triangle, L'escala de nombres, Busca la figura and Afegeix zeros; the others are in `docs/`)
+## 8. Finished puzzles (the first five + §8.6–8.10; On és la xifra? and Busca el nombre are in `docs/`)
 
 ### 8.1 Enllaç de múltiples (`blink`, 倍数リンク) — 42 problems, indigo
 - Data (hand-transcribed, `js/enllac-multiples/problemes.js`): `{ llocs: [[col, fila, valor?]], fletxes:
@@ -358,6 +358,27 @@ during play (e.g. rectangle size label, angle arcs, ✓ on used cards/sizes).
   instructions the circle around an added zero must be clearly bigger than the digit (user's remark):
   `.zero` 1.5em with the digit at 0.72em.
 
+### 8.10 Dipòsits d'aigua (`mizu`, 水そうと水) — 42 problems, dark green `#047857`
+- Data **generated** by `tools/extreu-diposits.py`: `{ files: ['AB', 'CC'], divisions, totalsFiles, totalsColumnes }`
+  (a letter per cube = its tank; every tank is a rectangle; divisions = 4, 6 or 0 from the short 3.125 ticks, which
+  only exist on each tank's left column; totals as text fractions or null). Front face = bbox of the 12.5 strokes
+  (cube ≈ 45.3 pt); a tank border = a thick stroke through the midpoint of the edge between two cubes. Labels:
+  each face takes the `(n)` of its row with the largest x left of the face (labels sit at the left of each column).
+- Answers: 1–36 = blue fill rects measured and **rounded to the ticks** (the drawing is approximate); 37–42 = the
+  fractions the answer PDF writes in each cube (13/24, 13/36…).
+- `motor.js`: own exact fractions (`[n, d]`), `diposits`, `aiguaCub` (min(1, max(0, h − floors below))),
+  `totals`, `comprova`, `resol` (for each tank choose the floor of the surface → linear equations in the fractional
+  parts; the solution set of each case is a polytope in [0, 1]ⁿ, its **vertices** are found by fixing variables to 0/1
+  and solving with Gauss; unique iff exactly one vertex overall — a plain «free variable = 0» rejected valid
+  solutions), `pas` (ticks, or 2 × lcm of the totals' denominators for 37–42). Unique and equal to the PDF for all.
+- `tauler.js`: SVG front face (no 3D), tank borders, ticks, water rects, per-cube amounts, totals with arrows (margins
+  only on sides that have totals), an HTML layer per tank; a `pattern#aigua-ratllada` for the B/W print version.
+- UI: tap/drag a tank sets its level (snapped to 1/pas); the selected tank's editor has −, + and a text field for a
+  fraction (needed for 37–42, steps 1/16…1/60); keyboard arrows/PgUp/PgDn/Home/End. Success automatic; «Comprova»
+  lists the totals that do not add up («A la fila 1: 1/2 + 0 = 1/2, i hi ha d'haver 3/4»).
+- **Print version done** (13 pages, **4 per page**, user's choice): students draw the water line on the ticks;
+  water in the instructions is hatched.
+
 ## 9. PDF data extraction (the technique that works)
 
 All 12 PDFs are **vector** drawings. Only `shikaku_q.pdf` page 1 embeds raster images (its example was
@@ -423,7 +444,7 @@ tool via `importlib` creates `__pycache__`.
 7. Prettier, all tests, browser tests (§10), commit, push, PR, reply in Catalan with merge steps + preview,
    and offer (one line) the print version (Part B).
 
-## 12. The 6 pending puzzles
+## 12. The 6 puzzles that were pending (all done now; kept as reference)
 
 All have 8-page `_q.pdf` (page 1 = instructions) and 7-page `_a.pdf`; all vector. Reviewed Catalan
 instructions are in `docs/traduccions.md`. Approved Catalan names in **bold**.
@@ -462,7 +483,7 @@ Reference implementation: Expressions bessones (`imprimir/expressions-bessones.h
 3. **Page order**: **1 = instructions** (the game's «Com es juga?» text and examples + a box «Amb el
    retolador» saying where to write), **2 = blank** (back of the instructions), **3… = problems, 6 per page**
    (2 columns × 3 rows, in order). Pages = 2 + ⌈N/6⌉ (42 → 9, 38 → 9, 49 → 11). **Exception decided by the user:
-   Laberint d'angles, Talla en rectangles and L'escala de nombres always 4 per page; Afegeix zeros 5 per page, one equation per row** (2 × 2; 6 was «massa atapeït»). If a puzzle's figures cannot
+   Laberint d'angles, Talla en rectangles, L'escala de nombres and Dipòsits d'aigua always 4 per page; Afegeix zeros 5 per page, one equation per row** (2 × 2; 6 was «massa atapeït»). If a puzzle's figures cannot
    be made writable at 6 per page, propose fewer per page in the sample message — do not decide alone.
 4. **Always show pages 1 and 3 first** (`--pagines 1,3`, sent with `SendUserFile`) and wait for the user's
    «OK»; iterate on their remarks. Only then generate the full PDF, commit and open the PR.
@@ -548,6 +569,7 @@ Also: reset `figure { margin: 0 }` (browser default 40 px); width, not height, i
 | L'escala de nombres | 13 | **4 per page**; see §8.7. |
 | Busca la figura | 9 | See §8.8. |
 | Afegeix zeros | 12 | **5 per page**, one per row; see §8.9. |
+| Dipòsits d'aigua | 13 | **4 per page**; see §8.10. |
 | Talla en rectangles | 13 | **4 per page**. Cell up to 16 mm (`min(16, 92/amp, 104/alt)`), grid `#333` 0.3 mm, outline black 1 mm, no piece colours; «Quadrets: 3 5 6» boxes next to the number pill (absolute, `left: 11 mm`). Wide figures (10–12 cells) stay ≈ 7.5 mm per cell: width is the limit. |
 
 Lesson from Creuat de múltiples: boards of different height share a sheet, so align the number pills per row and
@@ -556,9 +578,13 @@ height (`60mm / rows`) and width, not from a fixed size; 4-row boards ended up a
 
 ## 14. Open points / ideas
 
-- Nothing pending from the user right now; the next request will probably be «Implementa «<nom>»» (Task A)
-  or the print version of another puzzle (Task B).
-- Possible refactors if a third puzzle needs them: shared digit-entry pad (bcross, dokoeq, step), shared
-  dot-grid selector (sankaku, zukei), shared exact-fraction helper (bessones, mizu).
-- `docs/traduccions.md` notes contain the known Gemini mistakes (only sums in dokoeq; 1 litre per cube in
-  mizu; «0, 1, 2 zeros» is not a rule; kazu «Compte!» is about the dotted line and square size).
+- **All 12 puzzles are done**, each with its web version and its print version. There is nothing pending from the
+  user; a new request will probably be a change to an existing puzzle or print version (read its §8 entry and its
+  `docs/<slug>.md` first, and keep the agreed decisions of §1 and §13).
+- Shared code that now exists: the dot-grid board `js/busca-el-triangle/tauler.js` (also used by Busca la figura);
+  every other puzzle has its own board. Exact fractions exist twice (bessones, mizu): unify only if a change needs it.
+- The known Gemini translation mistakes are now in the notes of each `docs/<slug>.md` (only sums in dokoeq; 1 litre per
+  cube in mizu; «0, 1, 2 zeros» is not a rule; kazu «Compte!» is about the dotted line and square size).
+- Repo hygiene learnt in this round: `.prettierrc.json` and `.github/workflows/tests.yml` were missing and were
+  (re)created; there is no `.gitignore`, so never write sample PDFs or `__pycache__` inside the repo (use the
+  scratchpad; run the tools with `sys.dont_write_bytecode = True` when importing them).
