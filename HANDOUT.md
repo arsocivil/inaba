@@ -13,7 +13,7 @@ pipeline, the testing method and the traps already found.
 | Typical request | «Implementa «<nom>»» | «Fes la versió per imprimir de «<nom>»» |
 | Output | `<slug>.html` + `js/<slug>/*` + `css/<slug>.css` + test + integrations | `imprimir/<slug>.html` (ready to print) + `imprimir/<slug>.pdf` + link on the game page |
 | Read | §1–4 (shared) + **Part A** §5–12 | §1–4 (shared) + **Part B** §13 (it reuses the game's `tauler.js`, see §5 and §8) |
-| Status | 7 of 12 done (§8; On és la xifra? and Busca el nombre are documented in `docs/<slug>.md`), **5 pending** (§12; Busca el nombre is done) | **7 of 7 done** — every finished puzzle has its print version (§13.5) |
+| Status | 8 of 12 done (§8; On és la xifra?, Busca el nombre and Busca el triangle are documented in `docs/<slug>.md`), **4 pending** (§12; the Busca el nombre and Busca el triangle rows are done) | **8 of 8 done** — every finished puzzle has its print version (§13.5) |
 
 After finishing Task A, do not start Task B on your own: offer it in one line and let the user decide.
 
@@ -182,7 +182,8 @@ README.md                     user-facing (Catalan) description; update per puzz
 
 - Code identifiers, comments, file headers, UI text: **Catalan**. File header block (see any JS file:
   `FITXER / ROL / ARQUITECTURA / DEPENDÈNCIES`). Match comment density of existing files.
-- Prettier with `.prettierrc.json`; run `prettier --write js css tests` and `--check`. Data tables keep one
+- Prettier with `.prettierrc.json` (it was missing from the repo until Busca el triangle; it reproduces the existing style:
+  4 spaces, single quotes, width 120, `arrowParens: avoid`, `quoteProps: consistent`, `trailingComma: es5`); run `prettier --write js css tests` and `--check`. Data tables keep one
   problem per line using a `// prettier-ignore` comment **exactly** (extra text after it disables it).
 - UI language: address the student as **tu** («Col·loca», «Ves», «Arrossega»). Vocabulary: **xifra** =
   digit 0–9, **nombre** = quantity, **número** = the written label on a card/circle; 式 = **igualtat** (not
@@ -216,7 +217,7 @@ concrete mathematical reason («10 no és múltiple de 4», «Al cercle del 180,
 the underlying maths (×k labels, base × altura, step-by-step calculation). Local, non-revealing aids are OK
 during play (e.g. rectangle size label, angle arcs, ✓ on used cards/sizes).
 
-## 8. The five finished puzzles
+## 8. Finished puzzles (the first five + Busca el triangle; the others are in `docs/`)
 
 ### 8.1 Enllaç de múltiples (`blink`, 倍数リンク) — 42 problems, indigo
 - Data (hand-transcribed, `js/enllac-multiples/problemes.js`): `{ llocs: [[col, fila, valor?]], fletxes:
@@ -291,6 +292,24 @@ during play (e.g. rectangle size label, angle arcs, ✓ on used cards/sizes).
   22 / ≈20 / ≈15 mm for 2 / 3 / 4 rows; solid black clue cells with a white diagonal; the run highlight in
   the instructions is a thick black border + a tiny → / ↓ arrow. Pill numbers are aligned per row and the board
   is vertically centred in the rest of the card (`.problema .creuat { margin: auto 0 }`).
+
+### 8.6 Busca el triangle (`sankaku`, 三角探し) — 42 problems, pink `#be185d`
+- Data **generated** by `tools/extreu-triangle.py`: `{ amp, alt, punts: [[col, fila]], area }` (grid 3×3 or
+  4×4, row 0 at the top). Grid = grey dashed paths; dots = black filled curves; answers = black-stroked rings
+  (r > 6) in `_a.pdf`. Example hard-coded (page 1 mixes the explanation drawings).
+- `motor.js`: `dobleArea` (integers), `desglossa(a, b, c)` → `base` (a side is horizontal/vertical: base,
+  altura) | `caixa` (bounding box + outside pieces: one right triangle per side, plus a rectangle when two
+  vertices are opposite box corners) | `alineats`; `calcul`, `comprova`, `resol`, `text` (decimal comma).
+  The test checks that the decomposition adds up for **every** triple of every problem.
+- `tauler.js`: SVG grid/triangle/calculation + HTML dots (`CEL 64`, `R 9`); `pinta({ tria, estat, d })` draws
+  base + altura (dashed, right-angle mark, «base 4», «altura 3» labels clamped inside the board) or the box +
+  pieces with their areas.
+- UI: tap toggles a dot (ring); trace through dots (a dot crossed in a straight line is dropped:
+  `entremig`; trace pickup radius 0.3 cell, tap 0.45); keyboard arrows/Enter/⌫/Esc. Checked at 3 dots (after
+  lifting the finger when tracing); the calculation is drawn and written both for right and wrong answers.
+- PDF error: **26** has 3 solutions (the game accepts any triangle with the right area).
+- **Print version done** (9 pages, 6 per page): grids 64 mm, «Àrea N» box next to the number pill; students
+  circle three dots and join them.
 
 ## 9. PDF data extraction (the technique that works)
 
@@ -478,6 +497,7 @@ Also: reset `figure { margin: 0 }` (browser default 40 px); width, not height, i
 | Busca el nombre | 9 | See `docs/busca-el-nombre.md`. |
 | Enllaç de múltiples | 9 | Boards in mm (`--k` = mm per board unit, set by `js/enllac-multiples/imprimir.js`); empty slots dashed `#333`; under each board the problem's cards (the one already on the board grey with ✓) to cross out; 2 × 2 boards (13–24) put the cards in a column at the right. After the first sample the user asked for **smaller boards, more room between the 3 rows and a black line between rows**: `.problemes` has no column gap (cards pad 1.5 mm instead) so the `border-top` of rows 2–3 is continuous. Never draw the line with an absolutely positioned `::after` outside the card: `genera-pdf.js` counts it as overflow. |
 | Laberint d'angles | 12 | **4 per page**. Lines `#333` 0.55 mm, dotted cut lines with ×, circles white with black numbers, S/G thick border; no arcs on problems (only in the instructions). Circles are scaled up (`--cercle`) to ≥ 8.6 mm on small boards, but not in the instructions (they would hide the angle arcs). The «Amb el retolador» box explains the dotted × lines (19 problems have them; the game does not say it). |
+| Busca el triangle | 9 | See §8.6. |
 | Talla en rectangles | 13 | **4 per page**. Cell up to 16 mm (`min(16, 92/amp, 104/alt)`), grid `#333` 0.3 mm, outline black 1 mm, no piece colours; «Quadrets: 3 5 6» boxes next to the number pill (absolute, `left: 11 mm`). Wide figures (10–12 cells) stay ≈ 7.5 mm per cell: width is the limit. |
 
 Lesson from Creuat de múltiples: boards of different height share a sheet, so align the number pills per row and
