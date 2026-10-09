@@ -3,8 +3,10 @@
  * FITXER: js/afegeix-zeros/afegeix-zeros.js
  * ROL: Controlador de la pàgina afegeix-zeros.html (tot el que toca el DOM).
  * INTERACCIÓ: s'afegeixen zeros al final de les targetes (3 → 30 → 300):
- *   - Tocar (o clicar) una targeta hi afegeix un zero; tocar un dels seus
- *     zeros el treu.
+ *   - Tocar (o clicar) una targeta hi afegeix un zero (també si es toca un
+ *     dels seus zeros: el zero nou surt just on s'ha tocat, i un segon toc ha
+ *     d'afegir-ne un altre, no treure'l). El botó «−» de sota la targeta en
+ *     treu un.
  *   - Arrossegar el «0» de sota fins a una targeta hi afegeix un zero;
  *     arrossegar un zero d'una targeta fora d'ella el treu.
  *   - Teclat: Tab o fletxes per anar d'una targeta a l'altra; 0, Enter o
@@ -62,9 +64,16 @@
     function configuraTargeta(t, i) {
         t.tabIndex = 0;
         t.setAttribute('role', 'button');
+        // El botó «−» per treure un zero (només es veu si la targeta en té; amb el teclat, ⌫)
+        const menys = document.createElement('span');
+        menys.className = 'treu-zero';
+        menys.textContent = '−';
+        menys.title = 'Treu un zero';
+        menys.setAttribute('aria-hidden', 'true');
+        t.appendChild(menys);
         t.addEventListener('click', e => {
             if (acabaDArrossegar || resolt) return;
-            if (e.target.closest('.zero')) treu(i);
+            if (e.target.closest('.treu-zero')) treu(i);
             else afegeix(i);
         });
         t.addEventListener('keydown', e => teclaTargeta(e, i));
@@ -98,7 +107,8 @@
             t.tabIndex = resolt ? -1 : 0;
             t.setAttribute(
                 'aria-label',
-                `Targeta del ${problema.targetes[i]}: ${M.valor(problema.targetes[i], zeros[i])}`
+                `Targeta del ${problema.targetes[i]}: ${M.valor(problema.targetes[i], zeros[i])}. ` +
+                    'Enter o 0 hi afegeix un zero; ⌫ en treu un.'
             );
         });
         els.comprova.disabled = resolt;
@@ -125,6 +135,18 @@
     function treu(i) {
         if (resolt || zeros[i] === 0) return;
         zeros[i]--;
+        canvi();
+    }
+
+    // Un zero de la targeta i, arrossegat a la targeta j (o fora, j = -1: es treu)
+    function mou(i, j) {
+        if (resolt || zeros[i] === 0) return;
+        if (j >= 0 && zeros[j] >= M.maxZeros(problema)) {
+            afegeix(j); // no hi cap: avisa, i el zero es queda on era
+            return;
+        }
+        zeros[i]--;
+        if (j >= 0) zeros[j]++;
         canvi();
     }
 
@@ -242,8 +264,7 @@
             if (t >= 0) afegeix(t);
         } else if (t !== a.des) {
             // Un zero d'una targeta, deixat fora d'ella: es treu (i, si cau en una altra, s'hi posa)
-            treu(a.des);
-            if (t >= 0) afegeix(t);
+            mou(a.des, t);
         }
     }
 

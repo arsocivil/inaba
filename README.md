@@ -131,8 +131,10 @@ o vertical, o el rectangle que envolta el triangle menys les peces del voltant s
 
 ## Com es juga a L'escala de nombres
 
-- **Tocar** un cercle i escriure-hi el nombre amb les xifres de sota (per fer 12: l'1 i després el 2); ⌫ esborra
-  l'última xifra. Si no hi ha cap cercle triat, la xifra va al primer cercle buit.
+- **Tocar** un cercle i escriure-hi el nombre amb el teclat (com el d'un telèfon: per fer 12, l'1 i després el 2);
+  la pantalla de sobre el teclat mostra el nombre que s'escriu. ⌫ esborra l'última xifra i ✓ passa al cercle buit
+  següent. Si no hi ha cap cercle triat, la xifra va al primer cercle buit. En una pantalla ampla, el teclat és a la
+  dreta del tauler.
 - **Arrossegar** una xifra fins a un cercle; arrossegar un nombre fora del tauler l'esborra.
 - **Teclat**: Tab o fletxes per anar d'un cercle a l'altre, xifres, ⌫, Supr per buidar-lo i Enter per anar al
   cercle buit següent.
@@ -149,7 +151,7 @@ es demana, es diu quina propietat li falta i quina figura s'ha fet.
 
 ## Com es juga a Afegeix zeros
 
-- **Tocar** una targeta hi afegeix un zero (3 → 30 → 300); **tocar un zero** el treu.
+- **Tocar** una targeta hi afegeix un zero (3 → 30 → 300); el botó **−** de sota la targeta en treu un.
 - **Arrossegar** el «0» de sota fins a una targeta; arrossegar un zero fora de la targeta el treu.
 - **Teclat**: Tab o fletxes, 0 (o Enter) per afegir un zero, ⌫ per treure'n un.
 

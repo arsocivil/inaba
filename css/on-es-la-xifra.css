@@ -196,7 +196,7 @@ DEPENDÈNCIES: css/comu.css (s'ha de carregar abans).
 ══════════════════════════════════════════════ */
 .pila.xifres {
     gap: 8px;
-    max-width: 640px;
+    max-width: 680px; /* les deu xifres i el ⌫ en una sola fila, si hi caben */
 }
 .xifra {
     min-width: 48px;

@@ -10,16 +10,16 @@
     <link rel="stylesheet" href="css/escala-nombres.css">
 </head>
 <body>
-    <nav class="dalt">
+    <header class="capcalera">
         <a class="tornar" href="index.html">← Tots els puzzles</a>
+        <div class="title-row">
+            <a href="https://step-quiz.net/" class="home-icon-link" title="Tornar a l'inici" aria-label="Tornar a l'inici">
+                <img src="icon.png" alt="Inici">
+            </a>
+            <h1>L'escala de nombres</h1>
+        </div>
         <a class="per-imprimir" href="imprimir/escala-nombres.html"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 9V3h10v6M7 17H4.5A1.5 1.5 0 0 1 3 15.5v-5A1.5 1.5 0 0 1 4.5 9h15a1.5 1.5 0 0 1 1.5 1.5v5a1.5 1.5 0 0 1-1.5 1.5H17M7 13h10v8H7z" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/></svg>Versió per imprimir</a>
-    </nav>
-    <div class="title-row">
-        <a href="https://step-quiz.net/" class="home-icon-link" title="Tornar a l'inici" aria-label="Tornar a l'inici">
-            <img src="icon.png" alt="Inici">
-        </a>
-        <h1>L'escala de nombres</h1>
-    </div>
+    </header>
 
     <!-- ══════════ INSTRUCCIONS (traducció de la pàgina 1 de src/step_q.pdf) ══════════ -->
     <details class="instruccions" id="instruccions">
@@ -55,7 +55,7 @@
                         <li>2, 5, 8: augmenten de 3 en 3.</li>
                     </ul>
                 </div>
-                <p class="instr-compte">Toca un cercle i escriu-hi el nombre amb les xifres de sota (per fer 12, toca l'1 i després el 2).</p>
+                <p class="instr-compte">Toca un cercle i escriu-hi el nombre amb el teclat (per fer 12, toca l'1 i després el 2). Amb ✓ passes al cercle buit següent.</p>
             </div>
         </div>
     </details>
@@ -73,10 +73,14 @@
         </div>
 
         <p class="regla">Escriu un nombre a cada cercle buit: a cada <strong>filera</strong>, han d'<strong>augmentar sempre igual</strong>.</p>
-        <div id="tauler-wrap"></div>
-        <div class="pila-wrap">
-            <div class="pila-titol" id="pila-titol">Xifres</div>
-            <div class="pila xifres" id="pila" role="group" aria-labelledby="pila-titol"></div>
+        <div class="zona-joc">
+            <div id="tauler-wrap"></div>
+            <div class="pila-wrap teclat">
+                <div class="pila-titol" id="pila-titol">Escriu el nombre</div>
+                <div class="pantalla" id="pantalla" aria-hidden="true"></div>
+                <div class="pila xifres" id="pila" role="group" aria-labelledby="pila-titol"></div>
+                <p class="pista-teclat">Per fer <strong>12</strong>, toca <strong>1</strong> i després <strong>2</strong>.</p>
+            </div>
         </div>
 
         <div class="missatge" id="missatge" aria-live="polite"></div>

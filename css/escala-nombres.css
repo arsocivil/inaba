@@ -20,7 +20,7 @@ DEPENDÈNCIES: css/comu.css (s'ha de carregar abans).
    EL TAULER: fileres (SVG) + cercles (HTML)
 ══════════════════════════════════════════════ */
 #tauler-wrap {
-    padding-top: 14px;
+    padding-top: 10px;
 }
 .tauler-escala {
     position: relative;
@@ -108,6 +108,25 @@ DEPENDÈNCIES: css/comu.css (s'ha de carregar abans).
     border-style: solid;
     box-shadow: 0 0 0 calc(100cqw * 4 / var(--amplada)) rgba(14, 116, 144, 0.3);
 }
+/* El cercle on s'escriu: un cursor que parpelleja després del nombre (s'hi poden afegir xifres)… */
+.cercle.triat:not(.substitueix)::after {
+    content: '';
+    width: calc(100cqw * 1.6 / var(--amplada));
+    height: 0.95em;
+    margin-left: 0.04em;
+    background: currentColor;
+    animation: parpelleja 1s steps(1) infinite;
+}
+/* …o, si s'acaba de triar i ja tenia nombre, el nombre ressaltat: la xifra següent el substitueix */
+.cercle.triat.substitueix {
+    background: var(--primary);
+    color: white;
+}
+@keyframes parpelleja {
+    50% {
+        opacity: 0;
+    }
+}
 .cercle:focus {
     outline: none;
 }
@@ -143,11 +162,89 @@ DEPENDÈNCIES: css/comu.css (s'ha de carregar abans).
 }
 
 /* ══════════════════════════════════════════════
-   EL TECLAT DE XIFRES (i el fantasma d'arrossegar)
+   EL TECLAT (com el d'un telèfon), LA PANTALLA I EL FANTASMA D'ARROSSEGAR
+   En una pantalla prou ampla, el teclat va a la dreta del tauler; si no, a sota.
 ══════════════════════════════════════════════ */
+.zona-joc {
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+}
+.teclat {
+    gap: 6px;
+}
+.pantalla {
+    min-width: 132px;
+    height: 52px;
+    padding: 0 14px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 2.5px solid var(--primary);
+    border-radius: 10px;
+    background: white;
+    color: var(--primary-dark);
+    font-size: 1.9em;
+    font-weight: 800;
+    font-variant-numeric: tabular-nums;
+}
+.pantalla .cursor {
+    width: 3px;
+    height: 0.95em;
+    margin-left: 2px;
+    background: currentColor;
+    animation: parpelleja 1s steps(1) infinite;
+}
+.pantalla.substitueix .valor {
+    padding: 0 4px;
+    border-radius: 4px;
+    background: var(--primary);
+    color: white;
+}
+.pantalla.substitueix .cursor {
+    display: none;
+}
+.pantalla.buida {
+    border-style: dashed;
+    border-color: var(--border-strong);
+    color: var(--text-muted);
+    font-size: 1em;
+    font-weight: 600;
+}
+.pantalla:empty {
+    visibility: hidden;
+}
 .pila.xifres {
+    display: grid;
+    grid-template-columns: repeat(6, auto);
     gap: 8px;
-    max-width: 640px;
+}
+.pista-teclat {
+    margin: 0;
+    color: var(--text-muted);
+    font-size: 0.9em;
+    text-align: center;
+    text-wrap: balance;
+}
+@media (min-width: 700px) {
+    .zona-joc {
+        flex-direction: row;
+        align-items: center;
+        justify-content: center;
+        gap: 4px;
+        padding: 0 16px;
+    }
+    .zona-joc #tauler-wrap {
+        flex: 0 1 auto;
+        min-width: 0;
+        padding: 10px 0 6px 0;
+    }
+    .pila.xifres {
+        grid-template-columns: repeat(3, auto);
+    }
+    .pista-teclat {
+        max-width: 190px;
+    }
 }
 .xifra {
     min-width: 46px;
@@ -172,10 +269,16 @@ DEPENDÈNCIES: css/comu.css (s'ha de carregar abans).
         background 0.15s,
         opacity 0.15s;
 }
-.xifra.esborra {
+.xifra.esborra,
+.xifra.fet {
     font-size: 1.4em;
     cursor: pointer;
+}
+.xifra.esborra {
     color: var(--danger);
+}
+.xifra.fet {
+    color: var(--success);
 }
 .xifra:active {
     transform: translateY(1px);
@@ -211,7 +314,7 @@ DEPENDÈNCIES: css/comu.css (s'ha de carregar abans).
 @media (max-width: 480px) {
     .pila.xifres {
         gap: 6px;
-        padding: 8px 6px;
+        padding: 6px 4px;
     }
     .xifra {
         min-width: 40px;

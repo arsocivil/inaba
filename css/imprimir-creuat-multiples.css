@@ -100,10 +100,14 @@ DEPENDÈNCIES: css/imprimir.css (s'ha de carregar abans).
     border-radius: 1mm;
 }
 .mida-instr .fila:first-of-type .creuat {
-    --cel: 13.5mm;
+    --cel: 12.5mm;
 }
 .mida-instr .caixa .fila {
     gap: 5mm;
+}
+/* Una mica menys d'aire entre les caixes: amb la lletra Inter, el full 1 feia 6 mm més del compte */
+.mida-instr .caixa {
+    margin-top: 3mm;
 }
 
 /* Fulls de problemes: el número de cada targeta queda alineat amb els de la mateixa fila, i el quadre es

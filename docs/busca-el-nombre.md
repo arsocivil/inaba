@@ -52,7 +52,9 @@ No són al PDF, i s'han afegit a la web:
   «Compte!» no es poden cometre. Es mantenen a les instruccions perquè són al PDF.
 - Es pot **arrossegar** (el quadrat va seguint el punter, encaixat als quadrets; amb el dit va 40 px per sobre
   perquè no quedi amagat), **tocar** el lloc, o amb el **teclat** (fletxes, Enter, Esc/⌫/Supr per treure'l).
-  Deixar anar fora del tauler no fa res.
+  Deixar anar fora del tauler no fa res. Els 40 px només s'apliquen quan el dit s'ha mogut més de 6 px (un
+  arrossegament): en un toc, el quadrat va allà on s'ha tocat. Abans s'aplicaven sempre, i un toc al lloc correcte
+  posava el quadrat una fila més amunt (fallaven 34 dels 42 problemes amb un toc al centre de la resposta).
 - En posar el quadrat es comprova sol. Si no és bo, es diu què hi ha dins («Aquí hi ha 3 pomes, i en volies 2»;
   «Aquí hi ha 2 pomes i 1 mandarina: més pomes que mandarines») i es pot provar un altre lloc. No es mostra cap
   compte mentre es juga: comptar és el joc.
