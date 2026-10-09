@@ -3,10 +3,13 @@
  * FITXER: js/escala-nombres/escala-nombres.js
  * ROL: Controlador de la pàgina escala-nombres.html (tot el que toca el DOM).
  * INTERACCIÓ: s'escriu un nombre (d'una o més xifres) a cada cercle buit.
- *   - Tocar un cercle el tria; les xifres del teclat de sota s'hi van escrivint
- *     (1, després 2 → 12). La primera xifra després de triar-lo substitueix el
- *     nombre que hi havia. ⌫ esborra l'última xifra. Si no hi ha cap cercle
- *     triat, una xifra va al primer cercle buit.
+ *   - Tocar un cercle el tria; les tecles del teclat (com el d'un telèfon) s'hi
+ *     van escrivint (1, després 2 → 12), i la «pantalla» de sobre el teclat mostra
+ *     el nombre amb un cursor que parpelleja (es veu que s'hi poden afegir xifres).
+ *     La primera xifra després de triar-lo substitueix el nombre que hi havia (el
+ *     nombre es veu ressaltat, com un text seleccionat). ⌫ esborra l'última xifra;
+ *     ✓ passa al cercle buit següent. Si no hi ha cap cercle triat, una xifra va
+ *     al primer cercle buit.
  *   - Arrossegar una xifra del teclat a un cercle: el tria i hi escriu aquella
  *     xifra (se n'hi poden afegir més tocant el teclat). Arrossegar un nombre
  *     d'un cercle fora del tauler l'esborra.
@@ -24,11 +27,13 @@
     const N = P.llista.length;
     const MAX_XIFRES = 3;
     const ESBORRA = '⌫';
+    const FET = '✓';
 
     const $ = id => document.getElementById(id);
     const els = {
         taulerWrap: $('tauler-wrap'),
         pila: $('pila'),
+        pantalla: $('pantalla'),
         missatge: $('missatge'),
         reinicia: $('btn-reinicia'),
     };
@@ -86,6 +91,7 @@
     }
 
     function construeixPila() {
+        // Com el teclat d'un telèfon: 1 2 3 / 4 5 6 / 7 8 9 / ⌫ 0 ✓
         const tecla = (text, etiqueta, accio) => {
             const t = document.createElement('div');
             t.className = 'xifra';
@@ -105,11 +111,14 @@
             els.pila.appendChild(t);
             return t;
         };
-        for (const d of [1, 2, 3, 4, 5, 6, 7, 8, 9, 0]) {
+        const xifraArrossegable = d => {
             const t = tecla(d, `Xifra ${d}`, () => xifra(d));
             t.addEventListener('pointerdown', e => iniciaArrossegament(e, d, 'pila', t));
-        }
+        };
+        [1, 2, 3, 4, 5, 6, 7, 8, 9].forEach(xifraArrossegable);
         tecla(ESBORRA, "Esborra l'última xifra", esborraXifra).classList.add('esborra');
+        xifraArrossegable(0);
+        tecla(FET, 'Fet: passa al cercle buit següent', confirma).classList.add('fet');
     }
 
     // Posa al dia el tauler a partir de l'estat
@@ -117,12 +126,34 @@
         const estats = resultat ? resultat.fileres.map(r => (r.estat === 'be' ? 'be' : 'malament')) : [];
         vista.pinta({ valors, estats, salts: resolt, triat: resolt ? null : triat });
         vista.el.classList.toggle('resolt', resolt);
+        // Acabat de triar i amb un nombre: la xifra següent el substituirà (es veu ressaltat)
+        const substitueix = !resolt && triat !== null && nou && valors[triat] !== null;
         vista.cercles.forEach((div, i) => {
+            div.classList.toggle('substitueix', substitueix && i === triat);
             if (M.esFix(problema, i)) return;
             div.tabIndex = resolt ? -1 : 0;
             div.setAttribute('aria-label', valors[i] === null ? 'Cercle buit' : `Cercle amb el ${valors[i]}`);
         });
+        pintaPantalla(substitueix);
         nav.actualitza();
+    }
+
+    // La «pantalla» de sobre el teclat: el nombre del cercle triat, amb el cursor
+    function pintaPantalla(substitueix) {
+        const p = els.pantalla;
+        const hiHa = !resolt && triat !== null;
+        p.classList.toggle('buida', !hiHa);
+        p.classList.toggle('substitueix', substitueix);
+        if (!hiHa) {
+            p.textContent = resolt ? '' : 'Toca un cercle';
+            return;
+        }
+        const valor = document.createElement('span');
+        valor.className = 'valor';
+        valor.textContent = valors[triat] === null ? '' : valors[triat];
+        const cursor = document.createElement('span');
+        cursor.className = 'cursor';
+        p.replaceChildren(valor, cursor);
     }
 
     // ============================================================
@@ -180,6 +211,14 @@
         canvi();
     }
 
+    // ✓: el nombre ja està; es passa al cercle buit següent (o cap, si no n'hi ha)
+    function confirma() {
+        if (resolt) return;
+        triat = primerBuit(triat === null ? -1 : triat);
+        nou = true;
+        pinta();
+    }
+
     function buida(i) {
         if (resolt || M.esFix(problema, i) || valors[i] === null) return;
         valors[i] = null;
@@ -191,6 +230,7 @@
         resolt = false;
         valors = M.inicials(problema);
         triat = null;
+        nou = true;
         canvi();
     }
 

@@ -25,15 +25,17 @@ Notes:
   com a màxim (la traducció de Gemini ho presentava com a norma).
 - Totes les targetes dels 49 problemes tenen **una sola xifra**, així que els zeros només poden anar al
   final (2 → 200). A l'exemple ✗, el 18 i el 210 hi afegeixen un 8 i un 1.
-- Frases que **no són al PDF**: «Toca una targeta per afegir-hi un zero, i toca un zero per treure'l» (com es juga a
-  la web). A l'exemple ✗ s'hi afegeix el càlcul (10 + 2 + 300 = 312) per veure per què no surt.
+- Frases que **no són al PDF**: «Toca una targeta per afegir-hi un zero. Per treure'n un, toca el botó − de sota la
+  targeta» (com es juga a la web). A l'exemple ✗ s'hi afegeix el càlcul (10 + 2 + 300 = 312) per veure per què no surt.
 
 ## Com és a la web
 
 - Els zeros afegits es veuen dins d'un cercle, del color del tema (com els zeros encerclats del PDF).
-- **Tocar** una targeta hi afegeix un zero; **tocar un zero** el treu.
+- **Tocar** una targeta hi afegeix un zero, també si es toca un dels seus zeros. Abans, tocar un zero el treia: com
+  que el zero nou apareix just on s'ha tocat, el segon toc per posar-ne un altre l'esborrava (1, 0, 1, 0…). Ara el
+  botó **−** de sota la targeta (només surt si en té) en treu un.
 - **Arrossegar** el «0» de sota fins a una targeta hi afegeix un zero; arrossegar un zero fora de la targeta el treu
-  (i, si cau en una altra targeta, s'hi posa).
+  (i, si cau en una altra targeta, s'hi posa; si en aquella targeta no hi cap, es queda on era).
 - **Teclat**: Tab o fletxes per anar d'una targeta a l'altra; 0, Enter o espai per afegir un zero; ⌫ o Supr per
   treure'n un.
 - Una targeta no pot tenir més zeros que xifres té el total menys una («No hi caben més zeros: 300 ja seria més gran

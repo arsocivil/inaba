@@ -95,9 +95,13 @@ window.Comu = (() => {
             els.dialeg.close();
             carrega(0);
         });
-        // Clicar fora del diàleg el tanca
+        // Clicar fora del diàleg el tanca. Un clic als espais buits de dins també té el diàleg com a
+        // target: per això es mira on és el punt (amb el teclat, clientX = clientY = 0: no es tanca).
         els.dialeg.addEventListener('click', e => {
-            if (e.target === els.dialeg) els.dialeg.close();
+            if (e.target !== els.dialeg || e.detail === 0) return;
+            const r = els.dialeg.getBoundingClientRect();
+            const dins = e.clientX >= r.left && e.clientX <= r.right && e.clientY >= r.top && e.clientY <= r.bottom;
+            if (!dins) els.dialeg.close();
         });
 
         // Posa al dia la capçalera

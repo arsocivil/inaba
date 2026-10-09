@@ -19,7 +19,7 @@ DEPENDÈNCIES: css/comu.css (s'ha de carregar abans).
    LA IGUALTAT
 ══════════════════════════════════════════════ */
 #tauler-wrap {
-    padding: 18px 8px 4px 8px;
+    padding: 18px 8px 20px 8px;
 }
 .igualtat {
     display: flex;
@@ -82,6 +82,39 @@ DEPENDÈNCIES: css/comu.css (s'ha de carregar abans).
     border-color: var(--danger);
     color: var(--danger);
 }
+/* El botó «−» de sota la targeta, per treure un zero (només si en té) */
+.treu-zero {
+    position: absolute;
+    left: 50%;
+    bottom: -16px;
+    width: 30px;
+    height: 30px;
+    margin-left: -15px;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    border: 2px solid var(--border-strong);
+    border-radius: 50%;
+    background: white;
+    color: var(--text-main);
+    font-size: 22px;
+    font-weight: 800;
+    line-height: 1;
+    cursor: pointer;
+}
+/* Zona tàctil més gran que el botó */
+.treu-zero::before {
+    content: '';
+    position: absolute;
+    inset: -7px;
+    border-radius: 50%;
+}
+.targeta.amb-zeros .treu-zero {
+    display: flex;
+}
+.igualtat.resolt .treu-zero {
+    display: none;
+}
 .targeta:focus {
     outline: none;
 }
@@ -94,8 +127,8 @@ DEPENDÈNCIES: css/comu.css (s'ha de carregar abans).
         background: var(--primary-light);
         border-color: var(--primary);
     }
-    .igualtat:not(.resolt):not(.estatic) .zero:hover {
-        background: #fee2e2;
+    .igualtat:not(.resolt):not(.estatic) .treu-zero:hover {
+        background: var(--danger-light);
         border-color: var(--danger);
         color: var(--danger);
     }
@@ -123,6 +156,10 @@ DEPENDÈNCIES: css/comu.css (s'ha de carregar abans).
 .igualtat.resolt .zero,
 .igualtat.estatic .zero {
     cursor: default;
+}
+/* Al joc, espai entre files per al botó «−» (si les targetes no caben en una sola fila) */
+#tauler-wrap .igualtat {
+    row-gap: 26px;
 }
 .zero.acaba-de-posar {
     animation: posa 0.25s ease-out;

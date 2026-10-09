@@ -130,9 +130,10 @@
     // PUNTER (ratolí, dit i llapis amb el mateix codi)
     // ============================================================
     // Del punt de la pantalla al quadrat que s'hi encaixa; null si el punter és fora del tauler.
-    // Amb el dit, el quadrat va 40 px per sobre perquè no quedi amagat sota el dit.
-    function quadratA(e) {
-        const y = e.pointerType === 'touch' ? e.clientY - 40 : e.clientY;
+    // Quan s'arrossega amb el dit, el quadrat va 40 px per sobre perquè no quedi amagat sota el dit
+    // (en un toc no: el quadrat ha d'anar allà on s'ha tocat).
+    function quadratA(e, mogut) {
+        const y = mogut && e.pointerType === 'touch' ? e.clientY - 40 : e.clientY;
         const { x, y: v } = vista.punt(e.clientX, y);
         if (x < -0.5 || v < -0.5 || x > g.amp + 0.5 || v > g.alt + 0.5) return null;
         const c = Math.max(0, Math.min(g.amp - g.mida, Math.round(x - g.mida / 2)));
@@ -149,23 +150,28 @@
         const el = vista.el;
         el.setAttribute('tabindex', '0');
         let aqui = null; // l'últim quadrat sota el punter
+        let inici = null; // on s'ha premut
+        let mogut = false; // el punter s'ha mogut més de 6 px: és un arrossegament, no un toc
         el.addEventListener('pointerdown', e => {
             if (resolt || (e.pointerType === 'mouse' && e.button !== 0)) return;
             e.preventDefault(); // no s'enfoca: el marc del teclat només surt amb Tab
             el.setPointerCapture(e.pointerId);
             arrossegant = true;
+            inici = { x: e.clientX, y: e.clientY };
+            mogut = false;
             vista.cursor(null);
-            aqui = quadratA(e);
+            aqui = quadratA(e, mogut);
             vista.previsio(aqui);
         });
         el.addEventListener('pointermove', e => {
             if (!arrossegant) return;
-            aqui = quadratA(e);
+            if (!mogut && Math.hypot(e.clientX - inici.x, e.clientY - inici.y) > 6) mogut = true;
+            aqui = quadratA(e, mogut);
             vista.previsio(aqui);
         });
         el.addEventListener('pointerup', e => {
             if (!arrossegant) return;
-            aqui = quadratA(e);
+            aqui = quadratA(e, mogut);
             acabaArrossegar();
             if (aqui) {
                 cursor = aqui;

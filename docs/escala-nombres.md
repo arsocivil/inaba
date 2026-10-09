@@ -24,14 +24,19 @@ Notes de traducció:
   mateixa filera.
 - La traducció de Gemini era correcta; només calia «d'augment» (no «de augment») i treure el «¡».
 - Frases que **no són al PDF**: «1, 2, 3: augmenten d'1 en 1» (i les altres dues) concreten l'exemple dels
-  +1, +2, +3 del PDF; «Toca un cercle i escriu-hi el nombre amb les xifres de sota (per fer 12, toca l'1 i
-  després el 2)» explica com es fa a la web; la regla de dalt del tauler en fa un resum.
+  +1, +2, +3 del PDF; «Toca un cercle i escriu-hi el nombre amb el teclat (per fer 12, toca l'1 i
+  després el 2). Amb ✓ passes al cercle buit següent» explica com es fa a la web; la regla de dalt del tauler en
+  fa un resum, i al costat del teclat es recorda «Per fer 12, toca 1 i després 2».
 
 ## Com és a la web
 
-- **Tocar** un cercle buit el tria; les xifres del teclat de sota s'hi van escrivint (1 i després 2 → 12). La
-  primera xifra després de triar un cercle substitueix el nombre que hi havia; ⌫ esborra l'última xifra. Si no
-  hi ha cap cercle triat, la xifra va al primer cercle buit. El 0 sol no s'accepta («Compte! No es pot fer
+- **Tocar** un cercle buit el tria; les tecles del teclat (1 2 3 / 4 5 6 / 7 8 9 / ⌫ 0 ✓, com el d'un telèfon)
+  s'hi van escrivint (1 i després 2 → 12). Una «pantalla» a sobre del teclat mostra el nombre amb un cursor que
+  parpelleja, i el cercle triat també té el cursor: es veu que s'hi poden afegir xifres (abans, amb una fila de
+  xifres 0–9, semblava que només es podien escriure nombres d'una xifra). La primera xifra després de triar un
+  cercle substitueix el nombre que hi havia (mentrestant el nombre es veu ressaltat, com un text seleccionat);
+  ⌫ esborra l'última xifra; ✓ passa al cercle buit següent. Si no hi ha cap cercle triat, la xifra va al primer
+  cercle buit. En pantalles de 700 px o més, el teclat va a la dreta del tauler (a sota, en un mòbil). El 0 sol no s'accepta («Compte! No es pot fer
   servir el 0.»), i com a molt s'hi poden escriure 3 xifres.
 - **Arrossegar** una xifra del teclat fins a un cercle el tria i hi escriu aquella xifra. Arrossegar el nombre
   d'un cercle fora del tauler l'esborra; deixar-lo en un altre cercle els intercanvia.
