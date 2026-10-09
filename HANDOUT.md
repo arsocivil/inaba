@@ -42,11 +42,11 @@ architecture · 6 Conventions · 7 Interaction patterns · 8 The 12 finished puz
   - Header: shoe icon (`icon.png`) linking to `https://step-quiz.net/`, same as their `operacions` repo;
     big ‹ › SVG arrows; middle button label **«Escull…»**.
   - **Compact header** (user's request, Oct 2026): `header.capcalera` puts «← Tots els puzzles», the title row
-    (shoe + h1) and «Versió per imprimir» in **one row** (two rows below 860 px); shoe 52 px (42 on phones,
+    (shoe + h1) and «Obtenir fitxes PDF» in **one row** (two rows below 860 px); shoe 52 px (42 on phones,
     36 on low landscape screens); an even more compact mode for `(orientation: landscape) and (max-height:
     820px)` (laptops, Chromebooks, landscape tablets). «Com es juga?»: arrow 1.8× the text and a colour change
     (background, text and border) on hover. Do not grow it back.
-  - Every puzzle has a print version (Part B); its game page shows a discreet link «Versió per imprimir»
+  - Every puzzle has a print version (Part B); its game page shows a discreet link «Obtenir fitxes PDF»
     (printer icon) at the right end of `header.capcalera` (copy the `<a class="per-imprimir">` from any page).
   - Footer: `<p class="credits">Puzzle original de Naoki Inaba</p>` + the CC BY-NC-SA licence bar
     (`footer.peu-llicencia`, copied from `operacions/index.html`). Copy it from any existing page.
@@ -505,7 +505,7 @@ Reference implementation: Expressions bessones (`imprimir/expressions-bessones.h
 5. **Writing room as large as fits**: boxes must not touch the card border (air above and below), must be
    centred between their neighbours, and big (after the first sample the user asked for +10 % width and
    +15 % height: «el màxim espai possible»). Numbers and labels bold and large.
-6. When done, add the «Versió per imprimir» link to the game page (§1) and a row to the README table.
+6. When done, add the «Obtenir fitxes PDF» link to the game page (§1) and a row to the README table.
 
 ### 13.2 Files and API
 

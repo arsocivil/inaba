@@ -194,7 +194,7 @@ a Afegeix zeros, 5 igualtats per full, una per fila).
 | Afegeix zeros | [`imprimir/afegeix-zeros.html`](imprimir/afegeix-zeros.html) | [`imprimir/afegeix-zeros.pdf`](imprimir/afegeix-zeros.pdf) (12 pàgines, 5 igualtats per full, una per fila) |
 | Dipòsits d'aigua | [`imprimir/diposits-aigua.html`](imprimir/diposits-aigua.html) | [`imprimir/diposits-aigua.pdf`](imprimir/diposits-aigua.pdf) (13 pàgines, 4 problemes per full) |
 
-S'hi arriba des de l'enllaç «Versió per imprimir» de dalt de la pàgina del joc. La pàgina té un botó per
+S'hi arriba des de l'enllaç «Obtenir fitxes PDF» de dalt de la pàgina del joc. La pàgina té un botó per
 imprimir-la o desar-la com a PDF des del navegador. El PDF del repositori el fa
 `node tools/genera-pdf.js <puzzle>` (amb Chromium, p. ex. `expressions-bessones` o `on-es-la-xifra`); si es canvien els problemes o els estils
 d'impressió, s'ha de tornar a fer.
